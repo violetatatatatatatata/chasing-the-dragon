@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a.c                                                :+:      :+:    :+:   */
+/*   chasing_the_dragon.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avelandr <avelandr@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:07:53 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/21 19:55:22 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/24 14:37:21 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	CTD_H
 # define CTD_H
 
-# define ESC 53
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
+# define ESC	53
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define UP		126
+# define DOWN	125
+# define LEFT	123
+# define RIGHT	124
+# define SPA
+
+# define WALL	1
+# define EMPTY	0
+# define START	'N'
 
 enum type
 {
