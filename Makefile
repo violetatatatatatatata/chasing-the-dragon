@@ -6,27 +6,35 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/21 20:15:25 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/26 19:02:41 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = cub3D 
+NAME        = cub3D
 
-CXX         = cc
-CXXFLAGS    = -Wall -Werror -Wextra
+CC          = cc
+CFLAGS      = -Wall -Werror -Wextra -g #-Iinc -Ilibs/libft/Includes -IMLX42/include
 
-SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.cpp=.o)
+LIBFT_DIR   = libs/libft
+LIBFT       = $(LIBFT_DIR)/libft.a
 
+MLX_DIR     = MLX42/build
+MLX         = $(MLX_DIR)/libmlx42.a
+LIBS        = $(LIBFT) $(MLX) #-ldl -lglfw -pthread -lm
+
+SRC         = $(shell find srcs -name "*.c")
+OBJ         = $(SRC:.c=.o)
+
+# Colores
 RESET       = \033[0m
 PINK        = \033[1;35m
 BLUE        = \033[1;36m
 GREEN       = \033[1;32m
-VIOLET		= \033[38;2;185;39;233m
+VIOLET      = \033[38;2;185;39;233m
 
 TOTAL_SRCS := $(words $(SRC))
 
-all: print $(NAME)
+all: print libft $(NAME)
 
 print:
 	@echo "                ⬛⬛⬛⬛⬛                "
@@ -52,16 +60,18 @@ print:
 	@echo "      ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
 	@echo "    ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
 
+libft:
+	@make -C $(LIBFT_DIR)
+
 $(NAME): $(OBJ)
 	@echo ""
 	@echo "$(BLUE)Linking objects...$(RESET)"
-	@$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
-# mi barrita de carga
-%.o: %.cpp
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
-	@curr=$$(find . -type f -name "*.o" | wc -l); \
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@curr=$$(find srcs -type f -name "*.o" | wc -l); \
 	percent=$$(( $$curr * 100 / $(TOTAL_SRCS) )); \
 	bar_len=$$(( $$percent / 2 )); \
 	bar_str=""; \
@@ -74,13 +84,15 @@ $(NAME): $(OBJ)
 	printf "\r$(BLUE)Compiling: $(PINK)[$$bar_str$$spaces] $(PINK)$$percent%% $(RESET)"
 
 clean:
+	@make -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
 	@echo "$(BLUE)Objects cleaned.$(RESET)"
 
 fclean: clean
+	@make -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
 	@echo "$(BLUE)Executable cleaned.$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re libft print

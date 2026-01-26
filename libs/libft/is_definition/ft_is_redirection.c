@@ -1,43 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   ft_tokenize_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalcaide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/26 19:02:50 by avelandr         ###   ########.fr       */
+/*   Created: 2025/09/10 11:35:45 by aalcaide          #+#    #+#             */
+/*   Updated: 2025/09/10 11:35:47 by aalcaide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctd.h>
+#include "../../../includes/minishell.h"
 
-int	is_valid_map()
+int	ft_is_redirection(char *s)
 {
-	return (has_walls() && has_textures() && has_colors() && has_map());
-}
-
-int	is_valid_format()
-{
-	
-}
-
-int	has_walls()
-{
-
-}
-
-int	has_textures()
-{
-
-}
-
-int	has_colors()
-{
-
-}
-
-int	has_map()
-{
-
+	if (!s)
+		return (FALSE);
+	return (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, ">", 1)
+		|| !ft_strncmp(s, "<<", 2) || !ft_strncmp(s, "<", 1));
 }

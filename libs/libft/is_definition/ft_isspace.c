@@ -1,43 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/26 19:02:50 by avelandr         ###   ########.fr       */
+/*   Created: 2025/11/23 02:05:18 by avelandr          #+#    #+#             */
+/*   Updated: 2025/12/19 15:28:51 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctd.h>
+#include <minishell.h>
 
-int	is_valid_map()
+int	ft_isspace(int c)
 {
-	return (has_walls() && has_textures() && has_colors() && has_map());
-}
-
-int	is_valid_format()
-{
-	
-}
-
-int	has_walls()
-{
-
-}
-
-int	has_textures()
-{
-
-}
-
-int	has_colors()
-{
-
-}
-
-int	has_map()
-{
-
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\v'
+		|| c == '\f' || c == '\r')
+	{
+		return (1);
+	}
+	return (0);
 }

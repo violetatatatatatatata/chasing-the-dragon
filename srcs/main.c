@@ -1,43 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/26 19:02:50 by avelandr         ###   ########.fr       */
+/*   Created: 2026/01/26 18:31:11 by avelandr          #+#    #+#             */
+/*   Updated: 2026/01/26 19:02:49 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ctd.h>
 
-int	is_valid_map()
+int	main(int argc, char **argv)
 {
-	return (has_walls() && has_textures() && has_colors() && has_map());
-}
+	t_game	g;
 
-int	is_valid_format()
-{
-	
-}
-
-int	has_walls()
-{
-
-}
-
-int	has_textures()
-{
-
-}
-
-int	has_colors()
-{
-
-}
-
-int	has_map()
-{
-
+	if (argc != 2 || !argv[1])
+		return (EXIT_FAILURE);
+	g = ft_memset(&g, 0, sizeof(g));
+	if (!open_map(g, argv[1])i)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
