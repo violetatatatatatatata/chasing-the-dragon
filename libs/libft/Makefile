@@ -6,7 +6,7 @@
 #    By: avelandr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/29 12:07:13 by avelandr          #+#    #+#              #
-#    Updated: 2025/12/29 12:30:40 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/27 17:29:54 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRCS = \
 	list/ft_lstclear_bonus.c list/ft_lstdelone_bonus.c \
 	list/ft_lstiter_bonus.c list/ft_lstlast_bonus.c list/ft_lstsize_bonus.c \
 	get_next_line/ft_get_next_line.c get_next_line/ft_get_next_line_utils.c \
-	get_next_line/ft_get_next_line_utils_2.c
+	get_next_line/ft_get_next_line_utils_2.c is_definition/ft_isblank.c is_definition/ft_ismeta.c \
+	is_definition/ft_is_redirection.c is_definition/is_controlop.c is_definition/is_redop.c is_definition/is_word.c is_definition/ft_is_builtin.c \
+	is_definition/ft_is_pipe.c is_definition/ft_isspace.c is_definition/is_filename.c is_definition/is_token.c
 
 OBJS = $(SRCS:.c=.o)
 TOTAL_SRCS := $(words $(SRCS))

@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 17:01:18 by avelandr          #+#    #+#             */
-/*   Updated: 2025/12/22 13:43:42 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:44:24 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+# define TRUE	1
+# define FALSE	0
 
 # include <stdio.h>
 # include <unistd.h>
@@ -48,11 +51,22 @@ void	*ft_memcpy(void *dest, const void *src, size_t c);
 void	*ft_memmove(void *dest, const void *src, size_t c);
 void	*ft_memset(void *dest, int c, size_t count);
 
+int		ft_is_buitlin(char *s);
+int		ft_is_pipe(char *s);
+int		ft_is_redirection(char *s);
+int		is_controlop(char *s);
+int		is_filename(const char *s);
+int		is_redop(char *s);
+int		is_token(char *s);
+int		is_word(char *s);
+
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
+int		ft_ismeta(int c);
+int		ft_isspace(int c);
 
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char const *s, int fd);

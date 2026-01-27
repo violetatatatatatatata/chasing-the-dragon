@@ -1,0 +1,1 @@
+find srcs -name "*.c" -exec echo -e "\n// {}" \; -exec grep -hE "^[a-zA-Z]" {} \; | grep -vE "^(static|typedef)" | grep -E "(\/\/|\()" | sed '/\/\//b;s/$/;/'

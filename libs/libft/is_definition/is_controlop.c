@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../Includes/libft.h"
 
 int	is_controlop(char *s)
 {

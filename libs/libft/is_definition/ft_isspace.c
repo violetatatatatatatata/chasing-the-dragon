@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../Includes/libft.h"
 
 int	ft_isspace(int c)
 {

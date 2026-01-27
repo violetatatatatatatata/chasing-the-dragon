@@ -6,29 +6,31 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/26 19:02:41 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/27 14:37:13 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Werror -Wextra -g #-Iinc -Ilibs/libft/Includes -IMLX42/include
+CFLAGS      = -Wall -Werror -Wextra -g -Iinc -Ilibs/libft/Includes# -IMLX42/include
 
+INC_DIR     = ./inc/
 LIBFT_DIR   = libs/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
-MLX_DIR     = MLX42/build
-MLX         = $(MLX_DIR)/libmlx42.a
-LIBS        = $(LIBFT) $(MLX) #-ldl -lglfw -pthread -lm
+#MLX_DIR     = MLX42/build
+#MLX         = $(MLX_DIR)/libmlx42.a
+LIBS        = $(LIBFT) $(MLX) -ldl -lglfw -pthread -lm
 
 SRC         = $(shell find srcs -name "*.c")
 OBJ         = $(SRC:.c=.o)
 
-# Colores
 RESET       = \033[0m
 PINK        = \033[1;35m
 BLUE        = \033[1;36m
+YELLOW      = \033[33m
+RED         = \033[0;31m
 GREEN       = \033[1;32m
 VIOLET      = \033[38;2;185;39;233m
 
@@ -66,7 +68,7 @@ libft:
 $(NAME): $(OBJ)
 	@echo ""
 	@echo "$(BLUE)Linking objects...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $@
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
 %.o: %.c

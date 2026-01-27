@@ -6,38 +6,72 @@
 /*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/26 19:02:50 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:07:13 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ctd.h>
 
-int	is_valid_map()
+static int	is_valid_format(char *filename)
 {
-	return (has_walls() && has_textures() && has_colors() && has_map());
+	size_t	len;
+
+	if (!filename)
+		return(0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return(0);
+	if (ft_strncmp(filename + len - 4, ".cub", 4) != 0)
+		return(0);
+	return (1);
 }
 
-int	is_valid_format()
+static int	has_textures(t_game *game)
 {
-	
+	if (!game->no_sprite_path || !game->so_sprite_path || \
+		!game->we_sprite_path || !game->ea_sprite_path)
+		return (print_msg("Missing texture path", 0));
+	return (1);
 }
 
-int	has_walls()
+static int	has_colors(t_game *game)
 {
-
+	if (!game->rgb_floor || !game->rgb_celling)
+		return (print_msg("Missing color configuration", 0));
+	return (1);
 }
 
-int	has_textures()
+static int	has_map(t_game *game)
 {
+	int	x;
+	int	y;
 
+	if (!game->map || !game->map[0])
+		return (print_msg("Map is empty or missing", 0));
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			if (!ft_strchr("01NSEW ", game->map[y][x]))
+				return (print_msg("Error: Invalid character in map", 0));
+			x++;
+		}
+		y++;
+	}
+	return (1);
 }
 
-int	has_colors()
+static int	has_walls(t_game *game)
 {
-
+	if (!check_map_closed(game))
+		return (print_msg("Map is not closed by walls", 0));
+	return (1);
 }
 
-int	has_map()
+int	is_valid_file(t_game *game)
 {
-
+	return (has_textures(game) && has_colors(game) && has_map(game) \
+			&& has_walls(game));
 }

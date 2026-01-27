@@ -6,11 +6,11 @@
 /*   By: aalcaide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 11:35:45 by aalcaide          #+#    #+#             */
-/*   Updated: 2025/09/10 11:35:47 by aalcaide         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:31:09 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../Includes/libft.h"
 
 int	ft_is_pipe(char *s)
 {
