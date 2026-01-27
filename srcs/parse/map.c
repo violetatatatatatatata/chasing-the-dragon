@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 12:32:24 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 17:55:11 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:36:03 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,53 +46,93 @@ static int	save_sprites_path(t_game *game, char *line, int i)
 static int	process_info(t_game *game, t_list *file)
 {
 	t_list	*tmp;
-	char	*line;
+	char	*l;
 	int		i;
 
 	tmp = file;
 	while (tmp)
 	{
-		line = (char *)tmp->content;
+		l = (char *)tmp->content;
 		i = 0;
-		while (line[i] && ft_isspace(line[i]))
+		while (l[i] && ft_isspace(l[i]))
 			i++;
-		if (!line[i])
+		if (!l[i])
 		{
 			tmp = tmp->next;
 			continue ;
 		}
-		if (save_sprites_path(game, line, i))
-		{
+		if (save_sprites_path(game, l, i))
 			tmp = tmp->next;
-			continue ;
-		}
-		else if (line[i] == '1' || line[i] == '0')
+		else if (l[i] == '1' || l[i] == '0')
 			return (EXIT_SUCCESS);
 		else
 			return (print_msg("Invalid line found!", EXIT_FAILURE));
-		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
+}
+
+static int	list_to_map(t_game *game, t_list *file)
+{
+	t_list	*tmp;
+	char	*l;
+	int		i;
+	int		h;
+
+	tmp = file;
+	while (tmp)
+	{
+		l = (char *)tmp->content;
+		i = 0;
+		while (l[i] && ft_isspace(l[i]))
+			i++;
+		if (l[i] == '1' || l[i] == '0')
+			break ;
+		tmp = tmp->next;
+	}
+	h = ft_lstsize(tmp);
+	game->map = ft_calloc(h + 1, sizeof(char *));
+	if (!game->map)
+		return (print_msg("Malloc failed", 1));
+	i = 0;
+	while (tmp)
+	{
+		l = (char *)tmp->content;
+		if (l[ft_strlen(l) - 1] == '\n')
+			game->map[i] = ft_substr(l, 0, ft_strlen(l) - 1);
+		else
+			game->map[i] = ft_strdup(l);
+		tmp = tmp->next;
+		i++;
+	}
+	return (0);
 }
 
 int	open_map(t_game *game, char *input)
 {
 	t_list	*file;
 	char	*line;
-	char	*path;
 	int		fd;
 
 	fd = open(input, O_RDONLY);
 	if (fd < 0)
 		return (print_msg("Cannot open file!", EXIT_FAILURE));
-	while ((line = get_next_line(fd)))
-		ft_lstadd_back(&file, ft_lstnew(line)); 
+	file = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		ft_lstadd_back(&file, ft_lstnew(line));
+	}
 	close(fd);
 	if (!file)
 		return (print_msg("Empty file!", EXIT_FAILURE));
-	if (!process_info(game, file)) 
-		return (print_msg("Incorrect format on the sprites path!", EXIT_FAILURE));
-	if (!parse_map_content(game, file)) 
-		return (print_msg("Incorrect map!", EXIT_FAILURE));
+	if (process_info(game, file))
+		return (EXIT_FAILURE);
+	if (list_to_map(game, file))
+		return (EXIT_FAILURE);
+	if (!is_valid_file(game))
+		return (EXIT_FAILURE);
+	// ft_lstclear(&file, free);
 	return (print_msg("File loaded!", EXIT_SUCCESS));
 }

@@ -6,25 +6,11 @@
 /*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 18:07:13 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:39:22 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ctd.h>
-
-static int	is_valid_format(char *filename)
-{
-	size_t	len;
-
-	if (!filename)
-		return(0);
-	len = ft_strlen(filename);
-	if (len < 4)
-		return(0);
-	if (ft_strncmp(filename + len - 4, ".cub", 4) != 0)
-		return(0);
-	return (1);
-}
 
 static int	has_textures(t_game *game)
 {
@@ -55,7 +41,7 @@ static int	has_map(t_game *game)
 		while (game->map[y][x])
 		{
 			if (!ft_strchr("01NSEW ", game->map[y][x]))
-				return (print_msg("Error: Invalid character in map", 0));
+				return (print_msg("Invalid character in map", 0));
 			x++;
 		}
 		y++;
@@ -65,7 +51,7 @@ static int	has_map(t_game *game)
 
 static int	has_walls(t_game *game)
 {
-	if (!check_map_closed(game))
+	if (check_map_closed(game))
 		return (print_msg("Map is not closed by walls", 0));
 	return (1);
 }

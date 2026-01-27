@@ -6,7 +6,7 @@
 /*   By: aalcaide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 15:08:43 by aalcaide          #+#    #+#             */
-/*   Updated: 2025/12/18 16:47:12 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:43:18 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,4 @@ char	*ft_strcombine(const char *dest, const char *src)
 	ft_memmove(result + dest_size, src, src_size);
 	result[src_size + dest_size] = '\0';
 	return (result);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
-
-	ptr = (unsigned char *)s;
-	while (n-- > 0)
-		*ptr++ = 0;
 }

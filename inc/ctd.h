@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:15:03 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 18:07:50 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:42:18 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define WEST   'W'
 
 # define GREEN  "\x1b[32m"
+#define RED     "\x1b[31m"
 # define RESET  "\x1b[m"
 
 struct s_cell;
@@ -84,10 +85,9 @@ int handle_key_press(int keycode, t_game *game);
 
 // srcs/parse/format.c
 int check_map_closed(t_game *game);
+int	is_valid_file(t_game *game);
 
 // srcs/parse/map.c
-int	save_sprites_path(t_game *game, char *line, int i);
-int	process_info(t_game *game, t_list *file);
 int	open_map(t_game *game, char *input);
 
 // srcs/main.c
