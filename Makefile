@@ -6,27 +6,31 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/21 20:15:25 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/24 14:00:00 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = cub3D 
+NAME        = cub3D
 
-CXX         = cc
-CXXFLAGS    = -Wall -Werror -Wextra
+CC          = cc
+CFLAGS      = -Wall -Werror -Wextra -g
+INCLUDES    = -I./inc -I./libs/libft/Includes -I./libs/MLX42/include
+LDFLAGS     = -L./libs/MLX42 -lmlx42 -L./libs/libft -lft -lglfw -ldl -lpthread -lm
 
-SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.cpp=.o)
+# Busca todos los archivos .c en srcs y subdirectorios
+SRC_DIR     = srcs
+SRC 		= $(shell find $(SRC_DIR) -name "*.c" -not -path "*/so_long/*")
+OBJ         = $(SRC:.c=.o)
 
 RESET       = \033[0m
 PINK        = \033[1;35m
 BLUE        = \033[1;36m
 GREEN       = \033[1;32m
-VIOLET		= \033[38;2;185;39;233m
+VIOLET      = \033[38;2;185;39;233m
 
 TOTAL_SRCS := $(words $(SRC))
 
-all: print $(NAME)
+all: print libft mlx42 $(NAME)
 
 print:
 	@echo "                ⬛⬛⬛⬛⬛                "
@@ -52,16 +56,30 @@ print:
 	@echo "      ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
 	@echo "    ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
 
+# Construir libft primero
+libft:
+	@echo "$(BLUE)Building libft...$(RESET)"
+	@make -C ./libs/libft
+
+# Construir MLX42 si no está construido
+mlx42:
+	@echo "$(BLUE)Building MLX42...$(RESET)"
+	@if [ ! -f "./libs/MLX42/libmlx42.a" ]; then \
+		cd ./libs/MLX42 && cmake -B build && cmake --build build -j4; \
+		mv build/libmlx42.a .; \
+	fi
+
 $(NAME): $(OBJ)
 	@echo ""
 	@echo "$(BLUE)Linking objects...$(RESET)"
-	@$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
-# mi barrita de carga
-%.o: %.cpp
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
-	@curr=$$(find . -type f -name "*.o" | wc -l); \
+# Regla para compilar archivos .c
+%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@curr=$$(find $(SRC_DIR) -type f -name "*.o" 2>/dev/null | wc -l); \
 	percent=$$(( $$curr * 100 / $(TOTAL_SRCS) )); \
 	bar_len=$$(( $$percent / 2 )); \
 	bar_str=""; \
@@ -75,12 +93,19 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
+	@make -C ./libs/libft clean
 	@echo "$(BLUE)Objects cleaned.$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
+	@make -C ./libs/libft fclean
+	@if [ -f "./libs/MLX42/libmlx42.a" ]; then rm -f ./libs/MLX42/libmlx42.a; fi
 	@echo "$(BLUE)Executable cleaned.$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+# Regla para ejecutar (opcional)
+run: all
+	@./$(NAME)
+
+.PHONY: all clean fclean re libft mlx42 run

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*																			  */
 /*														  :::	   ::::::::   */
-/*	 draw.c      										:+:		 :+:	:+:   */
+/*	 ft_error.c   										:+:		 :+:	:+:   */
 /*													  +:+ +:+		  +:+	  */
 /*	 By: aalcaide <aalcaide@student.42barcelon		+#+  +:+	   +#+		  */
 /*												  +#+#+#+#+#+	+#+			  */
@@ -12,24 +12,8 @@
 
 #include <ctd.h>
 
-void	ft_update_draw(void*)
+void	ft_error(void)
 {
-
-}
-
-// Cambiar el NULL de mlx_hook_update
-int	draw(void)
-{
-	t_game		game;
-
-
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	game.mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
-	if (!game.mlx)
-		ft_error();
-	init_min_map(&game);
-	mlx_loop_hook(game.mlx, ft_update_draw, NULL);
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
-	return (EXIT_SUCCESS);
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
 }
