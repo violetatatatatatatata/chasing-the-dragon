@@ -5,72 +5,61 @@
 #                                                     +:+ +:+         +:+      #
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/27 20:32:04 by avelandr         ###   ########.fr        #
+#    Created: 2026/01/28 15:11:03 by avelandr          #+#    #+#              #
+#    Updated: 2026/01/28 15:15:03 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Werror -Wextra -g -Iinc -Ilibs/libft/Includes# -IMLX42/include
+CFLAGS      = -Wall -Werror -Wextra -g -Iinc -Ilibs/libft/Includes #-IMLX42/include
 
-INC_DIR     = ./inc/
 LIBFT_DIR   = libs/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
-#MLX_DIR     = MLX42/build
-#MLX         = $(MLX_DIR)/libmlx42.a
-LIBS        = $(LIBFT) $(MLX) -ldl -lglfw -pthread -lm
+MLX_DIR     = MLX42/build
+MLX         = $(MLX_DIR)/libmlx42.a
+LIBS        = $(LIBFT) $(MLX) #-ldl -lglfw -pthread -lm
+
+OBJ_DIR     = objs
 
 SRC         = $(shell find srcs -name "*.c")
-OBJ         = $(SRC:.c=.o)
+OBJ         = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 RESET       = \033[0m
 PINK        = \033[1;35m
 BLUE        = \033[1;36m
-YELLOW      = \033[33m
-RED         = \033[0;31m
 GREEN       = \033[1;32m
 VIOLET      = \033[38;2;185;39;233m
 
 TOTAL_SRCS := $(words $(SRC))
 
-all: ctd print libft $(NAME)
+all: print libft $(NAME)
 
-ctd:
-	@echo "$(YELLOW)";
-	@echo "       ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ ";
-	@echo "      ██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗";
-	@echo "      ██║     ██║   ██║██████╔╝ █████╔╝██║  ██║";
-	@echo "      ██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║";
-	@echo "      ╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝";
-	@echo "       ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ";
-	@echo "$(RESET)";
-	
 print:
-	@echo "                     ⬛⬛⬛⬛⬛                "
-	@echo "                 ⬛⬛🟨🟨🟨🟨🟨⬛⬛            "
-	@echo "             ⬛⬛🟦🟦⬛⬛⬛⬛⬛🟦🟦⬛⬛        "
-	@echo "           ⬛🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬛      "
-	@echo "         ⬛🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦⬛    "
-	@echo "         ⬛🟦🟨🟨🟨⬛⬛⬛⬛⬛⬛⬛🟨🟨🟨🟦⬛    "
-	@echo "       ⬛🟨🟨⬛⬛⬛⬜⬜⬜🏼⬜⬜⬜⬛⬛⬛🟨🟨⬛  "
-	@echo "       ⬛⬛⬛🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼⬛⬛⬛  "
-	@echo "       ⬛🏼🏼🏼⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "       ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "       ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "         ⬛🏼🏼🏼⬜⬜⬜⬜🏼⬜⬜⬜⬜🏼🏼🏼⬛    "
-	@echo "         ⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛    "
-	@echo "           ⬛🏼🏼🏼🏼🏼⬛⬛⬛🏼🏼🏼🏼🏼⬛      "
-	@echo "         ⬛⬛⬛⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛⬛⬛⬛    "
-	@echo "       ⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛  "
-	@echo "      ⬛🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥⬛"
-	@echo "      ⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
-	@echo "      ⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
-	@echo "       ⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛  "
-	@echo "           ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
-	@echo "         ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
+	@echo "                ⬛⬛⬛⬛⬛                "
+	@echo "             ⬛⬛🟨🟨🟨🟨🟨⬛⬛            "
+	@echo "        ⬛⬛🟦🟦⬛⬛⬛⬛⬛🟦🟦⬛⬛        "
+	@echo "      ⬛🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬛      "
+	@echo "    ⬛🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦⬛    "
+	@echo "    ⬛🟦🟨🟨🟨⬛⬛⬛⬛⬛⬛⬛🟨🟨🟨🟦⬛    "
+	@echo "  ⬛🟨🟨⬛⬛⬛⬜⬜⬜🏼⬜⬜⬜⬛⬛⬛🟨🟨⬛  "
+	@echo "  ⬛⬛⬛🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼⬛⬛⬛  "
+	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "    ⬛🏼🏼🏼⬜⬜⬜⬜🏼⬜⬜⬜⬜🏼🏼🏼⬛    "
+	@echo "    ⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛    "
+	@echo "      ⬛🏼🏼🏼🏼🏼⬛⬛⬛🏼🏼🏼🏼🏼⬛      "
+	@echo "    ⬛⬛⬛⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛⬛⬛⬛    "
+	@echo "  ⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛  "
+	@echo "⬛🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥⬛"
+	@echo "⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
+	@echo "⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
+	@echo "  ⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛  "
+	@echo "      ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
+	@echo "    ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
 
 libft:
 	@make -C $(LIBFT_DIR) --no-print-directory
@@ -78,12 +67,13 @@ libft:
 $(NAME): $(OBJ)
 	@echo ""
 	@echo "$(BLUE)Linking objects...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $@
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@curr=$$(find srcs -type f -name "*.o" | wc -l); \
+	@curr=$$(find $(OBJ_DIR) -type f -name "*.o" | wc -l); \
 	percent=$$(( $$curr * 100 / $(TOTAL_SRCS) )); \
 	bar_len=$$(( $$percent / 2 )); \
 	bar_str=""; \
@@ -96,12 +86,12 @@ $(NAME): $(OBJ)
 	printf "\r$(BLUE)Compiling: $(PINK)[$$bar_str$$spaces] $(PINK)$$percent%% $(RESET)"
 
 clean:
-	@make -C $(LIBFT_DIR) clean
-	@rm -f $(OBJ)
+	@make -C $(LIBFT_DIR) clean --no-print-directory
+	@rm -rf $(OBJ_DIR)
 	@echo "$(BLUE)Objects cleaned.$(RESET)"
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
+	@make -C $(LIBFT_DIR) fclean --no-print-directory
 	@rm -f $(NAME)
 	@echo "$(BLUE)Executable cleaned.$(RESET)"
 

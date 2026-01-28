@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ctd.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 14:15:03 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 18:42:18 by avelandr         ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 ctd.h												:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: avelandr <avelandr@student.42barcelon		+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2026/01/27 14:15:03 by avelandr		   #+#	  #+#			  */
+/*	 Updated: 2026/01/28 15:01:11 by avelandr		  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #ifndef CTD_H
@@ -26,58 +26,59 @@
 # define HEIGHT 720
 # define TILE_SIZE 64
 
-# define ESC    53
-# define W      13
-# define A      0
-# define S      1
-# define D      2
-# define LEFT   123
-# define RIGHT  124
+# define ESC	53
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LEFT	123
+# define RIGHT	124
 
-# define WALL   '1'
-# define EMPTY  '0'
-# define NORTH  'N'
-# define SOUTH  'S'
-# define EAST   'E'
-# define WEST   'W'
+# define WALL	'1'
+# define EMPTY	'0'
+# define NORTH	'N'
+# define SOUTH	'S'
+# define EAST	'E'
+# define WEST	'W'
 
-# define GREEN  "\x1b[32m"
-#define RED     "\x1b[31m"
-# define RESET  "\x1b[m"
-
-struct s_cell;
-
-typedef struct s_vector2d
-{
-	int				x;
-	int				y;
-	struct s_cell	*cell;
-}	t_vector2d;
-
-typedef struct s_cell
-{
-	t_vector2d		pos;
-	//enum e_type		type;
-	struct s_cell	*no;
-	struct s_cell	*so;
-	struct s_cell	*we;
-	struct s_cell	*ea;
-}	t_cell;
+# define GREEN	"\x1b[32m"
+# define RED	"\x1b[31m"
+# define RESET	"\x1b[m"
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
 	char		*no_sprite_path;
 	char		*so_sprite_path;
 	char		*we_sprite_path;
 	char		*ea_sprite_path;
-	char		*rgb_floor;
-	char		*rgb_celling;
+	uint32_t	*rgb_floor;
+	uint32_t	*rgb_celling;
 	char		**map;
-//	t_list		*map_lines;
-	t_cell		*cells;
 }	t_game;
+
+typedef struct	s_draw
+{
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*ea;
+	mlx_texture_t	*we;
+}	t_draw;
+
+typedef struct	s_player
+{
+	double	x_pos;
+	double	y_pos;
+	double	pov;
+}	t_player;
+
+typedef struct	s_game
+{
+	void		*mlx;
+	void		*win;
+	t_map		map;
+	t_player	p;
+	t_draw		texture;
+}
 
 // srcs/logic/movs.c
 int move_player(t_game *game, int new_x, int new_y);
