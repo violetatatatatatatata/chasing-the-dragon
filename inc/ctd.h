@@ -18,9 +18,10 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdint.h>
 
 # include "../libs/libft/Includes/libft.h"
-//# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libs/MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 1080
 # define HEIGHT 720
@@ -45,7 +46,7 @@
 # define RED	"\x1b[31m"
 # define RESET	"\x1b[m"
 
-typedef struct s_game
+typedef struct s_map
 {
 	char		*no_sprite_path;
 	char		*so_sprite_path;
@@ -54,7 +55,7 @@ typedef struct s_game
 	uint32_t	*rgb_floor;
 	uint32_t	*rgb_celling;
 	char		**map;
-}	t_game;
+}	t_map;
 
 typedef struct	s_draw
 {
@@ -62,6 +63,7 @@ typedef struct	s_draw
 	mlx_texture_t	*so;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*we;
+	int	lol;
 }	t_draw;
 
 typedef struct	s_player
@@ -78,7 +80,7 @@ typedef struct	s_game
 	t_map		map;
 	t_player	p;
 	t_draw		texture;
-}
+}	t_game;
 
 // srcs/logic/movs.c
 int move_player(t_game *game, int new_x, int new_y);
@@ -95,6 +97,7 @@ int	open_map(t_game *game, char *input);
 int	main(int argc, char **argv);
 
 // srcs/utils/messages.c
-int	print_msg(char *str, int exit);
+int		print_msg(char *str, int exit);
+uint32_t	get_rgba(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 12:32:24 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 20:44:04 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:35:35 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static char	*get_path(char *line, int i)
 
 static int	save_sprites_path(t_game *game, char *line, int i)
 {
+	char	*f;
+	char	*c;
+
 	if (!ft_strncmp(&line[i], "NO", 2))
 		game->no_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "SO", 2))
@@ -35,9 +38,15 @@ static int	save_sprites_path(t_game *game, char *line, int i)
 	else if (!ft_strncmp(&line[i], "EA", 2))
 		game->ea_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "F", 1))
-		game->rgb_floor = get_path(line, i + 1);
+	{
+		f = get_path(line, i + 1);
+		game->rgb_floor = get_rgb(f);
+	}
 	else if (!ft_strncmp(&line[i], "C", 1))
-		game->rgb_celling = get_path(line, i + 1);
+	{
+		c = get_path(line, i + 1);
+		game->rgb_celling = get_rgb(c);
+	}
 	else
 		return (0);
 	return (1);

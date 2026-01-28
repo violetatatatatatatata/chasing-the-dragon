@@ -6,21 +6,21 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/28 15:11:03 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/28 15:15:03 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/28 15:42:00 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Werror -Wextra -g -Iinc -Ilibs/libft/Includes #-IMLX42/include
+CFLAGS      = -Wall -Werror -Wextra -g -Iinc -Ilibs/libft/Includes -IMLX42/include
 
 LIBFT_DIR   = libs/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
 MLX_DIR     = MLX42/build
 MLX         = $(MLX_DIR)/libmlx42.a
-LIBS        = $(LIBFT) $(MLX) #-ldl -lglfw -pthread -lm
+LIBS        = $(LIBFT) $(MLX) -ldl -lglfw -pthread -lm
 
 OBJ_DIR     = objs
 
