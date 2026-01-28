@@ -1,0 +1,14 @@
+NO ./sprites/tree_nord.png
+SO ./sprites/tree_south.png
+WE ./sprites/tree_west.png
+EA ./sprites/tree_east.png
+
+X 123456
+
+F 220,100,0
+C 225,30,0
+
+111111
+100001
+10N001
+111111

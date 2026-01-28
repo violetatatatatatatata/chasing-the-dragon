@@ -40,3 +40,4 @@ uint32_t	get_rgba(char *str)
 	b = ft_atoi(str + i);
 	return ((r << 24) | (g << 16) | (b << 8) | 255);
 }
+

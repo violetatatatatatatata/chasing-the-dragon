@@ -54,6 +54,8 @@ typedef struct s_map
 	char		*ea_sprite_path;
 	uint32_t	*rgb_floor;
 	uint32_t	*rgb_celling;
+	int			x_max;
+	int			y_max;
 	char		**map;
 }	t_map;
 

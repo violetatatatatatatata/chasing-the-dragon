@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:46:48 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/28 16:04:15 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:50:14 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,27 @@ static void	flood_fill(char **map, int x, int y, int *err)
 
 static void	get_player_pos(char **map, int *x, int *y)
 {
-	*y = 0;
-	while (map[*y])
+	int	i;
+	int	j;
+	int	player;
+
+	player = 0;
+	i = -1;
+	while (map[++i])
 	{
-		*x = 0;
-		while (map[*y][*x])
+		j = -1;
+		while (map[i][++j])
 		{
-			if (ft_strchr("NSEW", map[*y][*x]))
-				return ;
-			(*x)++;
+			if (ft_strchr("NSEW", map[i][j]))
+			{
+				player++;
+				*x = j;
+				*y = i;
+			}
 		}
-		(*y)++;
 	}
+	if (player != 1)
+		exit(print_msg("No more than one player!", 1));
 }
 
 int	check_map_closed(t_game *game)

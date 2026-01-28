@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:58:59 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/28 16:00:51 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:45:17 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,34 @@ static int	list_to_map(t_game *game, t_list *file)
 	return (0);
 }
 
+static void	print_map(t_map *map) {
+	int	i = 0;
+
+	printf("NO Path: %s\n", map->no_sprite_path ? map->no_sprite_path : "(null)");
+	printf("SO Path: %s\n", map->so_sprite_path ? map->so_sprite_path : "(null)");
+	printf("WE Path: %s\n", map->we_sprite_path ? map->we_sprite_path : "(null)");
+	printf("EA Path: %s\n", map->ea_sprite_path ? map->ea_sprite_path : "(null)");
+
+	if (map->rgb_floor)
+		printf("Floor Color (Hex): 0x%08X\n", *map->rgb_floor);
+	else
+		printf("Floor Color: (null ptr)\n");
+	if (map->rgb_celling)
+		printf("Ceiling Color (Hex): 0x%08X\n", *map->rgb_celling);
+	else
+		printf("Ceiling Color: (null ptr)\n");
+	if (map->map)
+	{
+		while (map->map[i])
+		{
+			printf("[%02d] |%s\n", i, map->map[i]);
+			i++;
+		}
+	}
+	else
+		printf("  (Map array is NULL)\n");
+}
+
 int	open_map(t_game *game, char *input)
 {
 	t_list	*file;
@@ -148,5 +176,6 @@ int	open_map(t_game *game, char *input)
 		return (EXIT_FAILURE);
 	if (!is_valid_file(game))
 		return (EXIT_FAILURE);
+	print_map(&game->map);
 	return (print_msg("File loaded!", EXIT_SUCCESS));
 }
