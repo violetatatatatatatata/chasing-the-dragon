@@ -6,11 +6,11 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:46:48 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 17:53:03 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:04:15 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ctd.h"
+#include <ctd.h>
 
 static void	free_m(char **m)
 {
@@ -91,9 +91,9 @@ int	check_map_closed(t_game *game)
 	int		y;
 	int		err;
 
-	if (!game->map)
+	if (!game->map.map)
 		return (0);
-	temp = duplicate_m(game->map);
+	temp = duplicate_m(game->map.map);
 	if (!temp)
 		return (0);
 	get_player_pos(temp, &x, &y);

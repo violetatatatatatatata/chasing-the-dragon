@@ -6,7 +6,7 @@
 /*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:49:23 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 18:39:22 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:02:18 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static int	has_textures(t_game *game)
 {
-	if (!game->no_sprite_path || !game->so_sprite_path || \
-		!game->we_sprite_path || !game->ea_sprite_path)
+	if (!game->map.no_sprite_path || !game->map.so_sprite_path || \
+		!game->map.we_sprite_path || !game->map.ea_sprite_path)
 		return (print_msg("Missing texture path", 0));
 	return (1);
 }
 
 static int	has_colors(t_game *game)
 {
-	if (!game->rgb_floor || !game->rgb_celling)
+	if (!game->map.rgb_floor || !game->map.rgb_celling)
 		return (print_msg("Missing color configuration", 0));
 	return (1);
 }
@@ -32,15 +32,15 @@ static int	has_map(t_game *game)
 	int	x;
 	int	y;
 
-	if (!game->map || !game->map[0])
+	if (!game->map.map || !game->map.map[0])
 		return (print_msg("Map is empty or missing", 0));
 	y = 0;
-	while (game->map[y])
+	while (game->map.map[y])
 	{
 		x = 0;
-		while (game->map[y][x])
+		while (game->map.map[y][x])
 		{
-			if (!ft_strchr("01NSEW ", game->map[y][x]))
+			if (!ft_strchr("01NSEW ", game->map.map[y][x]))
 				return (print_msg("Invalid character in map", 0));
 			x++;
 		}

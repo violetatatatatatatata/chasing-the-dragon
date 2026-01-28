@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 12:32:24 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/28 15:35:35 by avelandr         ###   ########.fr       */
+/*   Created: 2026/01/28 15:58:59 by avelandr          #+#    #+#             */
+/*   Updated: 2026/01/28 16:00:51 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,28 @@ static int	save_sprites_path(t_game *game, char *line, int i)
 	char	*c;
 
 	if (!ft_strncmp(&line[i], "NO", 2))
-		game->no_sprite_path = get_path(line, i + 2);
+		game->map.no_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "SO", 2))
-		game->so_sprite_path = get_path(line, i + 2);
+		game->map.so_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "WE", 2))
-		game->we_sprite_path = get_path(line, i + 2);
+		game->map.we_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "EA", 2))
-		game->ea_sprite_path = get_path(line, i + 2);
+		game->map.ea_sprite_path = get_path(line, i + 2);
 	else if (!ft_strncmp(&line[i], "F", 1))
 	{
 		f = get_path(line, i + 1);
-		game->rgb_floor = get_rgb(f);
+		game->map.rgb_floor = malloc(sizeof(uint32_t));
+		if (game->map.rgb_floor)
+			*game->map.rgb_floor = get_rgba(f);
+		free(f);
 	}
 	else if (!ft_strncmp(&line[i], "C", 1))
 	{
 		c = get_path(line, i + 1);
-		game->rgb_celling = get_rgb(c);
+		game->map.rgb_celling = malloc(sizeof(uint32_t));
+		if (game->map.rgb_celling)
+			*game->map.rgb_celling = get_rgba(c);
+		free(c);
 	}
 	else
 		return (0);
@@ -99,17 +105,17 @@ static int	list_to_map(t_game *game, t_list *file)
 		tmp = tmp->next;
 	}
 	h = ft_lstsize(tmp);
-	game->map = ft_calloc(h + 1, sizeof(char *));
-	if (!game->map)
+	game->map.map = ft_calloc(h + 1, sizeof(char *));
+	if (!game->map.map)
 		return (print_msg("Malloc failed", 1));
 	i = 0;
 	while (tmp)
 	{
 		l = (char *)tmp->content;
 		if (l[ft_strlen(l) - 1] == '\n')
-			game->map[i] = ft_substr(l, 0, ft_strlen(l) - 1);
+			game->map.map[i] = ft_substr(l, 0, ft_strlen(l) - 1);
 		else
-			game->map[i] = ft_strdup(l);
+			game->map.map[i] = ft_strdup(l);
 		tmp = tmp->next;
 		i++;
 	}
@@ -142,6 +148,5 @@ int	open_map(t_game *game, char *input)
 		return (EXIT_FAILURE);
 	if (!is_valid_file(game))
 		return (EXIT_FAILURE);
-	// ft_lstclear(&file, free);
 	return (print_msg("File loaded!", EXIT_SUCCESS));
 }
