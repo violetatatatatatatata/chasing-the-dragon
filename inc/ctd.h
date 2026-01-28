@@ -26,8 +26,10 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define WIDTH_MAP 512
-# define HEIGHT_MAP 256
+# define HEIGHT_MAP 512
 # define PATH "sprites/tree_nord.png"
+# define CELL_SIZE 5
+# define CELL_PLAYER_SIZE 2
 
 # include <libft.h>
 # include "../libs/MLX42/include/MLX42/MLX42.h"
@@ -40,27 +42,10 @@ enum e_type
 	player
 };
 
-typedef struct s_vector2d
-{
-	int	x;
-	int	y;
-}	t_vector2d;
-
-typedef struct s_cell	t_cell;
-
-typedef struct s_cell
-{
-	t_vector2d	pos;
-	enum e_type	cell_type;
-	t_cell		*no;
-	t_cell		*so;
-	t_cell		*we;
-	t_cell		*ea;
-}	t_cell;
-
 typedef struct s_min_map
 {
 	mlx_image_t	*map_img;
+	int			cell_count;
 }	t_min_map;
 
 typedef struct s_game
@@ -74,6 +59,8 @@ typedef struct s_game
 	char		*rgb_celling;
 	mlx_t		*mlx;
 	t_min_map	*min_map;
+	int			max_map_x;
+	int			max_map_y;
 }	t_game;
 
 /*		DRAW		*/
@@ -81,7 +68,12 @@ int		draw(void);
 
 /*		DRAW_MIN_MAP	*/
 void	init_min_map(t_game *game);
+void	draw_min_map(t_game *game);
 
 /*		UTILS		*/
 void	ft_error(void);
+
+/*		TEST		 */
+char	**ft_create_map(int width, int height);
+
 #endif

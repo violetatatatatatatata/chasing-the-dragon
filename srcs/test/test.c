@@ -1,29 +1,27 @@
 #include <ctd.h>
 
-t_list	*ft_create_map(int width, int height)
+char	**ft_create_map(int width, int height)
 {
-	t_list	*list;
-	t_cell	*cell;
+	char	**map;
 	int		x;
 	int		y;
 
-	list = malloc(sizeof(t_list));
+	map = malloc(sizeof(char *) * width);
 	x = 0;
 	while (x < width)
 	{
+		map[x] = malloc(sizeof(char) * height);
 		y = 0;
 		while (y < height)
 		{
-			cell = malloc(sizeof(t_cell));
-			cell->pos.x = x;
-			cell->pos.y = y;
-			cell->cell_type = empty;
+			map[x][y] = '0';
 			if ((x == 0 || x == width - 1) || (y == 0 || y == height - 1))
-				cell->cell_type = wall;
-			ft_lstadd_back(&list, ft_lstnew(cell));
+				map[x][y] = '1';
+			else if (x == width / 2 && y == height / 2)
+				map[x][y] = 'N';
 			y++;
 		}
 		x++;
 	}
-	return (list);
+	return (map);
 }
