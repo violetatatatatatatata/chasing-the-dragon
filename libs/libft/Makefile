@@ -6,15 +6,18 @@
 #    By: avelandr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/29 12:07:13 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/27 17:29:54 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/28 17:29:51 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RESET       = \033[0m
-VIOLET		= \033[38;2;185;39;233m
-PINK		= \033[38;2;233;39;197m
-MAGENTA		= \033[38;2;255;0;205m
-BLUE		= \033[38;2;132;0;255m
+BOLD      = \033[1m
+BLACK     = \033[1;30m
+GREEN     = \033[1;32m
+YELLOW    = \033[1;33m
+BLUE      = \033[1;34m
+MAGENTA   = \033[1;35m
+CYAN      = \033[1;36m
+RESET     = \033[0m
 
 NAME        = libft.a
 CC          = cc
@@ -48,7 +51,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rcs $@ $^
 	@echo ""
-	@echo "$(MAGENTA)Libft done! $(RESET)"
+	@echo "$(BLUE)Libft done! $(RESET)"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -62,7 +65,7 @@ $(NAME): $(OBJS)
 	i=0; \
 	rest=$$((50 - $$bar_len)); \
 	while [ $$i -lt $$rest ]; do spaces="$${spaces}░"; i=$$((i+1)); done; \
-	printf "\r$(BLUE)Compiling Libft:     $(VIOLET)[$$bar_str$$spaces] $(PINK)$$percent%% $(RESET)"
+	printf "\r$(BLUE)Compiling Libft:     $(YELLOW)[$$bar_str$$spaces] $(YELLOW)$$percent%% $(RESET)"
 
 clean:
 	@rm -f $(OBJS)

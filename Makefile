@@ -6,7 +6,7 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/28 16:16:24 by avelandr         ###   ########.fr        #
+#    Updated: 2026/01/28 17:30:22 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,65 +17,80 @@ CFLAGS      = -Wall -Werror -Wextra -g
 INCLUDES    = -I./inc -I./libs/libft/Includes -I./libs/MLX42/include
 LDFLAGS     = -L./libs/MLX42 -lmlx42 -L./libs/libft -lft -lglfw -ldl -lpthread -lm
 
-# Busca todos los archivos .c en srcs y subdirectorios
 SRC_DIR     = srcs
-SRC 		= $(shell find $(SRC_DIR) -name "*.c" -not -path "*/so_long/*")
+SRC         = $(shell find srcs -name "*.c")
 OBJ         = $(SRC:.c=.o)
 
-RESET       = \033[0m
-PINK        = \033[1;35m
-BLUE        = \033[1;36m
-GREEN       = \033[1;32m
-VIOLET      = \033[38;2;185;39;233m
+BOLD      = \033[1m
+BLACK     = \033[1;30m
+GREEN     = \033[1;32m
+YELLOW    = \033[1;33m
+BLUE      = \033[1;34m
+MAGENTA   = \033[1;35m
+CYAN      = \033[1;36m
 
 TOTAL_SRCS := $(words $(SRC))
 
-all: print libft mlx42 $(NAME)
+all: ctd print libft mlx42 $(NAME)
+
+ctd:
+	@echo "$(YELLOW)";
+	@echo "        ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ ";
+	@echo "       ██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗";
+	@echo "       ██║     ██║   ██║██████╔╝ █████╔╝██║  ██║";
+	@echo "       ██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║";
+	@echo "       ╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝";
+	@echo "        ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ";
+	@echo "$(RESET)";
 
 print:
-	@echo "                ⬛⬛⬛⬛⬛                "
-	@echo "            ⬛⬛🟨🟨🟨🟨🟨⬛⬛            "
-	@echo "        ⬛⬛🟦🟦⬛⬛⬛⬛⬛🟦🟦⬛⬛        "
-	@echo "      ⬛🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬛      "
-	@echo "    ⬛🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦⬛    "
-	@echo "    ⬛🟦🟨🟨🟨⬛⬛⬛⬛⬛⬛⬛🟨🟨🟨🟦⬛    "
-	@echo "  ⬛🟨🟨⬛⬛⬛⬜⬜⬜🏼⬜⬜⬜⬛⬛⬛🟨🟨⬛  "
-	@echo "  ⬛⬛⬛🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼⬛⬛⬛  "
-	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "  ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
-	@echo "    ⬛🏼🏼🏼⬜⬜⬜⬜🏼⬜⬜⬜⬜🏼🏼🏼⬛    "
-	@echo "    ⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛    "
-	@echo "      ⬛🏼🏼🏼🏼🏼⬛⬛⬛🏼🏼🏼🏼🏼⬛      "
-	@echo "    ⬛⬛⬛⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛⬛⬛⬛    "
-	@echo "  ⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛  "
-	@echo "⬛🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥⬛"
-	@echo "⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
-	@echo "⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
-	@echo "  ⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛  "
-	@echo "      ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
-	@echo "    ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
-
-# Construir libft primero
-libft:
+	@echo "                       ⬛⬛⬛⬛⬛                "
+	@echo "                   ⬛⬛🟨🟨🟨🟨🟨⬛⬛            "
+	@echo "               ⬛⬛🟦🟦⬛⬛⬛⬛⬛🟦🟦⬛⬛        "
+	@echo "             ⬛🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬛      "
+	@echo "           ⬛🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦⬛    "
+	@echo "           ⬛🟦🟨🟨🟨⬛⬛⬛⬛⬛⬛⬛🟨🟨🟨🟦⬛    "
+	@echo "         ⬛🟨🟨⬛⬛⬛⬜⬜⬜🏼⬜⬜⬜⬛⬛⬛🟨🟨⬛  "
+	@echo "         ⬛⬛⬛🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼⬛⬛⬛  "
+	@echo "         ⬛🏼🏼🏼⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "         ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "         ⬛🏼🏼🏼⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🏼🏼🏼⬛  "
+	@echo "           ⬛🏼🏼🏼⬜⬜⬜⬜🏼⬜⬜⬜⬜🏼🏼🏼⬛    "
+	@echo "           ⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛    "
+	@echo "             ⬛🏼🏼🏼🏼🏼⬛⬛⬛🏼🏼🏼🏼🏼⬛      "
+	@echo "           ⬛⬛⬛⬛🏼🏼🏼🏼🏼🏼🏼🏼🏼⬛⬛⬛⬛    "
+	@echo "         ⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛  "
+	@echo "       ⬛🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥⬛🟥🟥🟥⬛"
+	@echo "       ⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
+	@echo "       ⬛🟨🟨⬛🟥🟥🟥🟥🟥🟥⬛🟥🟥🟥🟥🟥🟥⬛🟨🟨⬛"
+	@echo "         ⬛⬛⬛⬛⬛🟥🟥🟥🟥⬛🟥🟥🟥🟥⬛⬛⬛⬛⬛  "
+	@echo "             ⬛🟫🟫⬛⬛⬛⬛⬛⬛⬛⬛⬛🟫🟫⬛      "
+	@echo "           ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛    "
+                  
+libft:            
+	@echo ""
 	@echo "$(BLUE)Building libft...$(RESET)"
 	@make -C ./libs/libft --no-print-directory
 
-# Construir MLX42 si no está construido
 mlx42:
+	@echo ""
 	@echo "$(BLUE)Building MLX42...$(RESET)"
 	@if [ ! -f "./libs/MLX42/libmlx42.so" ]; then \
 		cd ./libs/MLX42 && cmake -B build && cmake --build build -j4; \
 		mv build/libmlx42.so .; \
 	fi
+	@echo "$(BLUE)MLX42 done!$(RESET)"
+	@echo ""
+	@echo "$(BLUE)Building cub3D...$(RESET)"
 
 $(NAME): $(OBJ)
+	@echo ""
+	@echo "$(BLUE)cub3D done!$(RESET)"
 	@echo ""
 	@echo "$(BLUE)Linking objects...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
-# Regla para compilar archivos .c
 %.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -88,8 +103,7 @@ $(NAME): $(OBJ)
 	spaces=""; \
 	i=0; \
 	rest=$$((50 - $$bar_len)); \
-	while [ $$i -lt $$rest ]; do spaces="$${spaces}░"; i=$$((i+1)); done; \
-	printf "\r$(BLUE)Compiling: $(PINK)[$$bar_str$$spaces] $(PINK)$$percent%% $(RESET)"
+	printf "\r$(BLUE)Compiling cub3D: $(YELLOW)[$$bar_str$$spaces] $(YELLOW)$$percent%% $(RESET)"
 
 clean:
 	@rm -f $(OBJ)
@@ -104,8 +118,4 @@ fclean: clean
 
 re: fclean all
 
-# Regla para ejecutar (opcional)
-run: all
-	@./$(NAME)
-
-.PHONY: all clean fclean re libft mlx42 run
+.PHONY: all clean fclean re libft mlx42 
