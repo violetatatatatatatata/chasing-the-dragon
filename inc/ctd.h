@@ -78,14 +78,14 @@ typedef struct	s_game
 {
 	void		*mlx;
 	void		*win;
-	t_map		*map;
-	t_player	*p;
+	t_map		map;
+	t_player	p;
 	t_draw		texture;
 }	t_game;
 
 // srcs/logic/movs.c
-int move_player(t_game *game, int new_x, int new_y);
-int handle_key_press(int keycode, t_game *game);
+int move_player(t_game *game, double new_x, double new_y);;
+int	handle_key_press(int keycode, t_game *game);
 
 // srcs/parse/format.c
 int check_map_closed(t_game *game);
