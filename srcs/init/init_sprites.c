@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/29 16:28:16 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:56:08 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	draw_colors(t_game *game)
 {
-	uint32_t	x;
+//	uint32_t	x;
 	uint32_t	y;
 	uint32_t	ceiling_color;
 	uint32_t	floor_color;
 
-	if (game->map->rgb_celling)
-		ceiling_color = *game->map->rgb_celling;
+	if (game->map.rgb_celling)
+		ceiling_color = *game->map.rgb_celling;
 	else
 		ceiling_color = 000000;
-	if (game->map->rgb_floor)
-		floor_color = *game->map->rgb_floor;
-	else
-		floor_color = 183F23;
+	if (game->map.rgb_floor)
+		floor_color = *game->map.rgb_floor;
+//	else
+//		floor_color = 183F23;
 	y = 0;
 	/*
 	while (y < HEIGHT)
@@ -44,28 +44,28 @@ void	draw_colors(t_game *game)
 	}
 	*/
 }
-
+/*
 static void	clean_sprites(t_game *game)
 {
-	if (game->no)
-		mlx_delete_(game->no);
-	if (game->so)
-		mlx_delete_(game->so);
-	if (game->we)
-		mlx_delete_(game->we);
-	if (game->ea)
-		mlx_delete_(game->ea);
+	if (game->texture.no)
+		mlx_delete_(game->texture.no);
+	if (game->texture.so)
+		mlx_delete_(game->texture.so);
+	if (game->texture.we)
+		mlx_delete_(game->texture.we);
+	if (game->texture.ea)
+		mlx_delete_(game->texture.ea);
 }
-
+*/
 int	load_sprites(t_game *game)
 {
-	game->no = mlx_load_png(game->map->no_sprite_path);
-	game->so = mlx_load_png(game->map->so_sprite_path);
-	game->we = mlx_load_png(game->map->we_sprite_path);
-	game->ea = mlx_load_png(game->map->ea_sprite_path);
-	if (!game->no || !game->so || !game->we || !game->ea)
+	game->texture.no = mlx_load_png(game->map.no_sprite_path);
+	game->texture.so = mlx_load_png(game->map.so_sprite_path);
+	game->texture.we = mlx_load_png(game->map.we_sprite_path);
+	game->texture.ea = mlx_load_png(game->map.ea_sprite_path);
+	if (!game->texture.no || !game->texture.so || !game->texture.we || !game->texture.ea)
 	{
-		clean_s(game);
+	//	clean_sprites(game);
 		return (print_msg("Failed to load sprites", EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);
