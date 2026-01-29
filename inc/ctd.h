@@ -65,7 +65,6 @@ typedef struct	s_draw
 	mlx_texture_t	*so;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*we;
-	int	lol;
 }	t_draw;
 
 typedef struct	s_player
@@ -79,8 +78,8 @@ typedef struct	s_game
 {
 	void		*mlx;
 	void		*win;
-	t_map		map;
-	t_player	p;
+	t_map		*map;
+	t_player	*p;
 	t_draw		texture;
 }	t_game;
 
