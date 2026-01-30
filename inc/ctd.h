@@ -32,6 +32,7 @@
 # define A		0
 # define S		1
 # define D		2
+# define R		67
 # define LEFT	123
 # define RIGHT	124
 
@@ -72,6 +73,8 @@ typedef struct	s_player
 	double	x_pos;
 	double	y_pos;
 	double	pov;
+	size_t	shots_left;
+	size_t	spikes_left;
 }	t_player;
 
 typedef struct	s_game
@@ -86,6 +89,7 @@ typedef struct	s_game
 // srcs/logic/movs.c
 int move_player(t_game *game, double new_x, double new_y);;
 int	handle_key_press(int keycode, t_game *game);
+double	speedy_gonzales(t_player p);
 
 // srcs/parse/format.c
 int check_map_closed(t_game *game);

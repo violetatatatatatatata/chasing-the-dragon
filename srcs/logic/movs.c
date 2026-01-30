@@ -28,20 +28,28 @@ int	move_player(t_game *game, double new_x, double new_y)
 	return (1);
 }
 
+static void	recharge_spikes(t_player *p)
+{
+		p->spikes_left = 3;
+		p->shots_left = 3;
+}
+
 int handle_key_press(int keycode, t_game *game)
 {
 	int		input;
 	double	speed;
 	double	mov;
 
-	speed = 0.1;
 	input = 0.0;
 	mov = 0.0;
+	speed = speedy_gonzales(game->p);
 //	if (keycode == ESC)
 //		return (exit_game(game));
 //	else if (keycode == SPA)
 //		input = hero_shoot(game);
-	if (keycode == W || keycode == A)
+	if (keycode == R)
+		recharge_spikes(&game->p);
+	else if (keycode == W || keycode == A)
 		mov += speed;
 	else if (keycode == D || keycode == S)
 		mov -= speed;

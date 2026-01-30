@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/29 17:56:08 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/30 11:36:31 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	draw_colors(t_game *game)
 	if (game->map.rgb_celling)
 		ceiling_color = *game->map.rgb_celling;
 	else
-		ceiling_color = 000000;
+		ceiling_color = 0x183F23FF;
 	if (game->map.rgb_floor)
 		floor_color = *game->map.rgb_floor;
-//	else
-//		floor_color = 183F23;
+	else
+		floor_color = 0x183F23FF;
 	y = 0;
-	/*
+	(void)floor_color;
+	(void)ceiling_color;
+	(void)y;
+/*
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -42,7 +45,7 @@ void	draw_colors(t_game *game)
 		}
 		y++;
 	}
-	*/
+*/
 }
 /*
 static void	clean_sprites(t_game *game)
