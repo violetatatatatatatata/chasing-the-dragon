@@ -25,27 +25,35 @@
 # define TITLE "Chasing the dragon"
 # define WIDTH 1920
 # define HEIGHT 1080
-# define WIDTH_MAP 512
-# define HEIGHT_MAP 512
+# define WIDTH_MAP 500
+# define HEIGHT_MAP 500
 # define PATH "sprites/tree_nord.png"
-# define CELL_SIZE 5
-# define CELL_PLAYER_SIZE 2
+# define CELL_PIXEL_SIZE 15
+# define CELL_PLAYER_SIZE 7
+# define CELL_SIZE 10
 
 # include <libft.h>
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdint.h>
 
-enum e_type
+typedef struct s_vector2
+{
+	int	x;
+	int	y;
+}	t_vector2;
+
+typedef enum e_type
 {
 	wall,
 	empty,
 	player
-};
+}	t_type;
 
 typedef struct s_min_map
 {
 	mlx_image_t	*map_img;
-	int			cell_count;
+	int			cell_count_x;
+	int			cell_count_y;
 }	t_min_map;
 
 typedef struct s_game
@@ -64,16 +72,18 @@ typedef struct s_game
 }	t_game;
 
 /*		DRAW		*/
-int		draw(void);
+int			draw(void);
 
 /*		DRAW_MIN_MAP	*/
-void	init_min_map(t_game *game);
-void	draw_min_map(t_game *game);
+void		init_min_map(t_game *game);
+void		draw_min_map(t_game *game);
 
 /*		UTILS		*/
-void	ft_error(void);
+void		ft_error(void);
+t_vector2	cell2pixel(int x, int y);
+t_vector2	pixel2cell(int x, int y);
 
 /*		TEST		 */
-char	**ft_create_map(int width, int height);
+char		**ft_create_map(int width, int height);
 
 #endif

@@ -12,11 +12,21 @@
 
 #include <ctd.h>
 
+void	ft_on_resize(int32_t w, int32_t h, void *param)
+{
+	t_game	*game;
+
+	(void)h;
+	game = param;
+	game->min_map->map_img->instances[0].x = w - WIDTH_MAP - 10;
+}
+
 void	ft_update_draw(void *g)
 {
 	t_game		*game;
 
 	game = (t_game *)g;
+	//printf("WIDTH: %d | HEIGHT: %d\n", game->mlx->width, game->mlx->height);
 	draw_min_map(game);
 }
 
@@ -33,6 +43,7 @@ int	draw(void)
 	game.max_map_y = 20;
 	game.map = ft_create_map(game.max_map_x, game.max_map_y);
 	init_min_map(&game);
+	mlx_resize_hook(game.mlx, ft_on_resize, &game);
 	mlx_loop_hook(game.mlx, ft_update_draw, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
