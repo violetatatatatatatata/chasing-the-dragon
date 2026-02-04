@@ -6,7 +6,7 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/01/30 11:39:53 by avelandr         ###   ########.fr        #
+#    Updated: 2026/02/04 12:37:40 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,8 @@ LDFLAGS     = -L./libs/MLX42 -lmlx42 -L./libs/libft -lft -lglfw -ldl -lpthread -
 SRC_DIR     = srcs
 OBJ_DIR     = objs
 
-# Busca todos los .c en SRC_DIR
 SRC         = $(shell find $(SRC_DIR) -name "*.c")
 
-# Convierte srcs/%.c -> objs/%.o manteniendo la estructura de directorios
 OBJ         = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 BOLD      = \033[1m
@@ -47,6 +45,10 @@ ctd:
 	@echo "       ██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║"
 	@echo "       ╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝"
 	@echo "        ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ "
+	@echo ""
+	@echo "========================================================="
+	@echo "  𝓫𝔂: 𝓐𝓵𝓮𝔁 (𝓐𝓵𝓽𝓸) 𝓐𝓵𝓬𝓪𝓲𝓭𝓮 & 𝓥𝓲𝓸𝓵𝓮𝓽𝓪 (𝓥𝓮𝓷𝓮𝓴𝓪) 𝓥𝓮𝓵𝓪𝓷𝓭𝓻𝓲𝓪"
+	@echo "========================================================="
 	@echo "$(RESET)"
 
 print:
@@ -82,7 +84,7 @@ mlx42:
 	@echo ""
 	@echo "$(BLUE)Building MLX42...$(RESET)"
 	@if [ ! -f "./libs/MLX42/libmlx42.a" ]; then \
-		cd ./libs/MLX42 && cmake -B build && cmake --build build -j4; \
+		cd ./libs/MLX42 && cmake -B build > /dev/null 2>&1 && cmake --build build -j4 > /dev/null 2>&1; \
 		mv build/libmlx42.a .; \
 	fi
 	@echo "$(BLUE)MLX42 done!$(RESET)"
@@ -97,7 +99,6 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)Exercise $(NAME) compiled successfully!$(RESET)"
 
-# Regla actualizada: compila srcs/%.c en objs/%.o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

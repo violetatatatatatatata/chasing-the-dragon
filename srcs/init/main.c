@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 18:31:11 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 18:37:09 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:29:01 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	ft_bzero(&g, sizeof(t_game));
 	if (open_map(&g, argv[1]))
 		return (EXIT_FAILURE);
+	draw(g);
 	// alexalto
 	return (EXIT_SUCCESS);
 }
