@@ -40,7 +40,6 @@
 # define HEIGHT 1080
 # define WIDTH_MAP 500
 # define HEIGHT_MAP 500
-# define PATH "sprites/tree_nord.png"
 # define CELL_PIXEL_SIZE 15
 # define CELL_PLAYER_SIZE 7
 # define CELL_SIZE 10

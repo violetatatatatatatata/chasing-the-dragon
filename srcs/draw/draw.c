@@ -36,9 +36,6 @@ int	draw(t_game game)
 	game.mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
 	if (!game.mlx)
 		ft_error();
-	game.map.max_map_x = 20;
-	game.map.max_map_y = 20;
-	game.map.map = ft_create_map(game.map.max_map_x, game.map.max_map_y);
 	init_min_map(&game);
 	mlx_resize_hook(game.mlx, ft_on_resize, &game);
 	mlx_loop_hook(game.mlx, ft_update_draw, &game);
