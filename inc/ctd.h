@@ -143,6 +143,9 @@ t_vector2	pixel2cell(int x, int y);
 // srcs/utils/ft_error.c
 void	ft_error(void);
 
+//	srcs/utils/get_player_pos.c
+t_vector2	get_player_pixel_pos(t_game *game);
+
 // srcs/init/init_sprites.c
 void	draw_colors(t_game *game);
 int	load_sprites(t_game *game);
@@ -154,7 +157,6 @@ int	draw(t_game game);
 
 // srcs/draw/min_map/draw_min_map.c
 void	init_min_map(t_game *game);
-t_vector2	ft_player_pos(t_game *game);
 void	draw_min_map(t_game *game);
 
 // srcs/test/test.c

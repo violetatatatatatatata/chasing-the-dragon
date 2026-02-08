@@ -40,6 +40,8 @@ void	ft_get_map_size(t_game *g)
 
 void	init_min_map(t_game *game)
 {
+	t_vector2	player_pos;
+
 	ft_get_map_size(game);
 	game->map.min_map = malloc(sizeof(t_min_map));
 	game->map.min_map->map_img
@@ -53,126 +55,100 @@ void	init_min_map(t_game *game)
 		* game->map.min_map->map_img->height * sizeof(int32_t));
 	game->map.min_map->cell_count_x = WIDTH_MAP / CELL_PIXEL_SIZE;
 	game->map.min_map->cell_count_y = HEIGHT_MAP / CELL_PIXEL_SIZE;
+	player_pos = get_player_pixel_pos(game);
+	game->p.x_pos = player_pos.x;
+	game->p.y_pos = player_pos.y;
 }
 
-/// @brief Gets player pos in the cell
-/// @param game 
-/// @return Returns player pos cell
-t_vector2	ft_player_pos(t_game *game)
+static void	ft_draw_pixel(int x, int y, t_type type, t_game *game)
 {
-	int			x;
-	int			y;
-	t_vector2	pos;
+	t_vector2	p_pos;
 
-	pos.x = 0;
-	pos.y = 0;
-	y = 0;
-	//printf("MAX: %iX, %iY\n", game->map.max_map_x, game->map.max_map_y);
-	while (y < game->map.max_map_y)
+	if (type == wall)
+		mlx_put_pixel(game->map.min_map->map_img, x, y, 0x0000FFFF);
+	else if (type == player)
 	{
-		x = 0;
-		while (x < game->map.max_map_x)
+		p_pos.x = CELL_PLAYER_SIZE / 2;
+		while (p_pos.x < CELL_PIXEL_SIZE - CELL_PLAYER_SIZE / 2)
 		{
-			//printf("START: %iX, %iY\n", x, y);
-			if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'E'
-				|| game->map.map[y][x] == 'W' || game->map.map[y][x] == 'S')
+			p_pos.y = CELL_PLAYER_SIZE / 2;
+			while (p_pos.y < CELL_PIXEL_SIZE - CELL_PLAYER_SIZE / 2)
 			{
-				pos.x = x;
-				pos.y = y;
-				return (pos);
+				mlx_put_pixel(game->map.min_map->map_img, x + p_pos.x,
+					y + p_pos.y, 0xFF0000FF);
+				p_pos.y++;
 			}
-			x++;
+			p_pos.x++;
 		}
-		y++;
 	}
-	return (pos);
+	else
+		mlx_put_pixel(game->map.min_map->map_img, x, y, 0x00FF00FF);
+
 }
 
-static void	ft_draw_cells(int x, int y, t_type type, t_game *game)
-{
-	int	px;
-	int	py;
-	int	ex;
-	int	ey;
-	int	out;
-
-	out = (CELL_PIXEL_SIZE - CELL_PLAYER_SIZE) / 2;
-	px = x * CELL_PIXEL_SIZE;
-	py = y * CELL_PIXEL_SIZE;
-	ex = px + CELL_PIXEL_SIZE;
-	ey = py + CELL_PIXEL_SIZE;
-	while (px < ex)
-	{
-		py = y * CELL_PIXEL_SIZE;
-		while (py < ey)
-		{
-			if (px >= 0 && py >= 0 && px < WIDTH_MAP
-				&& py < HEIGHT_MAP)
-			{
-				if (type == player
-					&& (px - x * CELL_PIXEL_SIZE < out
-						|| px - x * CELL_PIXEL_SIZE >= out + CELL_PLAYER_SIZE
-						|| py - y * CELL_PIXEL_SIZE < out
-						|| py - y * CELL_PIXEL_SIZE >= out + CELL_PLAYER_SIZE))
-					mlx_put_pixel(game->map.min_map->map_img, px, py, 0x00FF00FF);
-				else if (type == wall)
-					mlx_put_pixel(game->map.min_map->map_img, px, py, 0x0000FFFF);
-				else if (type == player)
-					mlx_put_pixel(game->map.min_map->map_img, px, py, 0xFF0000FF);
-				else
-					mlx_put_pixel(game->map.min_map->map_img, px, py, 0x00FF00FF);
-			}
-			py++;
-		}
-		px++;
-	}
-}
-
-static void	ft_init_pos(t_game *g, t_vector2 p_cell_p)
+static void	ft_init_pos(t_game *g)
 {
 	t_vector2	m_str;
 	t_vector2	m_end;
+	t_vector2	m_size;
+	t_vector2	cell_pos;
 	int			x;
 	int			y;
 
-	//printf("CELL: %iX, %iY\n", g->map.min_map->cell_count_x, g->map.min_map->cell_count_y);
-	//printf("MAP: %iX, %iY\n", g->map.max_map_x, g->map.max_map_y);
-	//printf("PLAYER: %iX, %iY\n", p_cell_p.x, p_cell_p.y);
-	m_str.x = g->map.min_map->cell_count_x / 2 - p_cell_p.x;
-	m_str.y = g->map.min_map->cell_count_y / 2 - p_cell_p.y;
-	m_end.x = g->map.min_map->cell_count_x / 2
-		+ (g->map.max_map_x - p_cell_p.x);
-	m_end.y = g->map.min_map->cell_count_y / 2
-		+ (g->map.max_map_y - p_cell_p.y);
-	//printf("START: %iX, %iY\n", m_str.x, m_str.y);
-	//printf("END: %iX, %iY\n", m_end.x, m_end.y);
-	//printf("\n");
+	ft_memset(g->map.min_map->map_img->pixels, 255,
+		g->map.min_map->map_img->width
+		* g->map.min_map->map_img->height * sizeof(int32_t));
+	printf("CELL: %iX, %iY\n", g->map.min_map->cell_count_x, g->map.min_map->cell_count_y);
+	printf("MAP: %iX, %iY\n", g->map.max_map_x, g->map.max_map_y);
+	printf("PLAYER POS: %fX, %fY\n", g->p.x_pos, g->p.y_pos);
+	printf("PLAYER CELL: %iX, %iY\n", pixel2cell(g->p.x_pos, g->p.y_pos).x, pixel2cell(g->p.x_pos, g->p.y_pos).y);
+	m_str = cell2pixel(g->map.min_map->cell_count_x / 2,
+			g->map.min_map->cell_count_y / 2);
+	m_str.x -= g->p.x_pos;
+	m_str.y -= g->p.y_pos;
+	m_end = cell2pixel(g->map.min_map->cell_count_x / 2,
+			g->map.min_map->cell_count_y / 2);
+	m_size = cell2pixel(g->map.max_map_x, g->map.max_map_y);
+	m_end.x += (m_size.x - g->p.x_pos);
+	m_end.y += (m_size.y - g->p.y_pos);
+	printf("START: %iX, %iY\n", m_str.x, m_str.y);
+	printf("END: %iX, %iY\n", m_end.x, m_end.y);
+	printf("\n");
 	y = 0;
 	while (m_str.y + y < m_end.y)
 	{
 		x = 0;
 		while (m_str.x + x < m_end.x)
 		{
-			if (g->map.map[y][x] == '0')
-				ft_draw_cells(m_str.x + x, m_str.y + y, empty, g);
-			else if (g->map.map[y][x] == '1')
-				ft_draw_cells(m_str.x + x, m_str.y + y, wall, g);
-			else if (g->map.map[y][x] != ' ' && g->map.map[y][x] != '\n')
-				ft_draw_cells(m_str.x + x, m_str.y + y, empty, g);
+			if (m_str.x + x < 0 || m_str.x + x >= WIDTH_MAP
+				|| m_str.y + y < 0 || m_str.y + y >= HEIGHT_MAP)
+				break ;
+			cell_pos = pixel2cell(m_str.x + x, m_str.y + y);
+			//printf("POS: %iX, %iY\n", cell_pos.x, cell_pos.y);
+			if (g->map.map[cell_pos.y - pixel2cell(m_str.x, m_str.y).y]
+				[cell_pos.x - pixel2cell(m_str.x, m_str.y).x] == '0')
+				ft_draw_pixel(m_str.x + x, m_str.y + y, empty, g);
+			else if (g->map.map[cell_pos.y - pixel2cell(m_str.x, m_str.y).y]
+				[cell_pos.x - pixel2cell(m_str.x, m_str.y).x] == '1')
+				ft_draw_pixel(m_str.x + x, m_str.y + y, wall, g);
+			else if (g->map.map[cell_pos.y - pixel2cell(m_str.x, m_str.y).y]
+				[cell_pos.x - pixel2cell(m_str.x, m_str.y).x] != ' '
+				&& g->map.map[cell_pos.y - pixel2cell(m_str.x, m_str.y).y]
+				[cell_pos.x - pixel2cell(m_str.x, m_str.y).x] != '\n'
+				&& g->map.map[cell_pos.y - pixel2cell(m_str.x, m_str.y).y]
+				[cell_pos.x - pixel2cell(m_str.x, m_str.y).x] != '\0')
+				ft_draw_pixel(m_str.x + x, m_str.y + y, empty, g);
 			x++;
 		}
 		y++;
 	}
-	ft_draw_cells(g->map.min_map->cell_count_x / 2,
-		g->map.min_map->cell_count_y / 2, player, g);
+	ft_draw_pixel(g->p.x_pos + m_str.x,
+		g->p.y_pos + m_str.y, player, g);
 }
 
 static void	ft_map_size(t_game *game)
 {
-	t_vector2	player_cell_pos;
-
-	player_cell_pos = ft_player_pos(game);
-	ft_init_pos(game, player_cell_pos);
+	ft_init_pos(game);
 }
 
 void	draw_min_map(t_game *game)
