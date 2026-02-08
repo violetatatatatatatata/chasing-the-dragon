@@ -49,14 +49,22 @@ int handle_key_press(int keycode, t_game *game)
 //		input = hero_shoot(game);
 	if (keycode == R)
 		recharge_spikes(&game->p);
-	else if (keycode == W || keycode == A)
+	else if (keycode == MLX_KEY_S || keycode == MLX_KEY_D)
 		mov += speed;
-	else if (keycode == D || keycode == S)
+	else if (keycode == MLX_KEY_A || keycode == MLX_KEY_W)
 		mov -= speed;
-	if (keycode == W || keycode == D)
+	if (keycode == MLX_KEY_A || keycode == MLX_KEY_D)
+	{
 		input = move_player(game, game->p.x_pos, mov);
-	else if (keycode == S || keycode == A)
+		if (keycode == MLX_KEY_D)
+			printf("MOVE D\n");
+	}
+	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_S)
+	{
 		input = move_player(game, mov, game->p.y_pos);
+		if (keycode == MLX_KEY_W)
+			printf("MOVE W\n");
+	}
 //	if (input)
 //		render_map();
 	return (input);

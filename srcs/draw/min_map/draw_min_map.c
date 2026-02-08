@@ -98,10 +98,10 @@ static void	ft_init_pos(t_game *g)
 	ft_memset(g->map.min_map->map_img->pixels, 255,
 		g->map.min_map->map_img->width
 		* g->map.min_map->map_img->height * sizeof(int32_t));
-	printf("CELL: %iX, %iY\n", g->map.min_map->cell_count_x, g->map.min_map->cell_count_y);
+	/*printf("CELL: %iX, %iY\n", g->map.min_map->cell_count_x, g->map.min_map->cell_count_y);
 	printf("MAP: %iX, %iY\n", g->map.max_map_x, g->map.max_map_y);
 	printf("PLAYER POS: %fX, %fY\n", g->p.x_pos, g->p.y_pos);
-	printf("PLAYER CELL: %iX, %iY\n", pixel2cell(g->p.x_pos, g->p.y_pos).x, pixel2cell(g->p.x_pos, g->p.y_pos).y);
+	printf("PLAYER CELL: %iX, %iY\n", pixel2cell(g->p.x_pos, g->p.y_pos).x, pixel2cell(g->p.x_pos, g->p.y_pos).y);*/
 	m_str = cell2pixel(g->map.min_map->cell_count_x / 2,
 			g->map.min_map->cell_count_y / 2);
 	m_str.x -= g->p.x_pos;
@@ -111,9 +111,9 @@ static void	ft_init_pos(t_game *g)
 	m_size = cell2pixel(g->map.max_map_x, g->map.max_map_y);
 	m_end.x += (m_size.x - g->p.x_pos);
 	m_end.y += (m_size.y - g->p.y_pos);
-	printf("START: %iX, %iY\n", m_str.x, m_str.y);
+	/*printf("START: %iX, %iY\n", m_str.x, m_str.y);
 	printf("END: %iX, %iY\n", m_end.x, m_end.y);
-	printf("\n");
+	printf("\n");*/
 	y = 0;
 	while (m_str.y + y < m_end.y)
 	{

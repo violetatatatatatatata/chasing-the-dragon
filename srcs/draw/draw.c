@@ -22,11 +22,21 @@ void	ft_on_resize(int32_t w, int32_t h, void *param)
 		game->map.min_map->map_img->instances[0].x = w - WIDTH_MAP - 10;
 }
 
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	printf("HELLO\n");
+	handle_key_press(keydata.key, game);
+}
+
 void	ft_update_draw(void *g)
 {
 	t_game		*game;
 
 	game = (t_game *)g;
+
 	draw_min_map(game);
 }
 
@@ -38,6 +48,7 @@ int	draw(t_game game)
 		ft_error();
 	init_min_map(&game);
 	mlx_resize_hook(game.mlx, ft_on_resize, &game);
+	mlx_key_hook(game.mlx, &my_keyhook, &game);
 	mlx_loop_hook(game.mlx, ft_update_draw, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

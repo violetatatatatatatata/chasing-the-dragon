@@ -24,6 +24,7 @@ static t_vector2	ft_player_pos(t_game *game)
 	pos.x = 0;
 	pos.y = 0;
 	y = 0;
+	printf("SIZE: %iX, %iY\n", game->map.max_map_x, game->map.max_map_y);
 	while (y < game->map.max_map_y)
 	{
 		x = 0;
