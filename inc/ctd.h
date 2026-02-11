@@ -68,6 +68,16 @@ typedef struct s_vector2
 	int	y;
 }	t_vector2;
 
+typedef struct s_vector4f
+{
+	float	x;
+	float	y;
+	float	z;
+	float	w;
+}	t_vector4f;
+
+typedef float	t_matrix4f[4][4];
+
 typedef struct s_min_map
 {
 	mlx_image_t	*map_img;
@@ -129,6 +139,33 @@ int	is_valid_file(t_game *game);
 
 // srcs/parse/map.c
 int	open_map(t_game *game, char *input);
+
+// srcs/utils/matrix/matrix_identity.c
+void	matrix_identity(t_matrix4f m);
+
+// srcs/utils/matrix/matrix_multiply.c
+void	matrix_multiply(t_matrix4f res, t_matrix4f a, t_matrix4f b);
+
+// srcs/utils/matrix/matrix_rotation.c
+void	matrix_rotate_x(t_matrix4f m, float angle);
+void	matrix_rotate_y(t_matrix4f m, float angle);
+void	matrix_rotate_z(t_matrix4f m, float angle);
+
+// srcs/utils/matrix/matrix_scale.c
+void	matrix_scale(t_matrix4f m, float x, float y, float z);
+
+// srcs/utils/matrix/matrix_translate.c
+void	matrix_translate(t_matrix4f m, float x, float y, float z);
+
+// srcs/utils/matrix/matrix_vec4_multiply.c
+void	matrix_vec4_multiply(t_vector4f *res, t_matrix4f m, t_vector4f v);
+
+// srcs/utils/matrix/projection_matrix_perspective.c
+void	projection_matrix_perspective(t_matrix4f projection_matrix,
+		t_game *g);
+
+// srcs/utils/init_vec4f.c
+t_vector4f	init_vec4f(float x, float y, float z, float w);
 
 // srcs/utils/messages.c
 int	print_msg(char *str, int exit);
