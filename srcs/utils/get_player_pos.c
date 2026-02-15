@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*																			  */
 /*														  :::	   ::::::::   */
-/*	 get_player_pixel_pos.c								:+:		 :+:	:+:   */
+/*	 get_player_pos.c									:+:		 :+:	:+:   */
 /*													  +:+ +:+		  +:+	  */
 /*	 By: aalcaide <aalcaide@student.42barcelon		+#+  +:+	   +#+		  */
 /*												  +#+#+#+#+#+	+#+			  */
@@ -15,11 +15,11 @@
 /// @brief Gets player pos in the cell
 /// @param game 
 /// @return Returns player pos cell
-static t_vector2	ft_player_pos(t_game *game)
+static t_vector2_i	ft_player_pos(t_game *game)
 {
 	int			x;
 	int			y;
-	t_vector2	pos;
+	t_vector2_i	pos;
 
 	pos.x = 0;
 	pos.y = 0;
@@ -44,10 +44,15 @@ static t_vector2	ft_player_pos(t_game *game)
 	return (pos);
 }
 
-t_vector2	get_player_pixel_pos(t_game *game)
+t_vector2_i	get_player_pixel_pos(t_game *game)
 {
-	t_vector2	player_cell;
+	t_vector2_i	player_cell;
 
 	player_cell = ft_player_pos(game);
 	return (cell2pixel(player_cell.x, player_cell.y));
+}
+
+t_vector2_i	get_player_cell_pos(t_game *game)
+{
+	return (ft_player_pos(game));
 }

@@ -12,7 +12,7 @@
 
 #include <ctd.h>
 
-static void	ft_calculate_view_and_projection(t_game *g, t_matrix4f view,
+/*static void	ft_calculate_view_and_projection(t_game *g, t_matrix4f view,
 	t_matrix4f projection)
 {
 	matrix_identity(view);
@@ -99,4 +99,122 @@ static void	ft_matrix_get_mvp(t_matrix4f mvp_matrix, float model_scale,
 void	draw_3d(t_game *g)
 {
 
+}*/
+
+void	clear_framebuffer(t_game *g)
+{
+	size_t	size;
+
+	size = g->img->width * g->img->height * 4;
+	ft_memset(g->img->pixels, 0, size);
+}
+
+double	calculate_ray_angle(int x, double player_angle)
+{
+	double	camera_x;
+	double	ray_angle;
+
+	camera_x = 2.0 * x / (double)WIDTH - 1.0;
+	ray_angle = player_angle + atan(camera_x * tan(FOV * 0.5));
+	return (ray_angle);
+}
+
+t_column_render	calculate_column_dimensions(double perp_dist)
+{
+	t_column_render	col;
+
+	col.line_height = (int)(HEIGHT / perp_dist);
+	col.draw_start = -col.line_height / 2 + HEIGHT / 2;
+	if (col.draw_start < 0)
+		col.draw_start = 0;
+	col.draw_end = col.line_height / 2 + HEIGHT / 2;
+	if (col.draw_end >= HEIGHT)
+		col.draw_end = HEIGHT - 1;
+	return (col);
+}
+
+mlx_image_t	*select_wall_texture(t_game *g, t_ray ray)
+{
+	if (ray.side == 0)
+	{
+		if (ray.dir.x > 0)
+			return (g->texture.we_i);
+		else
+			return (g->texture.ea_i);
+	}
+	else
+	{
+		if (ray.dir.y > 0)
+			return (g->texture.no_i);
+		else
+			return (g->texture.so_i);
+	}
+}
+
+int	calculate_tex_x(t_ray ray, mlx_image_t *texture)
+{
+	int	tex_x;
+
+	tex_x = (int)(ray.hit_x * (double)texture->width);
+	if ((ray.side == 0 && ray.dir.x > 0)
+		|| (ray.side == 1 && ray.dir.y < 0))
+		tex_x = texture->width - tex_x - 1;
+	return (tex_x);
+}
+
+uint32_t	get_pixel_color(mlx_image_t *tex, int tex_x, int tex_y)
+{
+	uint8_t	*pixel;
+
+	pixel = &tex->pixels[(tex_y * tex->width + tex_x) * 4];
+	return ((pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3]);
+}
+
+void	draw_wall_column(t_game *g, int x, t_wall_draw d)
+{
+	double		step;
+	double		tex_pos;
+	int			y;
+	int			tex_y;
+	uint32_t	color;
+
+	step = (double)d.texture->height / d.line_height;
+	tex_pos = (d.draw_start - HEIGHT / 2 + d.line_height / 2) * step;
+	y = d.draw_start;
+	while (y < d.draw_end)
+	{
+		tex_y = (int)tex_pos;
+		if (tex_y >= (int)d.texture->height)
+			tex_y = d.texture->height - 1;
+		tex_pos += step;
+		color = get_pixel_color(d.texture, d.tex_x, tex_y);
+		mlx_put_pixel(g->img, x, y, color);
+		y++;
+	}
+}
+
+void	render_frame(t_game *g)
+{
+	int					x;
+	double				ray_angle;
+	t_ray				ray;
+	t_column_render		col;
+	t_wall_draw			draw;
+
+	clear_framebuffer(g);
+	x = 0;
+	while (x < WIDTH)
+	{
+		ray_angle = calculate_ray_angle(x, g->p.pov);
+		ray = cast_ray(ray_angle, g);
+		col = calculate_column_dimensions(ray.perp_dist);
+		draw.texture = select_wall_texture(g, ray);
+		draw.tex_x = calculate_tex_x(ray, draw.texture);
+		draw.draw_start = col.draw_start;
+		draw.draw_end = col.draw_end;
+		draw.line_height = col.line_height;
+		draw_wall_column(g, x, draw);
+		x++;
+	}
+	mlx_image_to_window(g->mlx, g->img, 0, 0);
 }

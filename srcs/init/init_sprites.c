@@ -62,11 +62,11 @@ static void	clean_sprites(t_game *game)
 */
 int	load_sprites(t_game *game)
 {
-	game->texture.no = mlx_load_png(game->map.no_sprite_path);
-	game->texture.so = mlx_load_png(game->map.so_sprite_path);
-	game->texture.we = mlx_load_png(game->map.we_sprite_path);
-	game->texture.ea = mlx_load_png(game->map.ea_sprite_path);
-	if (!game->texture.no || !game->texture.so || !game->texture.we || !game->texture.ea)
+	game->texture.no_t = mlx_load_png(game->map.no_sprite_path);
+	game->texture.so_t = mlx_load_png(game->map.so_sprite_path);
+	game->texture.we_t = mlx_load_png(game->map.we_sprite_path);
+	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
+	if (!game->texture.no_t || !game->texture.so_t || !game->texture.we_t || !game->texture.ea_t)
 	{
 	//	clean_sprites(game);
 		return (print_msg("Failed to load sprites", EXIT_FAILURE));

@@ -43,6 +43,8 @@
 # define CELL_PIXEL_SIZE 15
 # define CELL_PLAYER_SIZE 7
 # define CELL_SIZE 10
+# define FOV 60
+# define RAY_LIMIT 4000
 
 # define WALL	'1'
 # define EMPTY	'0'
@@ -62,11 +64,17 @@ typedef enum e_type
 	player
 }	t_type;
 
-typedef struct s_vector2
+typedef struct s_vector2_f
+{
+	double	x;
+	double	y;
+}	t_vector2_f;
+
+typedef struct s_vector2_i
 {
 	int	x;
 	int	y;
-}	t_vector2;
+}	t_vector2_i;
 
 typedef struct s_vector4f
 {
@@ -78,9 +86,45 @@ typedef struct s_vector4f
 
 typedef float	t_matrix4f[4][4];
 
+typedef struct s_ray
+{
+	t_vector2_f	dir;
+	t_vector2_i	map;
+	t_vector2_f	side_dist;
+	t_vector2_f	delta_dist;
+	t_vector2_i	step;
+	int			side;
+	double		perp_dist;
+	double		hit_x;
+}	t_ray;
+
+typedef struct s_raycast_result
+{
+	double	distance;
+	double	wall_height;
+}	t_raycast_result;
+
+typedef struct s_column_render
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_column_render;
+
+typedef struct s_wall_draw
+{
+	int				draw_start;
+	int				draw_end;
+	int				line_height;
+	mlx_image_t		*texture;
+	int				tex_x;
+}	t_wall_draw;
+
 typedef struct s_min_map
 {
 	mlx_image_t	*map_img;
+	t_vector2_i	player_cell;
+	t_vector2_i	player_offset;
 	int			cell_count_x;
 	int			cell_count_y;
 }	t_min_map;
@@ -99,12 +143,16 @@ typedef struct s_map
 	t_min_map	*min_map;
 }	t_map;
 
-typedef struct	s_draw
+typedef struct s_draw
 {
-	mlx_texture_t	*no;
-	mlx_texture_t	*so;
-	mlx_texture_t	*ea;
-	mlx_texture_t	*we;
+	mlx_texture_t	*no_t;
+	mlx_texture_t	*so_t;
+	mlx_texture_t	*ea_t;
+	mlx_texture_t	*we_t;
+	mlx_image_t		*no_i;
+	mlx_image_t		*so_i;
+	mlx_image_t		*ea_i;
+	mlx_image_t		*we_i;
 }	t_draw;
 
 typedef struct	s_player
@@ -121,6 +169,7 @@ typedef struct	s_game
 	t_map		map;
 	t_player	p;
 	mlx_t		*mlx;
+	mlx_image_t	*img;
 	t_draw		texture;
 }	t_game;
 
@@ -139,6 +188,10 @@ int	is_valid_file(t_game *game);
 
 // srcs/parse/map.c
 int	open_map(t_game *game, char *input);
+
+// srcs/raycast/raycast.c
+t_raycast_result	raycast(double x_angle, double y_angle, t_game *g);
+t_ray	cast_ray(double ray_angle, t_game *g);
 
 // srcs/utils/matrix/matrix_identity.c
 void	matrix_identity(t_matrix4f m);
@@ -174,14 +227,15 @@ int	print_msg(char *str, int exit);
 uint32_t	get_rgba(char *str);
 
 // srcs/utils/convertor.c
-t_vector2	cell2pixel(int x, int y);
-t_vector2	pixel2cell(int x, int y);
+t_vector2_i	cell2pixel(int x, int y);
+t_vector2_i	pixel2cell(int x, int y);
 
 // srcs/utils/ft_error.c
 void	ft_error(void);
 
 //	srcs/utils/get_player_pos.c
-t_vector2	get_player_pixel_pos(t_game *game);
+t_vector2_i	get_player_pixel_pos(t_game *game);
+t_vector2_i	get_player_cell_pos(t_game *game);
 
 // srcs/init/init_sprites.c
 void	draw_colors(t_game *game);
@@ -191,6 +245,7 @@ int	load_sprites(t_game *game);
 void	ft_on_resize(int32_t w, int32_t h, void *param);
 void	ft_update_draw(void *g);
 int	draw(t_game game);
+void	render_frame(t_game *g);
 
 // srcs/draw/min_map/draw_min_map.c
 void	init_min_map(t_game *game);

@@ -12,21 +12,21 @@
 
 #include <ctd.h>
 
-t_vector2	cell2pixel(int x, int y)
+t_vector2_i	cell2pixel(int x, int y)
 {
-	t_vector2	pixel_pos;
+	t_vector2_i	pixel_pos;
 
 	pixel_pos.x = x * CELL_PIXEL_SIZE;
 	pixel_pos.y = y * CELL_PIXEL_SIZE;
 	return (pixel_pos);
 }
 
-t_vector2	pixel2cell(int x, int y)
+t_vector2_i	pixel2cell(int x, int y)
 {
-	t_vector2	cell_pos;
+	t_vector2_i	cell_pos;
 
-	cell_pos.x = x / CELL_PIXEL_SIZE;
-	cell_pos.y = y / CELL_PIXEL_SIZE;
+	cell_pos.x = floor(x / CELL_PIXEL_SIZE);
+	cell_pos.y = floor(y / CELL_PIXEL_SIZE);
 	return (cell_pos);
 }
 
