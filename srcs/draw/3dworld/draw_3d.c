@@ -115,7 +115,7 @@ double	calculate_ray_angle(int x, double player_angle)
 	double	ray_angle;
 
 	camera_x = 2.0 * x / (double)WIDTH - 1.0;
-	ray_angle = player_angle + atan(camera_x * tan(FOV * 0.5));
+	ray_angle = player_angle + atan(camera_x * tan((FOV * M_PI / 180.0) * 0.5));
 	return (ray_angle);
 }
 

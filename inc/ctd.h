@@ -46,6 +46,8 @@
 # define FOV 60
 # define RAY_LIMIT 4000
 
+# define M_PI 3.14159265358979323846
+
 # define WALL	'1'
 # define EMPTY	'0'
 # define NORTH	'N'
