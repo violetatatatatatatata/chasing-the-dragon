@@ -45,6 +45,7 @@ static void	ft_init(t_game *g)
 {
 	t_vector2_i		player_pos;
 
+	load_sprites(g);
 	g->texture.ea_i = mlx_texture_to_image(g->mlx, g->texture.ea_t);
 	g->texture.we_i = mlx_texture_to_image(g->mlx, g->texture.we_t);
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
