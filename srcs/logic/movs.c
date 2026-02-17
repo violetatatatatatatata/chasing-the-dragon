@@ -17,9 +17,19 @@ int	move_player(t_game *game, double new_x, double new_y)
 	char	next_cell;
 	int		grid_x;
 	int		grid_y;
+	int		map_height;
 
 	grid_x = (int)new_x;
 	grid_y = (int)new_y;
+	if (!game->map.map)
+		return (0);
+	map_height = 0;
+	while (game->map.map[map_height])
+		map_height++;
+	if (grid_y < 0 || grid_y >= map_height)
+		return (0);
+	if (grid_x < 0 || (size_t)grid_x >= ft_strlen(game->map.map[grid_y]))
+		return (0);
 	next_cell = game->map.map[grid_y][grid_x];
 	if (next_cell == WALL)
 		return (0);
