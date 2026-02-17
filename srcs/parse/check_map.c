@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:46:48 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/28 18:50:14 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/01/30 12:46:36 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ static void	flood_fill(char **map, int x, int y, int *err)
 {
 	if (*err)
 		return ;
-	if (y < 0 || !map[y] || x < 0 || \
-		(size_t)x >= ft_strlen(map[y]) || map[y][x] == ' ')
+	if (y < 0 || !map[y] || x < 0 || (size_t)x >= ft_strlen(map[y]))
 	{
 		*err = 1;
 		return ;
 	}
-	if (map[y][x] == '1' || map[y][x] == 'V')
+	if (ft_isspace(map[y][x]) || map[y][x] == '1' || map[y][x] == 'V')
 		return ;
 	map[y][x] = 'V';
 	flood_fill(map, x + 1, y, err);

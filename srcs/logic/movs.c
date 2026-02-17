@@ -50,7 +50,7 @@ int handle_key_press(int keycode, t_game *game)
 	double	speed;
 	double	mov;
 
-	input = 0.0;
+	input = 0;
 	mov = 0.0;
 	speed = speedy_gonzales(game->p);
 //	if (keycode == ESC)
@@ -65,13 +65,13 @@ int handle_key_press(int keycode, t_game *game)
 		mov -= speed;
 	if (keycode == MLX_KEY_A || keycode == MLX_KEY_D)
 	{
-		input = move_player(game, game->p.x_pos, mov);
+		input = move_player(game, game->p.x_pos + mov, game->p.y_pos);
 		if (keycode == MLX_KEY_D)
 			printf("MOVE D\n");
 	}
 	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_S)
 	{
-		input = move_player(game, mov, game->p.y_pos);
+		input = move_player(game, game->p.x_pos, game->p.y_pos + mov);
 		if (keycode == MLX_KEY_W)
 			printf("MOVE W\n");
 	}
