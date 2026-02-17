@@ -45,6 +45,7 @@
 # define CELL_SIZE 10
 # define FOV 60
 # define RAY_LIMIT 4000
+# define DRAGON_DIST 3.0 
 
 # define M_PI 3.14159265358979323846
 
@@ -155,6 +156,8 @@ typedef struct s_draw
 	mlx_image_t		*so_i;
 	mlx_image_t		*ea_i;
 	mlx_image_t		*we_i;
+	mlx_texture_t	*dragon_t;
+	mlx_image_t		*dragon_i;
 }	t_draw;
 
 typedef struct	s_player

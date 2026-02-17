@@ -26,20 +26,33 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
 
+	if (keydata.action != MLX_PRESS && keydata.action != MLX_REPEAT)
+		return ;
 	game = (t_game *)param;
-	printf("HELLO\n");
 	handle_key_press(keydata.key, game);
 }
 
-/*void	ft_update_draw(void *g)
+void	update_dragon_visibility(t_game *game)
+{
+	t_raycast_result	res;
+
+	res = raycast(game->p.pov, 0, game);
+	if (res.distance < DRAGON_DIST)
+		game->texture.dragon_i->enabled = false;
+	else
+		game->texture.dragon_i->enabled = true;
+}
+
+void	ft_update_draw(void *g)
 {
 	t_game		*game;
 
 	game = (t_game *)g;
 
 	render_frame(game);
+	update_dragon_visibility(game);
 	draw_min_map(game);
-}*/
+}
 
 static void	ft_init(t_game *g)
 {
@@ -50,13 +63,13 @@ static void	ft_init(t_game *g)
 	g->texture.we_i = mlx_texture_to_image(g->mlx, g->texture.we_t);
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
 	g->texture.no_i = mlx_texture_to_image(g->mlx, g->texture.no_t);
+	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
+	mlx_image_to_window(g->mlx, g->texture.dragon_i,
+		(WIDTH - g->texture.dragon_t->width) / 2,
+		(HEIGHT - g->texture.dragon_t->height) / 2);
 	player_pos = get_player_pixel_pos(g);
 	g->p.x_pos = player_pos.x + CELL_PIXEL_SIZE / 2;
 	g->p.y_pos = player_pos.y + CELL_PIXEL_SIZE / 2;
-	printf("PLAYER POS: %fX, %fY\n", g->p.x_pos, g->p.y_pos);
-	t_vector2_i	temp;
-	temp = pixel2cell(g->p.x_pos, g->p.y_pos);
-	printf("PLAYER POS CELL: %iX, %iY\n", temp.x, temp.y);
 }
 
 int	draw(t_game game)
@@ -72,7 +85,7 @@ int	draw(t_game game)
 	draw_min_map(&game);
 	mlx_resize_hook(game.mlx, ft_on_resize, &game);
 	mlx_key_hook(game.mlx, &my_keyhook, &game);
-	//mlx_loop_hook(game.mlx, ft_update_draw, &game);
+	mlx_loop_hook(game.mlx, ft_update_draw, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (EXIT_SUCCESS);

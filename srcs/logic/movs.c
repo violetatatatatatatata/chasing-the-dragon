@@ -40,11 +40,11 @@ int	move_player(t_game *game, double new_x, double new_y)
 
 static void	recharge_spikes(t_player *p)
 {
-		p->spikes_left = 3;
-		p->shots_left = 3;
+	p->spikes_left = 3;
+	p->shots_left = 3;
 }
 
-int handle_key_press(int keycode, t_game *game)
+int	handle_key_press(int keycode, t_game *game)
 {
 	int		input;
 	double	speed;
@@ -64,17 +64,9 @@ int handle_key_press(int keycode, t_game *game)
 	else if (keycode == MLX_KEY_A || keycode == MLX_KEY_W)
 		mov -= speed;
 	if (keycode == MLX_KEY_A || keycode == MLX_KEY_D)
-	{
 		input = move_player(game, game->p.x_pos + mov, game->p.y_pos);
-		if (keycode == MLX_KEY_D)
-			printf("MOVE D\n");
-	}
 	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_S)
-	{
 		input = move_player(game, game->p.x_pos, game->p.y_pos + mov);
-		if (keycode == MLX_KEY_W)
-			printf("MOVE W\n");
-	}
 //	if (input)
 //		render_map();
 	return (input);

@@ -117,9 +117,9 @@ t_raycast_result	raycast(double x_angle, double y_angle, t_game *g)
 		cell = pixel2cell((int)pos.x, (int)pos.y);
 		if (g->map.map[cell.y][cell.x] == '1')
 		{
-			printf("PLAYER PIXEL: %fX, %fY\n", pos.x, pos.y);
-			printf("PLAYER CELL: %iX, %iY\n", cell.x, cell.y);
-			printf("HIT\n");
+	//		printf("PLAYER PIXEL: %fX, %fY\n", pos.x, pos.y);
+	//		printf("PLAYER CELL: %iX, %iY\n", cell.x, cell.y);
+	//		printf("HIT\n");
 			break ;
 		}
 		pos.x += angle.x * 0.1f;
@@ -127,9 +127,9 @@ t_raycast_result	raycast(double x_angle, double y_angle, t_game *g)
 		i++;
 		if (i > RAY_LIMIT)
 		{
-			printf("PLAYER PIXEL: %fX, %fY\n", pos.x, pos.y);
-			printf("PLAYER CELL: %iX, %iY\n", cell.x, cell.y);
-			printf("LIMIT\n");
+	//		printf("PLAYER PIXEL: %fX, %fY\n", pos.x, pos.y);
+	//		printf("PLAYER CELL: %iX, %iY\n", cell.x, cell.y);
+	//		printf("LIMIT\n");
 			break ;
 		}
 	}
