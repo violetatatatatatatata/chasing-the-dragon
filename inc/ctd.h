@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 # include <libft.h>
 # include "../libs/MLX42/include/MLX42/MLX42.h"
@@ -45,6 +46,7 @@
 # define CELL_SIZE 10
 # define FOV 60
 # define RAY_LIMIT 4000
+# define INJECT_DURATION 30
 # define DRAGON_DIST 3.0 
 
 # define M_PI 3.14159265358979323846
@@ -156,8 +158,12 @@ typedef struct s_draw
 	mlx_image_t		*so_i;
 	mlx_image_t		*ea_i;
 	mlx_image_t		*we_i;
-	mlx_texture_t	*dragon_t;
 	mlx_image_t		*dragon_i;
+	mlx_texture_t	*dragon_t;
+	mlx_texture_t	*arms_idle_t;
+	mlx_image_t		*arms_idle_i;
+	mlx_texture_t	*arms_inject_t;
+	mlx_image_t		*arms_inject_i;
 }	t_draw;
 
 typedef struct	s_player
@@ -167,6 +173,8 @@ typedef struct	s_player
 	double	pov;
 	size_t	shots_left;
 	size_t	spikes_left;
+	bool	is_injecting;
+	int		inject_timer;
 }	t_player;
 
 typedef struct	s_game

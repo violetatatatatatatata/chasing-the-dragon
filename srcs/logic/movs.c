@@ -55,8 +55,14 @@ int	handle_key_press(int keycode, t_game *game)
 	speed = speedy_gonzales(game->p);
 //	if (keycode == ESC)
 //		return (exit_game(game));
-//	else if (keycode == SPA)
-//		input = hero_shoot(game);
+	if (keycode == MLX_KEY_SPACE)
+	{
+		if (!game->p.is_injecting)
+		{
+			game->p.is_injecting = true;
+			game->p.inject_timer = INJECT_DURATION;
+		}
+	}
 	if (keycode == R)
 		recharge_spikes(&game->p);
 	else if (keycode == MLX_KEY_S || keycode == MLX_KEY_D)

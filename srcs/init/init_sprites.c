@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/17 21:52:38 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/17 22:55:22 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ int	load_sprites(t_game *game)
 	game->texture.we_t = mlx_load_png(game->map.we_sprite_path);
 	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
 	game->texture.dragon_t = mlx_load_png("sprites/Dragon.png");
+	game->texture.arms_idle_t = mlx_load_png("sprites/arms_idle.png");
+	game->texture.arms_inject_t = mlx_load_png("sprites/arms_inject.png");
 	if (!game->texture.no_t || !game->texture.so_t || !game->texture.we_t
-		|| !game->texture.ea_t || !game->texture.dragon_t)
+		|| !game->texture.ea_t || !game->texture.dragon_t
+		|| !game->texture.arms_idle_t || !game->texture.arms_inject_t)
 		return (1);
 	return (0);
 }
