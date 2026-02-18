@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:36:47 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/18 15:22:29 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:37:29 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	draw_player(t_game *g)
 {
+	int			arms_x;
+	int			arms_y;
 	t_vector2_i	player_pos;
-	int	arms_x;
-	int	arms_y;
-	
-	g->p.is_injecting = true;
+
+	g->p.is_injecting = false;
 	g->p.inject_timer = 0;
 	g->texture.arms_idle_i = mlx_texture_to_image(g->mlx, g->texture.arms_idle_t);
 	g->texture.arms_inject_i = mlx_texture_to_image(g->mlx, g->texture.arms_inject_t);
@@ -49,4 +49,3 @@ void	update_arms_animation(t_game *game)
 		game->texture.arms_inject_i->enabled = false;
 	}
 }
-

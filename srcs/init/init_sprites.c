@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/18 15:09:57 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:56:59 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ void	draw_colors(t_game *game)
 	uint32_t	c_ceil;
 	uint32_t	c_floor;
 
-	c_ceil = get_col(game->map.rgb_celling);
-	c_floor = get_col(game->map.rgb_floor);
+	if (game->map.rgb_celling)
+		c_ceil = get_col(game->map.rgb_celling);
+	else
+		c_ceil = 0x4682B4FF;
+	if (game->map.rgb_floor)
+		c_floor = get_col(game->map.rgb_floor);
+	else
+		c_floor = 0xDC6400FF;
 	x = 0;
 	while (x < WIDTH)
 	{

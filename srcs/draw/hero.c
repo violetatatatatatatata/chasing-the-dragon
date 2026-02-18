@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 15:12:15 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/18 15:14:54 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:48:27 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_hud_images(t_game *g)
 	while (i < 5)
 	{
 		g->texture.hud_heroin_i[i] = mlx_texture_to_image(g->mlx, g->texture.hud_heroin_t[i]);
-		mlx_image_to_window(g->mlx, g->texture.hud_heroin_i[i], 20, HEIGHT - 150);
+		mlx_image_to_window(g->mlx, g->texture.hud_heroin_i[i], 20, 20);
 		g->texture.hud_heroin_i[i]->enabled = false;
 		i++;
 	}

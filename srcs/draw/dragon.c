@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:34:26 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/18 15:16:22 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:37:00 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	draw_dragon(t_game *g)
 
 	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
 	drag_x = (WIDTH - g->texture.dragon_t->width) / 2;
-	drag_y = (HEIGHT - g->texture.dragon_t->height) / 2;
+	drag_y = (HEIGHT / 2) - (g->texture.dragon_t->height / 2);
 	mlx_image_to_window(g->mlx, g->texture.dragon_i, drag_x, drag_y);
 }

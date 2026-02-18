@@ -275,5 +275,6 @@ void	update_dragon_visibility(t_game *game);
 void	update_arms_animation(t_game *game);
 void	draw_player(t_game *g);
 void	draw_dragon(t_game *g);
+void	update_hud(t_game *game);
 
 #endif
