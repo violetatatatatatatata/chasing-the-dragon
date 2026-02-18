@@ -39,8 +39,8 @@
 # define TITLE "Chasing the dragon"
 # define WIDTH 1920
 # define HEIGHT 1080
-# define WIDTH_MAP 500
-# define HEIGHT_MAP 500
+# define WIDTH_MAP 250
+# define HEIGHT_MAP 250
 # define CELL_PIXEL_SIZE 15
 # define CELL_PLAYER_SIZE 7
 # define CELL_SIZE 10
@@ -49,7 +49,6 @@
 # define INJECT_DURATION 30
 # define DRAGON_DIST 3.0
 
-# define M_PI 3.14159265358979323846
 # define PIXEL_JUMP 5
 
 # define WALL	'1'

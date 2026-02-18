@@ -56,8 +56,7 @@ static void	ft_init(t_game *g)
 
 int	draw(t_game game)
 {
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	game.mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
+	game.mlx = mlx_init(WIDTH, HEIGHT, TITLE, false);
 	if (!game.mlx)
 		ft_error();
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
