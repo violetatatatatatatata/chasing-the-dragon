@@ -47,7 +47,7 @@
 # define FOV 60
 # define RAY_LIMIT 4000
 # define INJECT_DURATION 30
-# define DRAGON_DIST 3.0 
+# define DRAGON_DIST 3.0
 
 # define M_PI 3.14159265358979323846
 
@@ -259,6 +259,14 @@ void	ft_on_resize(int32_t w, int32_t h, void *param);
 void	ft_update_draw(void *g);
 int	draw(t_game game);
 void	render_frame(t_game *g);
+
+// srcs/draw/dragon.c
+void	update_dragon_visibility(t_game *game);
+void	draw_dragon(t_game *g);
+
+// srcs/draw/player.c
+void	draw_player(t_game *g);
+void	update_arms_animation(t_game *game);
 
 // srcs/draw/min_map/draw_min_map.c
 void	init_min_map(t_game *game);
