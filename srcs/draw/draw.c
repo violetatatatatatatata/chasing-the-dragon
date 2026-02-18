@@ -85,15 +85,15 @@ static void	ft_init(t_game *g)
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
 	g->texture.no_i = mlx_texture_to_image(g->mlx, g->texture.no_t);
 	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
-	drag_x = (WIDTH - g->texture.dragon_t->width) / 2;
-	drag_y = (HEIGHT - g->texture.dragon_t->height) / 2;
+	drag_x = (g->mlx->width - g->texture.dragon_t->width) / 2;
+	drag_y = (g->mlx->height - g->texture.dragon_t->height) / 2;
 	mlx_image_to_window(g->mlx, g->texture.dragon_i, drag_x, drag_y);
 	g->p.is_injecting = true;
 	g->p.inject_timer = 0;
 	g->texture.arms_idle_i = mlx_texture_to_image(g->mlx, g->texture.arms_idle_t);
 	g->texture.arms_inject_i = mlx_texture_to_image(g->mlx, g->texture.arms_inject_t);
-	arms_x = (WIDTH - g->texture.arms_idle_t->width) / 2;
-	arms_y = HEIGHT - g->texture.arms_idle_t->height;
+	arms_x = (g->mlx->width - g->texture.arms_idle_t->width) / 2;
+	arms_y = g->mlx->height - g->texture.arms_idle_t->height;
 	mlx_image_to_window(g->mlx, g->texture.arms_idle_i, arms_x, arms_y);
 	mlx_image_to_window(g->mlx, g->texture.arms_inject_i, arms_x, arms_y);
 	g->texture.arms_idle_i->enabled = true;
@@ -110,7 +110,7 @@ int	draw(t_game game)
 	if (!game.mlx)
 		ft_error();
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	if (!game.img) 
+	if (!game.img)
 		ft_error();
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	init_min_map(&game);

@@ -23,10 +23,10 @@
 }
 
 /// @brief Calculates object projection
-/// @param mvp 
-/// @param obj 
-/// @param view 
-/// @param projection 
+/// @param mvp
+/// @param obj
+/// @param view
+/// @param projection
 static void	ft_calculate_object_mvp(t_matrix4f mvp, t_object *obj,
 	t_matrix4f view, t_matrix4f projection)
 {
@@ -105,31 +105,33 @@ void	clear_framebuffer(t_game *g)
 {
 	size_t	size;
 
+	mlx_delete_image(g->mlx, g->img);
+	g->img = mlx_new_image(g->mlx, g->mlx->width, g->mlx->height);
 	size = g->img->width * g->img->height * 4;
 	ft_memset(g->img->pixels, 0, size);
 }
 
-double	calculate_ray_angle(int x, double player_angle)
+double	calculate_ray_angle(int x, double player_angle, int width)
 {
 	double	camera_x;
 	double	ray_angle;
 
-	camera_x = 2.0 * x / (double)WIDTH - 1.0;
+	camera_x = 2.0 * x / (double)width - 1.0;
 	ray_angle = player_angle + atan(camera_x * tan((FOV * M_PI / 180.0) * 0.5));
 	return (ray_angle);
 }
 
-t_column_render	calculate_column_dimensions(double perp_dist)
+t_column_render	calculate_column_dimensions(double perp_dist, int height)
 {
 	t_column_render	col;
 
-	col.line_height = (int)(HEIGHT / perp_dist);
-	col.draw_start = -col.line_height / 2 + HEIGHT / 2;
+	col.line_height = (int)(height / perp_dist);
+	col.draw_start = -col.line_height / 2 + height / 2;
 	if (col.draw_start < 0)
 		col.draw_start = 0;
-	col.draw_end = col.line_height / 2 + HEIGHT / 2;
-	if (col.draw_end >= HEIGHT)
-		col.draw_end = HEIGHT - 1;
+	col.draw_end = col.line_height / 2 + height / 2;
+	if (col.draw_end >= height)
+		col.draw_end = height - 1;
 	return (col);
 }
 
@@ -179,7 +181,8 @@ void	draw_wall_column(t_game *g, int x, t_wall_draw d)
 	uint32_t	color;
 
 	step = (double)d.texture->height / d.line_height;
-	tex_pos = (d.draw_start - HEIGHT / 2 + d.line_height / 2) * step;
+	tex_pos = (d.draw_start - (int)g->img->height / 2
+			+ d.line_height / 2) * step;
 	y = d.draw_start;
 	while (y < d.draw_end)
 	{
@@ -203,11 +206,11 @@ void	render_frame(t_game *g)
 
 	clear_framebuffer(g);
 	x = 0;
-	while (x < WIDTH)
+	while (x < (int)g->img->width)
 	{
-		ray_angle = calculate_ray_angle(x, g->p.pov);
+		ray_angle = calculate_ray_angle(x, g->p.pov, g->img->width);
 		ray = cast_ray(ray_angle, g);
-		col = calculate_column_dimensions(ray.perp_dist);
+		col = calculate_column_dimensions(ray.perp_dist, g->img->height);
 		draw.texture = select_wall_texture(g, ray);
 		draw.tex_x = calculate_tex_x(ray, draw.texture);
 		draw.draw_start = col.draw_start;
