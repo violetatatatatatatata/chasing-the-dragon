@@ -22,8 +22,8 @@ void	draw_player(t_game *g)
 	g->p.inject_timer = 0;
 	g->texture.arms_idle_i = mlx_texture_to_image(g->mlx, g->texture.arms_idle_t);
 	g->texture.arms_inject_i = mlx_texture_to_image(g->mlx, g->texture.arms_inject_t);
-	arms_x = (WIDTH - g->texture.arms_idle_t->width) / 2;
-	arms_y = HEIGHT - g->texture.arms_idle_t->height;
+	arms_x = (g->mlx->width - g->texture.arms_idle_t->width) / 2;
+	arms_y = g->mlx->height - g->texture.arms_idle_t->height;
 	mlx_image_to_window(g->mlx, g->texture.arms_idle_i, arms_x, arms_y);
 	mlx_image_to_window(g->mlx, g->texture.arms_inject_i, arms_x, arms_y);
 	g->texture.arms_idle_i->enabled = true;
@@ -35,6 +35,13 @@ void	draw_player(t_game *g)
 
 void	update_arms_animation(t_game *game)
 {
+	int			arms_x;
+	int			arms_y;
+
+	arms_x = (game->mlx->width - game->texture.arms_idle_t->width) / 2;
+	arms_y = game->mlx->height - game->texture.arms_idle_t->height;
+	mlx_image_to_window(game->mlx, game->texture.arms_idle_i, arms_x, arms_y);
+	mlx_image_to_window(game->mlx, game->texture.arms_inject_i, arms_x, arms_y);
 	if (game->p.is_injecting)
 	{
 		game->texture.arms_inject_i->enabled = true;

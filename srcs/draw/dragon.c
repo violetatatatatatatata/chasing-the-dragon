@@ -15,7 +15,12 @@
 void	update_dragon_visibility(t_game *game)
 {
 	t_raycast_result	res;
+	int					drag_x;
+	int					drag_y;
 
+	drag_x = (game->mlx->width - game->texture.dragon_t->width) / 2;
+	drag_y = (game->mlx->height - game->texture.dragon_t->height) / 2;
+	mlx_image_to_window(game->mlx, game->texture.dragon_i, drag_x, drag_y);
 	res = raycast(game->p.pov, 0, game);
 	if (res.distance < DRAGON_DIST)
 		game->texture.dragon_i->enabled = false;
@@ -29,7 +34,7 @@ void	draw_dragon(t_game *g)
 	int	drag_y;
 
 	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
-	drag_x = (WIDTH - g->texture.dragon_t->width) / 2;
-	drag_y = (HEIGHT - g->texture.dragon_t->height) / 2;
+	drag_x = (g->mlx->width - g->texture.dragon_t->width) / 2;
+	drag_y = (g->mlx->height - g->texture.dragon_t->height) / 2;
 	mlx_image_to_window(g->mlx, g->texture.dragon_i, drag_x, drag_y);
 }
