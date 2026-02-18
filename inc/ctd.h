@@ -164,6 +164,10 @@ typedef struct s_draw
 	mlx_image_t		*arms_idle_i;
 	mlx_texture_t	*arms_inject_t;
 	mlx_image_t		*arms_inject_i;
+	mlx_texture_t   *hud_heroin_t[5];
+    mlx_image_t     *hud_heroin_i[5];
+    mlx_texture_t   *hud_smack_t[4];
+    mlx_image_t     *hud_smack_i[4];
 }	t_draw;
 
 typedef struct	s_player
@@ -266,5 +270,10 @@ void	draw_min_map(t_game *game);
 
 // srcs/test/test.c
 char	**ft_create_map(int width, int height);
+
+void	update_dragon_visibility(t_game *game);
+void	update_arms_animation(t_game *game);
+void	draw_player(t_game *g);
+void	draw_dragon(t_game *g);
 
 #endif

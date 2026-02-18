@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/17 22:55:22 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:09:57 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,22 @@ void	draw_colors(t_game *game)
 	}
 }
 
+static int	load_hud_assets(t_game *game)
+{
+	game->texture.hud_heroin_t[0] = mlx_load_png("sprites/heroinx0.png");
+	game->texture.hud_heroin_t[1] = mlx_load_png("sprites/heroinx1.png");
+	game->texture.hud_heroin_t[2] = mlx_load_png("sprites/heroinx2.png");
+	game->texture.hud_heroin_t[3] = mlx_load_png("sprites/heroinx3.png");
+	game->texture.hud_heroin_t[4] = mlx_load_png("sprites/heroinx4.png");
+	game->texture.hud_smack_t[0] = mlx_load_png("sprites/smack00.png");
+	game->texture.hud_smack_t[1] = mlx_load_png("sprites/smack01.png");
+	game->texture.hud_smack_t[2] = mlx_load_png("sprites/smack02.png");
+	game->texture.hud_smack_t[3] = mlx_load_png("sprites/smack03.png");
+	if (!game->texture.hud_heroin_t[0] || !game->texture.hud_smack_t[0])
+		return (1);
+	return (0);
+}
+
 int	load_sprites(t_game *game)
 {
 	game->texture.no_t = mlx_load_png(game->map.no_sprite_path);
@@ -54,6 +70,8 @@ int	load_sprites(t_game *game)
 	if (!game->texture.no_t || !game->texture.so_t || !game->texture.we_t
 		|| !game->texture.ea_t || !game->texture.dragon_t
 		|| !game->texture.arms_idle_t || !game->texture.arms_inject_t)
+		return (1);
+	if (load_hud_assets(game))
 		return (1);
 	return (0);
 }

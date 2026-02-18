@@ -37,25 +37,23 @@ void	ft_update_draw(void *g)
 	t_game		*game;
 
 	game = (t_game *)g;
+
+	draw_colors(game);
 	render_frame(game);
-	update_dragon_visibility(game);
-	update_arms_animation(game);
-	draw_min_map(game);
+	update_dragon_visibility(game); // 3. Dragón
+	update_arms_animation(game);    // 4. Brazos
+	update_hud(game);               // 5. Hero 
+	draw_min_map(game);             // 6. Minimapa (encima de todo)
 }
 
 static void	ft_init(t_game *g)
 {
-	t_vector2_i	player_pos;
-	int			arms_x;
-	int			arms_y;
-	int			drag_x;
-	int			drag_y;
-
 	load_sprites(g);
 	g->texture.ea_i = mlx_texture_to_image(g->mlx, g->texture.ea_t);
 	g->texture.we_i = mlx_texture_to_image(g->mlx, g->texture.we_t);
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
 	g->texture.no_i = mlx_texture_to_image(g->mlx, g->texture.no_t);
+	init_hud_images(g);
 	draw_dragon(g);
 	draw_player(g);
 }
@@ -67,12 +65,14 @@ int	draw(t_game game)
 	if (!game.mlx)
 		ft_error();
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	if (!game.img) 
+	if (!game.img)
 		ft_error();
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	init_min_map(&game);
 	ft_init(&game);
+	draw_colors(&game);
 	render_frame(&game);
+	update_hud(&game);
 	draw_min_map(&game);
 	mlx_resize_hook(game.mlx, ft_on_resize, &game);
 	mlx_key_hook(game.mlx, &my_keyhook, &game);
