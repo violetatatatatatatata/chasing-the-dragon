@@ -50,6 +50,7 @@
 # define DRAGON_DIST 3.0
 
 # define M_PI 3.14159265358979323846
+# define PIXEL_JUMP 5
 
 # define WALL	'1'
 # define EMPTY	'0'

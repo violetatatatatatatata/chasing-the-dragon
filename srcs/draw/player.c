@@ -40,8 +40,10 @@ void	update_arms_animation(t_game *game)
 
 	arms_x = (game->mlx->width - game->texture.arms_idle_t->width) / 2;
 	arms_y = game->mlx->height - game->texture.arms_idle_t->height;
-	mlx_image_to_window(game->mlx, game->texture.arms_idle_i, arms_x, arms_y);
-	mlx_image_to_window(game->mlx, game->texture.arms_inject_i, arms_x, arms_y);
+	game->texture.arms_idle_i->instances[0].x = arms_x;
+	game->texture.arms_idle_i->instances[0].y = arms_y;
+	game->texture.arms_inject_i->instances[0].x = arms_x;
+	game->texture.arms_inject_i->instances[0].y = arms_y;
 	if (game->p.is_injecting)
 	{
 		game->texture.arms_inject_i->enabled = true;

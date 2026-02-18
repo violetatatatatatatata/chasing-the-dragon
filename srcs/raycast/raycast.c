@@ -18,25 +18,25 @@ static void	ft_set_ray_step_side(t_ray *r, t_game *g)
 	{
 		r->step.x = -1;
 		r->side_dist.x = (g->p.x_pos - r->map.x * CELL_PIXEL_SIZE)
-			* r->delta_dist.x;
+			/ fabs(r->dir.x);
 	}
 	else
 	{
 		r->step.x = 1;
 		r->side_dist.x = ((r->map.x + 1) * CELL_PIXEL_SIZE - g->p.x_pos)
-			* r->delta_dist.x;
+			/ fabs(r->dir.x);
 	}
 	if (r->dir.y < 0)
 	{
 		r->step.y = -1;
 		r->side_dist.y = (g->p.y_pos - r->map.y * CELL_PIXEL_SIZE)
-			* r->delta_dist.y;
+			/ fabs(r->dir.y);
 	}
 	else
 	{
 		r->step.y = 1;
 		r->side_dist.y = ((r->map.y + 1) * CELL_PIXEL_SIZE - g->p.y_pos)
-			* r->delta_dist.y;
+			/ fabs(r->dir.y);
 	}
 }
 
@@ -48,8 +48,8 @@ static t_ray	ft_init_ray(double ray_angle, t_game *g)
 	r.dir.y = sin(ray_angle);
 	r.map.x = (int)(g->p.x_pos / CELL_PIXEL_SIZE);
 	r.map.y = (int)(g->p.y_pos / CELL_PIXEL_SIZE);
-	r.delta_dist.x = fabs(1.0 / r.dir.x);
-	r.delta_dist.y = fabs(1.0 / r.dir.y);
+	r.delta_dist.x = CELL_PIXEL_SIZE / fabs(r.dir.x);
+	r.delta_dist.y = CELL_PIXEL_SIZE / fabs(r.dir.y);
 	ft_set_ray_step_side(&r, g);
 	return (r);
 }
@@ -81,18 +81,24 @@ static void	ft_dda_loop(t_ray *r, t_game *g)
 t_ray	cast_ray(double ray_angle, t_game *g)
 {
 	t_ray	r;
+	double	t;
+	double	wall_x;
+	double	view_dot;
 
 	r = ft_init_ray(ray_angle, g);
 	ft_dda_loop(&r, g);
 	if (r.side == 0)
-		r.perp_dist = (r.side_dist.x - r.delta_dist.x);
+		t = r.side_dist.x - r.delta_dist.x;
 	else
-		r.perp_dist = (r.side_dist.y - r.delta_dist.y);
+		t = r.side_dist.y - r.delta_dist.y;
+	view_dot = cos(ray_angle) * cos(g->p.pov) + sin(ray_angle) * sin(g->p.pov);
+	r.perp_dist = t * view_dot;
 	if (r.side == 0)
-		r.hit_x = g->p.y_pos + r.perp_dist * r.dir.y;
+		wall_x = g->p.y_pos + t * r.dir.y;
 	else
-		r.hit_x = g->p.x_pos + r.perp_dist * r.dir.x;
-	r.hit_x -= floor(r.hit_x);
+		wall_x = g->p.x_pos + t * r.dir.x;
+	wall_x -= floor(wall_x / CELL_PIXEL_SIZE) * CELL_PIXEL_SIZE;
+	r.hit_x = wall_x / CELL_PIXEL_SIZE;
 	return (r);
 }
 

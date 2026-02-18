@@ -107,8 +107,8 @@ void	clear_framebuffer(t_game *g)
 
 	mlx_delete_image(g->mlx, g->img);
 	g->img = mlx_new_image(g->mlx, g->mlx->width, g->mlx->height);
-	size = g->img->width * g->img->height * 4;
-	ft_memset(g->img->pixels, 0, size);
+	size = g->img->width * g->img->height;
+	//ft_memset(g->img->pixels, 0, size);
 }
 
 double	calculate_ray_angle(int x, double player_angle, int width)
@@ -121,11 +121,14 @@ double	calculate_ray_angle(int x, double player_angle, int width)
 	return (ray_angle);
 }
 
-t_column_render	calculate_column_dimensions(double perp_dist, int height)
+t_column_render	calculate_column_dimensions(double perp_dist, int height,
+	int width)
 {
 	t_column_render	col;
+	double			dist_proj;
 
-	col.line_height = (int)(height / perp_dist);
+	dist_proj = (width / 2.0) / tan((FOV * M_PI / 180.0) / 2.0);
+	col.line_height = (int)((CELL_PIXEL_SIZE * dist_proj) / perp_dist);
 	col.draw_start = -col.line_height / 2 + height / 2;
 	if (col.draw_start < 0)
 		col.draw_start = 0;
@@ -210,7 +213,7 @@ void	render_frame(t_game *g)
 	{
 		ray_angle = calculate_ray_angle(x, g->p.pov, g->img->width);
 		ray = cast_ray(ray_angle, g);
-		col = calculate_column_dimensions(ray.perp_dist, g->img->height);
+		col = calculate_column_dimensions(ray.perp_dist, g->img->height, g->img->width);
 		draw.texture = select_wall_texture(g, ray);
 		draw.tex_x = calculate_tex_x(ray, draw.texture);
 		draw.draw_start = col.draw_start;

@@ -38,9 +38,9 @@ void	ft_update_draw(void *g)
 
 	game = (t_game *)g;
 	render_frame(game);
-	update_dragon_visibility(game);
 	update_arms_animation(game);
-	draw_min_map(game);
+	update_dragon_visibility(game);
+	//draw_min_map(game);
 }
 
 static void	ft_init(t_game *g)
