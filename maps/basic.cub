@@ -3,8 +3,8 @@ SO ./sprites/tree_south.png
 WE ./sprites/tree_west.png
 EA ./sprites/tree_east.png
 
-F 220,100,0
-C 70,130,180
+F 0,0,0
+C 180, 119, 70
 
 111111
 100001
