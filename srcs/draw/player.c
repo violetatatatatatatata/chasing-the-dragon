@@ -14,7 +14,6 @@
 
 void	draw_player(t_game *g)
 {
-	t_vector2_i	player_pos;
 	int			arms_x;
 	int			arms_y;
 
@@ -28,9 +27,6 @@ void	draw_player(t_game *g)
 	mlx_image_to_window(g->mlx, g->texture.arms_inject_i, arms_x, arms_y);
 	g->texture.arms_idle_i->enabled = true;
 	g->texture.arms_inject_i->enabled = false;
-	player_pos = get_player_pixel_pos(g);
-	g->p.x_pos = player_pos.x + CELL_PIXEL_SIZE / 2;
-	g->p.y_pos = player_pos.y + CELL_PIXEL_SIZE / 2;
 }
 
 void	update_arms_animation(t_game *game)

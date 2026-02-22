@@ -73,7 +73,7 @@ static void	ft_dda_loop(t_ray *r, t_game *g)
 			r->map.y += r->step.y;
 			r->side = 1;
 		}
-		if (g->map.map[r->map.y][r->map.x] == '1')
+		if (r->map.y < g->map.max_map_y && r->map.x < g->map.max_map_x && g->map.map[r->map.y][r->map.x] == '1')
 			hit = 1;
 	}
 }

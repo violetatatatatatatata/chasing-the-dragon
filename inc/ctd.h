@@ -183,6 +183,7 @@ typedef struct	s_game
 	t_player	p;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*img_cube_map;
 	t_draw		texture;
 }	t_game;
 
@@ -259,6 +260,10 @@ void	ft_on_resize(int32_t w, int32_t h, void *param);
 void	ft_update_draw(void *g);
 int	draw(t_game game);
 void	render_frame(t_game *g);
+
+// srcs/draw/3dworld/draw_wall.c
+void	init_roof_floor(t_game *g);
+void	draw_roof_floor(t_game *g);
 
 // srcs/draw/dragon.c
 void	update_dragon_visibility(t_game *game);

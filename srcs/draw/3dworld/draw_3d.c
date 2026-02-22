@@ -101,15 +101,10 @@ void	draw_3d(t_game *g)
 
 }*/
 
-void	clear_framebuffer(t_game *g)
+/*void	clear_framebuffer(t_game *g)
 {
-	size_t	size;
-
-	mlx_delete_image(g->mlx, g->img);
-	g->img = mlx_new_image(g->mlx, g->mlx->width, g->mlx->height);
-	size = g->img->width * g->img->height;
-	//ft_memset(g->img->pixels, 0, size);
-}
+	
+}*/
 
 double	calculate_ray_angle(int x, double player_angle, int width)
 {
@@ -207,13 +202,13 @@ void	render_frame(t_game *g)
 	t_column_render		col;
 	t_wall_draw			draw;
 
-	clear_framebuffer(g);
 	x = 0;
 	while (x < (int)g->img->width)
 	{
 		ray_angle = calculate_ray_angle(x, g->p.pov, g->img->width);
 		ray = cast_ray(ray_angle, g);
-		col = calculate_column_dimensions(ray.perp_dist, g->img->height, g->img->width);
+		col = calculate_column_dimensions(ray.perp_dist,
+				g->img->height, g->img->width);
 		draw.texture = select_wall_texture(g, ray);
 		draw.tex_x = calculate_tex_x(ray, draw.texture);
 		draw.draw_start = col.draw_start;
@@ -222,5 +217,4 @@ void	render_frame(t_game *g)
 		draw_wall_column(g, x, draw);
 		x++;
 	}
-	mlx_image_to_window(g->mlx, g->img, 0, 0);
 }
