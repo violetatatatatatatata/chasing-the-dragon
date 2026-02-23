@@ -251,6 +251,15 @@ void	ft_error(void);
 t_vector2_i	get_player_pixel_pos(t_game *game);
 t_vector2_i	get_player_cell_pos(t_game *game);
 
+//	srcs/utils/get_map_size.c
+void	get_map_size(t_game *g);
+
+//	srcs/utils/get_player_angle.c
+double	get_player_angle(char c);
+
+//	srcs/utils/angle2rad.c
+double	angle2rad(double angle);
+
 // srcs/init/init_sprites.c
 void	draw_colors(t_game *game);
 int	load_sprites(t_game *game);

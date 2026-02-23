@@ -110,9 +110,13 @@ double	calculate_ray_angle(int x, double player_angle, int width)
 {
 	double	camera_x;
 	double	ray_angle;
+	double	player_angle_rad;
+	double	half_fov_rad;
 
+	player_angle_rad = angle2rad(player_angle);
+	half_fov_rad = angle2rad(FOV) / 2;
 	camera_x = 2.0 * x / (double)width - 1.0;
-	ray_angle = player_angle + atan(camera_x * tan((FOV * M_PI / 180.0) * 0.5));
+	ray_angle = player_angle_rad - atan(camera_x * tan(half_fov_rad));
 	return (ray_angle);
 }
 
@@ -202,6 +206,7 @@ void	render_frame(t_game *g)
 	t_column_render		col;
 	t_wall_draw			draw;
 
+	ft_memset(g->img->pixels, 0,g->img->width * g->img->height * sizeof(int32_t));
 	x = 0;
 	while (x < (int)g->img->width)
 	{

@@ -14,23 +14,17 @@
 
 int	move_player(t_game *game, double new_x, double new_y)
 {
-	char	next_cell;
-	int		grid_x;
-	int		grid_y;
-	int		map_height;
+	char			next_cell;
+	t_vector2_i		grid;
 
-	grid_x = (int)new_x;
-	grid_y = (int)new_y;
+	grid = pixel2cell((int)new_x, (int)new_y);
 	if (!game->map.map)
 		return (0);
-	map_height = 0;
-	while (game->map.map[map_height])
-		map_height++;
-	if (grid_y < 0 || grid_y >= map_height)
+	if (grid.y < 0 || grid.y >= game->map.max_map_y)
 		return (0);
-	if (grid_x < 0 || (size_t)grid_x >= ft_strlen(game->map.map[grid_y]))
+	if (grid.x < 0 || grid.x >= game->map.max_map_x)
 		return (0);
-	next_cell = game->map.map[grid_y][grid_x];
+	next_cell = game->map.map[grid.y][grid.x];
 	if (next_cell == WALL)
 		return (0);
 	game->p.x_pos = new_x;
@@ -65,9 +59,9 @@ int	handle_key_press(int keycode, t_game *game)
 	}
 	if (keycode == R)
 		recharge_spikes(&game->p);
-	else if (keycode == MLX_KEY_S || keycode == MLX_KEY_D)
+	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_D)
 		mov += speed;
-	else if (keycode == MLX_KEY_A || keycode == MLX_KEY_W)
+	else if (keycode == MLX_KEY_A || keycode == MLX_KEY_S)
 		mov -= speed;
 	if (keycode == MLX_KEY_A || keycode == MLX_KEY_D)
 		input = move_player(game, game->p.x_pos + mov, game->p.y_pos);

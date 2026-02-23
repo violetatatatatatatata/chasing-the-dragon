@@ -73,7 +73,9 @@ static void	ft_dda_loop(t_ray *r, t_game *g)
 			r->map.y += r->step.y;
 			r->side = 1;
 		}
-		if (r->map.y < g->map.max_map_y && r->map.x < g->map.max_map_x && g->map.map[r->map.y][r->map.x] == '1')
+		if (r->map.x >= 0 && r->map.x < g->map.max_map_x
+			&& r->map.y >= 0 && r->map.y < g->map.max_map_y
+			&& g->map.map[r->map.y][r->map.x] == '1')
 			hit = 1;
 	}
 }
@@ -84,6 +86,7 @@ t_ray	cast_ray(double ray_angle, t_game *g)
 	double	t;
 	double	wall_x;
 	double	view_dot;
+	double	player_angle_rad;
 
 	r = ft_init_ray(ray_angle, g);
 	ft_dda_loop(&r, g);
@@ -91,7 +94,9 @@ t_ray	cast_ray(double ray_angle, t_game *g)
 		t = r.side_dist.x - r.delta_dist.x;
 	else
 		t = r.side_dist.y - r.delta_dist.y;
-	view_dot = cos(ray_angle) * cos(g->p.pov) + sin(ray_angle) * sin(g->p.pov);
+	player_angle_rad = angle2rad(g->p.pov);
+	view_dot = cos(ray_angle) * cos(player_angle_rad)
+		+ sin(ray_angle) * sin(player_angle_rad);
 	r.perp_dist = t * view_dot;
 	if (r.side == 0)
 		wall_x = g->p.y_pos + t * r.dir.y;

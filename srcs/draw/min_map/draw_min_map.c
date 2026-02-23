@@ -12,35 +12,9 @@
 
 #include <ctd.h>
 
-void	ft_get_map_size(t_game *g)
-{
-	int		i;
-	int		j;
-	int		max_y;
-	char	**map;
-
-	map = g->map.map;
-	max_y = 0;
-	i = 0;
-	while (map[i])
-		i++;
-	g->map.max_map_y = i;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-			j++;
-		if (max_y < j)
-			max_y = j;
-		i++;
-	}
-	g->map.max_map_x = max_y;
-}
-
 void	init_min_map(t_game *game)
 {
-	ft_get_map_size(game);
+	get_map_size(game);
 	game->map.min_map = malloc(sizeof(t_min_map));
 	game->map.min_map->map_img
 		= mlx_new_image(game->mlx, WIDTH_MAP, HEIGHT_MAP);

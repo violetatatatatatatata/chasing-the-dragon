@@ -41,6 +41,8 @@ void	ft_update_draw(void *g)
 	render_frame(game);
 	update_arms_animation(game);
 	update_dragon_visibility(game);
+	//printf("PLAYER POV: %fX\n", game->p.pov);
+	//printf("PLAYER POS: %fX, %fY\n\n", game->p.x_pos, game->p.y_pos);
 	//draw_min_map(game);
 }
 
@@ -53,6 +55,7 @@ static void	ft_init(t_game *g)
 	g->texture.we_i = mlx_texture_to_image(g->mlx, g->texture.we_t);
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
 	g->texture.no_i = mlx_texture_to_image(g->mlx, g->texture.no_t);
+	get_map_size(g);
 	player_pos = get_player_pixel_pos(g);
 	g->p.x_pos = player_pos.x + CELL_PIXEL_SIZE / 2;
 	g->p.y_pos = player_pos.y + CELL_PIXEL_SIZE / 2;

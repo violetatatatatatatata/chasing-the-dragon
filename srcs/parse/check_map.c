@@ -67,7 +67,7 @@ static void	flood_fill(char **map, int x, int y, int *err)
 	flood_fill(map, x, y - 1, err);
 }
 
-static void	get_player_pos(char **map, int *x, int *y)
+static void	get_player_pos(char **map, int *x, int *y, double *pov)
 {
 	int	i;
 	int	j;
@@ -85,6 +85,7 @@ static void	get_player_pos(char **map, int *x, int *y)
 				player++;
 				*x = j;
 				*y = i;
+				*pov = get_player_angle(map[i][j]);
 			}
 		}
 	}
@@ -104,7 +105,7 @@ int	check_map_closed(t_game *game)
 	temp = duplicate_m(game->map.map);
 	if (!temp)
 		return (0);
-	get_player_pos(temp, &x, &y);
+	get_player_pos(temp, &x, &y, &game->p.pov);
 	err = 0;
 	if (!temp[y])
 		err = 1;
