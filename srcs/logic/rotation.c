@@ -14,7 +14,11 @@
 
 int	handle_key_press_rot(int keycode, t_game *game)
 {
-	(void)keycode;
-	(void)game;
+	game->p.pov += !((keycode == MLX_KEY_LEFT) && (keycode == MLX_KEY_RIGHT))
+		* (keycode == MLX_KEY_LEFT) * ROTATION_SPEED;
+	game->p.pov -= !((keycode == MLX_KEY_LEFT) && (keycode == MLX_KEY_RIGHT))
+		* (keycode == MLX_KEY_RIGHT) * ROTATION_SPEED;
+	game->p.pov += 360 * (game->p.pov < 0);
+	game->p.pov -= 360 * (game->p.pov > 360);
 	return (0);
 }

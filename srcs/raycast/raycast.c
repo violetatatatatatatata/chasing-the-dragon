@@ -83,7 +83,6 @@ static void	ft_dda_loop(t_ray *r, t_game *g)
 t_ray	cast_ray(double ray_angle, t_game *g)
 {
 	t_ray	r;
-	double	t;
 	double	wall_x;
 	double	view_dot;
 	double	player_angle_rad;
@@ -91,17 +90,17 @@ t_ray	cast_ray(double ray_angle, t_game *g)
 	r = ft_init_ray(ray_angle, g);
 	ft_dda_loop(&r, g);
 	if (r.side == 0)
-		t = r.side_dist.x - r.delta_dist.x;
+		r.real_dist = r.side_dist.x - r.delta_dist.x;
 	else
-		t = r.side_dist.y - r.delta_dist.y;
+		r.real_dist = r.side_dist.y - r.delta_dist.y;
 	player_angle_rad = angle2rad(g->p.pov);
 	view_dot = cos(ray_angle) * cos(player_angle_rad)
 		+ sin(ray_angle) * sin(player_angle_rad);
-	r.perp_dist = t * view_dot;
+	r.perp_dist = r.real_dist * view_dot;
 	if (r.side == 0)
-		wall_x = g->p.y_pos + t * r.dir.y;
+		wall_x = g->p.y_pos + r.real_dist * r.dir.y;
 	else
-		wall_x = g->p.x_pos + t * r.dir.x;
+		wall_x = g->p.x_pos + r.real_dist * r.dir.x;
 	wall_x -= floor(wall_x / CELL_PIXEL_SIZE) * CELL_PIXEL_SIZE;
 	r.hit_x = wall_x / CELL_PIXEL_SIZE;
 	return (r);

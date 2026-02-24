@@ -12,6 +12,68 @@
 
 #include <ctd.h>
 
+static void	recharge_spikes(t_player *p)
+{
+	p->spikes_left = 3;
+	p->shots_left = 3;
+}
+
+static t_vector2_f	get_movement(int keycode, double angle, double speed)
+{
+	t_vector2_f	move;
+	double		forward_x;
+	double		forward_y;
+	double		right_x;
+	double		right_y;
+
+	move.x = 0;
+	move.y = 0;
+	forward_x = cos(angle);
+	forward_y = sin(angle);
+	right_x = sin(angle);
+	right_y = -cos(angle);
+	if (keycode == MLX_KEY_W)
+	{
+		move.x = forward_x * speed;
+		move.y = forward_y * speed;
+	}
+	else if (keycode == MLX_KEY_S)
+	{
+		move.x = -forward_x * speed;
+		move.y = -forward_y * speed;
+	}
+	else if (keycode == MLX_KEY_D)
+	{
+		move.x = right_x * speed;
+		move.y = right_y * speed;
+	}
+	else if (keycode == MLX_KEY_A)
+	{
+		move.x = -right_x * speed;
+		move.y = -right_y * speed;
+	}
+	return (move);
+}
+
+static int	handle_action_keys(int keycode, t_game *game)
+{
+	if (keycode == MLX_KEY_SPACE)
+	{
+		if (!game->p.is_injecting)
+		{
+			game->p.is_injecting = true;
+			game->p.inject_timer = INJECT_DURATION;
+		}
+		return (1);
+	}
+	if (keycode == R)
+	{
+		recharge_spikes(&game->p);
+		return (1);
+	}
+	return (0);
+}
+
 int	move_player(t_game *game, double new_x, double new_y)
 {
 	char			next_cell;
@@ -32,42 +94,20 @@ int	move_player(t_game *game, double new_x, double new_y)
 	return (1);
 }
 
-static void	recharge_spikes(t_player *p)
-{
-	p->spikes_left = 3;
-	p->shots_left = 3;
-}
-
 int	handle_key_press(int keycode, t_game *game)
 {
-	int		input;
-	double	speed;
-	double	mov;
+	double		speed;
+	t_vector2_f	move;
+	double		new_x;
+	double		new_y;
 
-	input = 0;
-	mov = 0.0;
+	if (handle_action_keys(keycode, game))
+		return (0);
 	speed = speedy_gonzales(game->p);
-//	if (keycode == ESC)
-//		return (exit_game(game));
-	if (keycode == MLX_KEY_SPACE)
-	{
-		if (!game->p.is_injecting)
-		{
-			game->p.is_injecting = true;
-			game->p.inject_timer = INJECT_DURATION;
-		}
-	}
-	if (keycode == R)
-		recharge_spikes(&game->p);
-	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_D)
-		mov += speed;
-	else if (keycode == MLX_KEY_A || keycode == MLX_KEY_S)
-		mov -= speed;
-	if (keycode == MLX_KEY_A || keycode == MLX_KEY_D)
-		input = move_player(game, game->p.x_pos + mov, game->p.y_pos);
-	else if (keycode == MLX_KEY_W || keycode == MLX_KEY_S)
-		input = move_player(game, game->p.x_pos, game->p.y_pos + mov);
-//	if (input)
-//		render_map();
-	return (input);
+	move = get_movement(keycode, angle2rad(game->p.pov), speed);
+	if (move.x == 0 && move.y == 0)
+		return (0);
+	new_x = game->p.x_pos + move.x;
+	new_y = game->p.y_pos + move.y;
+	return (move_player(game, new_x, new_y));
 }

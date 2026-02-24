@@ -50,6 +50,7 @@
 # define DRAGON_DIST 3.0
 
 # define PIXEL_JUMP 5
+# define ROTATION_SPEED 1.5
 
 # define WALL	'1'
 # define EMPTY	'0'
@@ -101,6 +102,7 @@ typedef struct s_ray
 	int			side;
 	double		perp_dist;
 	double		hit_x;
+	double		real_dist;
 }	t_ray;
 
 typedef struct s_raycast_result
@@ -190,6 +192,7 @@ typedef struct	s_game
 // srcs/logic/movs.c
 int	move_player(t_game *game, double new_x, double new_y);
 int handle_key_press(int keycode, t_game *game);
+int	handle_key_press_rot(int keycode, t_game *game);
 
 // srcs/logic/shots.c
 double	speedy_gonzales(t_player p);

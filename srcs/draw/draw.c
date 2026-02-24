@@ -30,6 +30,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 		return ;
 	game = (t_game *)param;
 	handle_key_press(keydata.key, game);
+	handle_key_press_rot(keydata.key, game);
 }
 
 void	ft_update_draw(void *g)
