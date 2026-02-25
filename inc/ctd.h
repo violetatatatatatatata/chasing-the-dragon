@@ -127,6 +127,14 @@ typedef struct s_wall_draw
 	int				tex_x;
 }	t_wall_draw;
 
+typedef struct s_directions
+{
+	double	forward_x;
+	double	forward_y;
+	double	right_x;
+	double	right_y;
+}	t_directions;
+
 typedef struct s_min_map
 {
 	mlx_image_t	*map_img;
@@ -168,7 +176,7 @@ typedef struct s_draw
 	mlx_image_t		*arms_inject_i;
 }	t_draw;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	x_pos;
 	double	y_pos;
@@ -179,7 +187,7 @@ typedef struct	s_player
 	int		inject_timer;
 }	t_player;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	t_map		map;
 	t_player	p;
@@ -191,8 +199,13 @@ typedef struct	s_game
 
 // srcs/logic/movs.c
 int	move_player(t_game *game, double new_x, double new_y);
-int handle_key_press(int keycode, t_game *game);
+int	handle_key_press(int keycode, t_game *game);
+
+// srcs/logic/rotation.c
 int	handle_key_press_rot(int keycode, t_game *game);
+
+// srcs/logic/get_movement.c
+t_vector2_f	get_movement(int keycode, double angle, double speed);
 
 // srcs/logic/shots.c
 double	speedy_gonzales(t_player p);
@@ -202,6 +215,12 @@ int	check_map_closed(t_game *game);
 
 // srcs/parse/format.c
 int	is_valid_file(t_game *game);
+
+// srcs/parse/map_utils.c
+t_list	*read_map_file(char *input);
+int	copy_map_lines(t_game *game, t_list *start, int height);
+int	save_color_path(t_game *game, char *line, int i);
+int	save_texture_path(t_game *game, char *line, int i);
 
 // srcs/parse/map.c
 int	open_map(t_game *game, char *input);
@@ -271,7 +290,11 @@ int	load_sprites(t_game *game);
 void	ft_on_resize(int32_t w, int32_t h, void *param);
 void	ft_update_draw(void *g);
 int	draw(t_game game);
+
+// srcs/draw/3dworld.c
 void	render_frame(t_game *g);
+void	draw_wall_column(t_game *g, int x, t_wall_draw d);
+mlx_image_t	*select_wall_texture(t_game *g, t_ray ray);
 
 // srcs/draw/3dworld/draw_wall.c
 void	init_roof_floor(t_game *g);
@@ -289,7 +312,16 @@ void	update_arms_animation(t_game *game);
 void	init_min_map(t_game *game);
 void	draw_min_map(t_game *game);
 
+// srcs/memory_clean/clean_game.c
+void	clean_game(void *g);
+
+// srcs/memory_clean/clean_double_arr.c
+void	clean_double_arr(char **arr, int x_max);
+
+// srcs/memory_clean/clean_file.c
+void	clean_file(void *c);
+
 // srcs/test/test.c
-char	**ft_create_map(int width, int height);
+void	print_map(t_map *map);
 
 #endif

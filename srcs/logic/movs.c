@@ -18,43 +18,6 @@ static void	recharge_spikes(t_player *p)
 	p->shots_left = 3;
 }
 
-static t_vector2_f	get_movement(int keycode, double angle, double speed)
-{
-	t_vector2_f	move;
-	double		forward_x;
-	double		forward_y;
-	double		right_x;
-	double		right_y;
-
-	move.x = 0;
-	move.y = 0;
-	forward_x = cos(angle);
-	forward_y = sin(angle);
-	right_x = sin(angle);
-	right_y = -cos(angle);
-	if (keycode == MLX_KEY_W)
-	{
-		move.x = forward_x * speed;
-		move.y = forward_y * speed;
-	}
-	else if (keycode == MLX_KEY_S)
-	{
-		move.x = -forward_x * speed;
-		move.y = -forward_y * speed;
-	}
-	else if (keycode == MLX_KEY_D)
-	{
-		move.x = right_x * speed;
-		move.y = right_y * speed;
-	}
-	else if (keycode == MLX_KEY_A)
-	{
-		move.x = -right_x * speed;
-		move.y = -right_y * speed;
-	}
-	return (move);
-}
-
 static int	handle_action_keys(int keycode, t_game *game)
 {
 	if (keycode == MLX_KEY_SPACE)

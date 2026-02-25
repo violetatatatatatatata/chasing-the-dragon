@@ -108,8 +108,7 @@ char	*get_next_line(int fd)
 	{
 		if (ft_isnewline(temp_buffer, ft_linesize(temp_buffer)))
 			return (ft_cut_new_line(&temp_buffer));
-		vars.str = ft_strdup(temp_buffer);
-		free(temp_buffer);
+		vars.temp_str = temp_buffer;
 		temp_buffer = NULL;
 	}
 	return (ft_read_buffer(&temp_buffer, &vars, fd));

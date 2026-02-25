@@ -34,6 +34,5 @@ int	main(int argc, char **argv)
 	if (open_map(&g, argv[1]))
 		return (EXIT_FAILURE);
 	draw(g);
-	// alexalto
 	return (EXIT_SUCCESS);
 }

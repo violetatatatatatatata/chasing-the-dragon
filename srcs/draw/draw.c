@@ -12,16 +12,6 @@
 
 #include <ctd.h>
 
-void	ft_on_resize(int32_t w, int32_t h, void *param)
-{
-	t_game	*game;
-
-	(void)h;
-	game = param;
-	if (game->map.min_map && game->map.min_map->map_img)
-		game->map.min_map->map_img->instances[0].x = w - WIDTH_MAP - 10;
-}
-
 void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
@@ -42,9 +32,6 @@ void	ft_update_draw(void *g)
 	render_frame(game);
 	update_arms_animation(game);
 	update_dragon_visibility(game);
-	//printf("PLAYER POV: %fX\n", game->p.pov);
-	//printf("PLAYER POS: %fX, %fY\n\n", game->p.x_pos, game->p.y_pos);
-	//draw_min_map(game);
 }
 
 static void	ft_init(t_game *g)
@@ -72,14 +59,12 @@ int	draw(t_game game)
 	if (!game.img)
 		ft_error();
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	init_min_map(&game);
 	ft_init(&game);
 	render_frame(&game);
 	draw_dragon(&game);
 	draw_player(&game);
-	draw_min_map(&game);
-	mlx_resize_hook(game.mlx, ft_on_resize, &game);
 	mlx_key_hook(game.mlx, &my_keyhook, &game);
+	mlx_close_hook(game.mlx, clean_game, &game);
 	mlx_loop_hook(game.mlx, ft_update_draw, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

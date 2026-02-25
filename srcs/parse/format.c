@@ -14,8 +14,8 @@
 
 static int	has_textures(t_game *game)
 {
-	if (!game->map.no_sprite_path || !game->map.so_sprite_path || \
-		!game->map.we_sprite_path || !game->map.ea_sprite_path)
+	if (!game->map.no_sprite_path || !game->map.so_sprite_path
+		|| !game->map.we_sprite_path || !game->map.ea_sprite_path)
 		return (print_msg("Missing texture path", 0));
 	return (1);
 }
@@ -58,6 +58,6 @@ static int	has_walls(t_game *game)
 
 int	is_valid_file(t_game *game)
 {
-	return (has_textures(game) && has_colors(game) && has_map(game) \
-			&& has_walls(game));
+	return (has_textures(game) && has_colors(game) && has_map(game)
+		&& has_walls(game));
 }

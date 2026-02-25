@@ -1,27 +1,30 @@
 #include <ctd.h>
 
-char	**ft_create_map(int width, int height)
+void	print_map(t_map *map)
 {
-	char	**map;
-	int		x;
-	int		y;
+	int	i = 0;
 
-	map = malloc(sizeof(char *) * width);
-	x = 0;
-	while (x < width)
+	printf("NO Path: %s\n", map->no_sprite_path ? map->no_sprite_path : "(null)");
+	printf("SO Path: %s\n", map->so_sprite_path ? map->so_sprite_path : "(null)");
+	printf("WE Path: %s\n", map->we_sprite_path ? map->we_sprite_path : "(null)");
+	printf("EA Path: %s\n", map->ea_sprite_path ? map->ea_sprite_path : "(null)");
+
+	if (map->rgb_floor)
+		printf("Floor Color (Hex): 0x%08X\n", *map->rgb_floor);
+	else
+		printf("Floor Color: (null ptr)\n");
+	if (map->rgb_celling)
+		printf("Ceiling Color (Hex): 0x%08X\n", *map->rgb_celling);
+	else
+		printf("Ceiling Color: (null ptr)\n");
+	if (map->map)
 	{
-		map[x] = malloc(sizeof(char) * height);
-		y = 0;
-		while (y < height)
+		while (map->map[i])
 		{
-			map[x][y] = '0';
-			if ((x == 0 || x == width - 1) || (y == 0 || y == height - 1))
-				map[x][y] = '1';
-			else if (x == width / 2 && y == height / 2)
-				map[x][y] = 'N';
-			y++;
+			printf("[%02d] |%s\n", i, map->map[i]);
+			i++;
 		}
-		x++;
 	}
-	return (map);
+	else
+		printf("  (Map array is NULL)\n");
 }
