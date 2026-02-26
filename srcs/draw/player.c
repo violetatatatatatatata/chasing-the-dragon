@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:36:47 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/26 16:22:41 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:34:35 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,45 @@ void	update_arms_animation(t_game *game)
 	}
 }
 
-void init_ui_images(t_game *game)
+void	init_ui_images(t_game *g)
 {
-    int i;
-    int sw = 255;
-    int sh = 255;
+	int			i;
+	mlx_image_t	*img;
 
-    i = -1;
-    while (++i < 5)
-    {
-        game->texture.shots_i[i] = mlx_texture_to_image(game->mlx, game->texture.shots_t[i]);
-        mlx_image_to_window(game->mlx, game->texture.shots_i[i], WIDTH - sw, HEIGHT - sh);
-        game->texture.shots_i[i]->instances[0].enabled = false;
-    }
-    i = -1;
-    while (++i < 4)
-    {
-        game->texture.spikes_i[i] = mlx_texture_to_image(game->mlx, game->texture.spikes_t[i]);
-        mlx_image_to_window(game->mlx, game->texture.spikes_i[i], WIDTH - sw, 0);
-        game->texture.spikes_i[i]->instances[0].enabled = false;
-    }
+	i = -1;
+	while (++i < 5)
+	{
+		g->texture.shots_i[i] = mlx_texture_to_image(g->mlx, g->texture.shots_t[i]);
+		img = g->texture.shots_i[i];
+		mlx_image_to_window(g->mlx, img, WIDTH - img->width, HEIGHT - img->height);
+		img->instances[0].enabled = false;
+	}
+	i = -1;
+	while (++i < 4)
+	{
+		g->texture.spikes_i[i] = mlx_texture_to_image(g->mlx, g->texture.spikes_t[i]);
+		img = g->texture.spikes_i[i];
+		mlx_image_to_window(g->mlx, img, WIDTH - img->width, 0);
+		img->instances[0].enabled = false;
+	}
+}
+
+void	update_ui(t_game *g)
+{
+	int	i;
+	int	s_left;
+	int	sp_left;
+
+	s_left = g->p.shots_left;
+	if (s_left > 4)
+		s_left = 4;
+	sp_left = g->p.spikes_left;
+	if (sp_left > 3)
+		sp_left = 3;
+	i = -1;
+	while (++i < 5)
+		g->texture.shots_i[i]->instances[0].enabled = (i == s_left);
+	i = -1;
+	while (++i < 4)
+		g->texture.spikes_i[i]->instances[0].enabled = (i == sp_left);
 }

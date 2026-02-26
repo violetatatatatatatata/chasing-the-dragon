@@ -179,6 +179,7 @@ typedef struct s_draw
 	mlx_texture_t	*spikes_t[4];
 	mlx_image_t		*spikes_i[4];
 	mlx_texture_t	*joan_t;
+	mlx_image_t		*joan_i;
 	bool			is_joan;
 }	t_draw;
 
@@ -311,6 +312,8 @@ void	update_dragon_visibility(t_game *game);
 void	draw_dragon(t_game *g);
 
 // srcs/draw/player.c
+void    init_ui_images(t_game *g);
+void    update_ui(t_game *g);
 void	draw_player(t_game *g);
 void	update_arms_animation(t_game *game);
 
