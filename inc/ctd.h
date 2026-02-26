@@ -123,15 +123,6 @@ typedef struct s_directions
 	double	right_y;
 }	t_directions;
 
-typedef struct s_min_map
-{
-	mlx_image_t	*map_img;
-	t_vector2_i	player_cell;
-	t_vector2_i	player_offset;
-	int			cell_count_x;
-	int			cell_count_y;
-}	t_min_map;
-
 typedef struct s_map
 {
 	char		*no_sprite_path;
@@ -143,7 +134,6 @@ typedef struct s_map
 	int			max_map_x;
 	int			max_map_y;
 	char		**map;
-	t_min_map	*min_map;
 }	t_map;
 
 typedef struct s_draw
@@ -192,133 +182,97 @@ typedef struct s_game
 	t_draw		texture;
 }	t_game;
 
+// srcs/draw/3dworld/draw_roof_floor.c
+void	init_roof_floor(t_game *g);
+void	draw_roof_floor(t_game *g);
+// srcs/draw/3dworld/render_frame.c
+void	render_frame(t_game *g);
+// srcs/draw/3dworld/render_utils.c
+mlx_image_t	*select_wall_texture(t_game *g, t_ray ray);
+void	draw_wall_column(t_game *g, int x, t_wall_draw d);
+// srcs/draw/dragon.c
+void	update_dragon_visibility(t_game *g);
+void	draw_dragon(t_game *g);
+// srcs/draw/draw.c
+void	my_keyhook(mlx_key_data_t keydata, void *param);
+void	ft_update_draw(void *g);
+int	draw(t_game game);
+// srcs/draw/player.c
+void	draw_player(t_game *g);
+void	update_arms_animation(t_game *game);
+void	init_ui_images(t_game *g);
+void	update_ui(t_game *g);
+// srcs/init/main.c
+int	main(int argc, char **argv);
+// srcs/init/init_sprites.c
+void	draw_colors(t_game *game);
+int	load_sprites(t_game *game);
+// srcs/logic/get_movement.c
+t_vector2_f	get_movement(int keycode, double angle, double speed);
+// srcs/logic/rotation.c
+int	handle_key_press_rot(int keycode, t_game *game);
 // srcs/logic/movs.c
 int	move_player(t_game *game, double new_x, double new_y);
 int	handle_key_press(int keycode, t_game *game);
-
-// srcs/logic/rotation.c
-int	handle_key_press_rot(int keycode, t_game *game);
-
-// srcs/logic/get_movement.c
-t_vector2_f	get_movement(int keycode, double angle, double speed);
-
 // srcs/logic/shots.c
 double	speedy_gonzales(t_player p);
-
+// srcs/memory_clean/clean_double_arr.c
+void	clean_double_arr(char **arr, int x_max);
+// srcs/memory_clean/clean_file.c
+void	clean_file(void *c);
+// srcs/memory_clean/clean_game.c
+void	clean_game(void *g);
 // srcs/parse/check_map.c
 int	check_map_closed(t_game *game);
-
 // srcs/parse/format.c
 int	is_valid_file(t_game *game);
-
-// srcs/parse/map_utils.c
-t_list	*read_map_file(char *input);
-int	copy_map_lines(t_game *game, t_list *start, int height);
-int	save_color_path(t_game *game, char *line, int i);
-int	save_texture_path(t_game *game, char *line, int i);
-
 // srcs/parse/map.c
 int	open_map(t_game *game, char *input);
-
+// srcs/parse/map_utils.c
+int	copy_map_lines(t_game *game, t_list *start, int height);
+t_list	*read_map_file(char *input);
+int	save_texture_path(t_game *game, char *line, int i);
+int	save_color_path(t_game *game, char *line, int i);
 // srcs/raycast/raycast.c
-t_raycast_result	raycast(double x_angle, double y_angle, t_game *g);
 t_ray	cast_ray(double ray_angle, t_game *g);
-
+// srcs/test/test.c
+void	print_map(t_map *map);
+// srcs/utils/angle2rad.c
+double	angle2rad(double angle);
+// srcs/utils/convertor.c
+t_vector2_i	cell2pixel(int x, int y);
+t_vector2_i	pixel2cell(int x, int y);
+// srcs/utils/ft_error.c
+void	ft_error(void);
+// srcs/utils/get_map_size.c
+void	get_map_size(t_game *g);
+// srcs/utils/get_player_angle.c
+double	get_player_angle(char c);
+// srcs/utils/get_player_pos.c
+t_vector2_i	get_player_pixel_pos(t_game *game);
+t_vector2_i	get_player_cell_pos(t_game *game);
+// srcs/utils/init_vec4f.c
+t_vector4f	init_vec4f(float x, float y, float z, float w);
 // srcs/utils/matrix/matrix_identity.c
 void	matrix_identity(t_matrix4f m);
-
 // srcs/utils/matrix/matrix_multiply.c
+void	ft_matrix_copy(t_matrix4f dst, t_matrix4f src);
 void	matrix_multiply(t_matrix4f res, t_matrix4f a, t_matrix4f b);
-
 // srcs/utils/matrix/matrix_rotation.c
 void	matrix_rotate_x(t_matrix4f m, float angle);
 void	matrix_rotate_y(t_matrix4f m, float angle);
 void	matrix_rotate_z(t_matrix4f m, float angle);
-
 // srcs/utils/matrix/matrix_scale.c
 void	matrix_scale(t_matrix4f m, float x, float y, float z);
-
 // srcs/utils/matrix/matrix_translate.c
 void	matrix_translate(t_matrix4f m, float x, float y, float z);
-
 // srcs/utils/matrix/matrix_vec4_multiply.c
 void	matrix_vec4_multiply(t_vector4f *res, t_matrix4f m, t_vector4f v);
-
 // srcs/utils/matrix/projection_matrix_perspective.c
-void	projection_matrix_perspective(t_matrix4f projection_matrix,
-		t_game *g);
-
-// srcs/utils/init_vec4f.c
-t_vector4f	init_vec4f(float x, float y, float z, float w);
-
+void	projection_matrix_perspective(t_matrix4f projection_matrix, t_game *g);
 // srcs/utils/messages.c
 int	print_msg(char *str, int exit);
-
 // srcs/utils/utils.c
 uint32_t	get_rgba(char *str);
-
-// srcs/utils/convertor.c
-t_vector2_i	cell2pixel(int x, int y);
-t_vector2_i	pixel2cell(int x, int y);
-
-// srcs/utils/ft_error.c
-void	ft_error(void);
-
-//	srcs/utils/get_player_pos.c
-t_vector2_i	get_player_pixel_pos(t_game *game);
-t_vector2_i	get_player_cell_pos(t_game *game);
-
-//	srcs/utils/get_map_size.c
-void	get_map_size(t_game *g);
-
-//	srcs/utils/get_player_angle.c
-double	get_player_angle(char c);
-
-//	srcs/utils/angle2rad.c
-double	angle2rad(double angle);
-
-// srcs/init/init_sprites.c
-void	draw_colors(t_game *game);
-int	load_sprites(t_game *game);
-
-// srcs/draw/draw.c
-void	ft_on_resize(int32_t w, int32_t h, void *param);
-void	ft_update_draw(void *g);
-int	draw(t_game game);
-
-// srcs/draw/3dworld.c
-void	render_frame(t_game *g);
-void	draw_wall_column(t_game *g, int x, t_wall_draw d);
-mlx_image_t	*select_wall_texture(t_game *g, t_ray ray);
-
-// srcs/draw/3dworld/draw_wall.c
-void	init_roof_floor(t_game *g);
-void	draw_roof_floor(t_game *g);
-
-// srcs/draw/dragon.c
-void	update_dragon_visibility(t_game *game);
-void	draw_dragon(t_game *g);
-
-// srcs/draw/player.c
-void    init_ui_images(t_game *g);
-void    update_ui(t_game *g);
-void	draw_player(t_game *g);
-void	update_arms_animation(t_game *game);
-
-// srcs/draw/min_map/draw_min_map.c
-void	init_min_map(t_game *game);
-void	draw_min_map(t_game *game);
-
-// srcs/memory_clean/clean_game.c
-void	clean_game(void *g);
-
-// srcs/memory_clean/clean_double_arr.c
-void	clean_double_arr(char **arr, int x_max);
-
-// srcs/memory_clean/clean_file.c
-void	clean_file(void *c);
-
-// srcs/test/test.c
-void	print_map(t_map *map);
 
 #endif
