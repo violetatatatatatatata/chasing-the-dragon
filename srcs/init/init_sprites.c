@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/17 22:55:22 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:22:43 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int	load_sprites(t_game *game)
 	game->texture.so_t = mlx_load_png(game->map.so_sprite_path);
 	game->texture.we_t = mlx_load_png(game->map.we_sprite_path);
 	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
+	game->texture.shots_t[0] = mlx_load_png("sprites/heroinx0.png")
+	game->texture.spikes_t[0] = mlx_load_png("sprites/smack00.png");
+	game->texture.joan_t = mlx_load_png("sprites/joan_caganer.png");
+	game->texture.is_joan = false;
 	game->texture.dragon_t = mlx_load_png("sprites/Dragon.png");
 	game->texture.arms_idle_t = mlx_load_png("sprites/arms_idle.png");
 	game->texture.arms_inject_t = mlx_load_png("sprites/arms_inject.png");

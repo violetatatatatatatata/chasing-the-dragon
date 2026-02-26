@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:34:26 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/26 15:30:24 by aalcaide         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:21:10 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	draw_dragon(t_game *g)
 	int	drag_x;
 	int	drag_y;
 
+	mlx_texture_t *current_tex;
+	if (game->texture.is_joan)
+	    current_tex = game->texture.joan_t;
+	else
+	    current_tex = game->texture.dragon_t;
 	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
 	drag_x = (g->mlx->width - g->texture.dragon_t->width) / 2;
 	drag_y = (g->mlx->height - g->texture.dragon_t->height) / 2;

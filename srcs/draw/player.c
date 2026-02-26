@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:36:47 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/18 12:38:31 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:22:41 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,26 @@ void	update_arms_animation(t_game *game)
 		game->texture.arms_idle_i->enabled = true;
 		game->texture.arms_inject_i->enabled = false;
 	}
+}
+
+void init_ui_images(t_game *game)
+{
+    int i;
+    int sw = 255;
+    int sh = 255;
+
+    i = -1;
+    while (++i < 5)
+    {
+        game->texture.shots_i[i] = mlx_texture_to_image(game->mlx, game->texture.shots_t[i]);
+        mlx_image_to_window(game->mlx, game->texture.shots_i[i], WIDTH - sw, HEIGHT - sh);
+        game->texture.shots_i[i]->instances[0].enabled = false;
+    }
+    i = -1;
+    while (++i < 4)
+    {
+        game->texture.spikes_i[i] = mlx_texture_to_image(game->mlx, game->texture.spikes_t[i]);
+        mlx_image_to_window(game->mlx, game->texture.spikes_i[i], WIDTH - sw, 0);
+        game->texture.spikes_i[i]->instances[0].enabled = false;
+    }
 }

@@ -174,6 +174,12 @@ typedef struct s_draw
 	mlx_image_t		*arms_idle_i;
 	mlx_texture_t	*arms_inject_t;
 	mlx_image_t		*arms_inject_i;
+	mlx_texture_t	*shots_t[5];
+	mlx_image_t		*shots_i[5];
+	mlx_texture_t	*spikes_t[4];
+	mlx_image_t		*spikes_i[4];
+	mlx_texture_t	*joan_t;
+	bool			is_joan;
 }	t_draw;
 
 typedef struct s_player

@@ -20,6 +20,8 @@ static void	recharge_spikes(t_player *p)
 
 static int	handle_action_keys(int keycode, t_game *game)
 {
+	if (keycode == MLX_KEY_J)
+	    game->texture.is_joan = !game->texture.is_joan;
 	if (keycode == MLX_KEY_SPACE)
 	{
 		game->p.shots_left--;
