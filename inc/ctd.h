@@ -320,6 +320,7 @@ void	clean_double_arr(char **arr, int x_max);
 
 // srcs/memory_clean/clean_file.c
 void	clean_file(void *c);
+void	clean_map(t_game *g);
 
 // srcs/test/test.c
 void	print_map(t_map *map);

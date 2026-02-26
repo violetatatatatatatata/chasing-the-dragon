@@ -16,15 +16,15 @@ static int	has_textures(t_game *game)
 {
 	if (!game->map.no_sprite_path || !game->map.so_sprite_path
 		|| !game->map.we_sprite_path || !game->map.ea_sprite_path)
-		return (print_msg("Missing texture path", 0));
-	return (1);
+		return (print_msg("Missing texture path", EXIT_FAILURE));
+	return (0);
 }
 
 static int	has_colors(t_game *game)
 {
 	if (!game->map.rgb_floor || !game->map.rgb_celling)
-		return (print_msg("Missing color configuration", 0));
-	return (1);
+		return (print_msg("Missing color configuration", EXIT_FAILURE));
+	return (0);
 }
 
 static int	has_map(t_game *game)
@@ -33,7 +33,7 @@ static int	has_map(t_game *game)
 	int	y;
 
 	if (!game->map.map || !game->map.map[0])
-		return (print_msg("Map is empty or missing", 0));
+		return (print_msg("Map is empty or missing", EXIT_FAILURE));
 	y = 0;
 	while (game->map.map[y])
 	{
@@ -41,23 +41,23 @@ static int	has_map(t_game *game)
 		while (game->map.map[y][x])
 		{
 			if (!ft_strchr("01NSEW ", game->map.map[y][x]))
-				return (print_msg("Invalid character in map", 0));
+				return (print_msg("Invalid character in map", EXIT_FAILURE));
 			x++;
 		}
 		y++;
 	}
-	return (1);
+	return (0);
 }
 
 static int	has_walls(t_game *game)
 {
 	if (check_map_closed(game))
-		return (print_msg("Map is not closed by walls", 0));
-	return (1);
+		return (print_msg("Map is not closed by walls", EXIT_FAILURE));
+	return (0);
 }
 
 int	is_valid_file(t_game *game)
 {
-	return (has_textures(game) && has_colors(game) && has_map(game)
-		&& has_walls(game));
+	return (!has_textures(game) && !has_colors(game) && !has_map(game)
+		&& !has_walls(game));
 }

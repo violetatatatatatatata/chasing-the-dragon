@@ -92,8 +92,10 @@ int	open_map(t_game *game, char *input)
 		return (ft_lstclear(&file, clean_file), EXIT_FAILURE);
 	if (list_to_map(game, file))
 		return (ft_lstclear(&file, clean_file), EXIT_FAILURE);
+	get_map_size(game);
 	if (!is_valid_file(game))
-		return (ft_lstclear(&file, clean_file), EXIT_FAILURE);
+		return (ft_lstclear(&file, clean_file),
+			clean_map(game), EXIT_FAILURE);
 	print_map(&game->map);
 	print_msg("File loaded!", EXIT_SUCCESS);
 	ft_lstclear(&file, clean_file);

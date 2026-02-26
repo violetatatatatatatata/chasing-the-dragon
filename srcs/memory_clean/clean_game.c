@@ -12,7 +12,7 @@
 
 #include <ctd.h>
 
-static void	ft_clean_map(t_game *g)
+void	clean_map(t_game *g)
 {
 	free(g->map.no_sprite_path);
 	free(g->map.so_sprite_path);
@@ -46,7 +46,7 @@ void	clean_game(void *g)
 	t_game	*game;
 
 	game = (t_game *)g;
-	ft_clean_map(game);
+	clean_map(game);
 	ft_clean_draw(game);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_delete_image(game->mlx, game->img_cube_map);
