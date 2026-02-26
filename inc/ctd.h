@@ -222,6 +222,8 @@ void	clean_double_arr(char **arr, int x_max);
 void	clean_file(void *c);
 // srcs/memory_clean/clean_game.c
 void	clean_game(void *g);
+void	clean_map(t_game *g);
+void	clean_paths(t_game *g);
 // srcs/parse/check_map.c
 int	check_map_closed(t_game *game);
 // srcs/parse/format.c

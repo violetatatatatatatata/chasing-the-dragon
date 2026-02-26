@@ -6,7 +6,7 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/02/04 12:37:40 by avelandr         ###   ########.fr        #
+#    Updated: 2026/02/26 18:04:03 by aalcaide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJ_DIR     = objs
 SRC         = $(shell find $(SRC_DIR) -name "*.c")
 
 OBJ         = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+DEP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.d, $(SRC))
 
 BOLD      = \033[1m
 BLACK     = \033[1;30m
@@ -101,7 +102,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
 	@curr=$$(find $(OBJ_DIR) -type f -name "*.o" 2>/dev/null | wc -l); \
 	percent=$$(( $$curr * 100 / $(TOTAL_SRCS) )); \
 	bar_len=$$(( $$percent / 2 )); \
@@ -126,4 +127,5 @@ fclean: clean
 
 re: fclean all
 
+-include $(DEP)
 .PHONY: all clean fclean re libft mlx42

@@ -64,6 +64,8 @@ static void	ft_clean_draw(t_game *g)
 	mlx_delete_texture(g->texture.arms_idle_t);
 	mlx_delete_image(g->mlx, g->texture.arms_inject_i);
 	mlx_delete_texture(g->texture.arms_inject_t);
+	mlx_delete_image(g->mlx, g->texture.joan_i);
+	mlx_delete_texture(g->texture.joan_t);
 }
 
 void	clean_game(void *g)
