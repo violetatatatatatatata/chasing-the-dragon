@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:58:59 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/28 18:45:17 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:15:19 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int	process_info(t_game *game, t_list *file)
 		else if (l[i] == '1' || l[i] == '0')
 			return (EXIT_SUCCESS);
 		else
-			return (clean_paths(game), print_msg("Invalid line found!", EXIT_FAILURE));
+			return (clean_paths(game), print_msg("Invalid line found!",
+					EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -96,7 +97,6 @@ int	open_map(t_game *game, char *input)
 	if (!is_valid_file(game))
 		return (ft_lstclear(&file, clean_file),
 			clean_map(game), EXIT_FAILURE);
-	print_map(&game->map);
 	print_msg("File loaded!", EXIT_SUCCESS);
 	ft_lstclear(&file, clean_file);
 	return (EXIT_SUCCESS);

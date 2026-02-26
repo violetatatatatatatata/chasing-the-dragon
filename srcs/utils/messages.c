@@ -6,7 +6,7 @@
 /*   By: avelandr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:42:29 by avelandr          #+#    #+#             */
-/*   Updated: 2026/01/27 20:35:38 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:13:20 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	print_msg(char *str, int exit)
 {
 	if (exit == EXIT_FAILURE)
-		printf("%sError:\t%s", RED, RESET);
+		printf("%sError:\n%s", RED, RESET);
 	else if (exit == EXIT_SUCCESS)
 		printf("%s%s", GREEN, RESET);
 	printf("%s\n", str);

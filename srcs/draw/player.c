@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 12:36:47 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/26 16:34:35 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:09:44 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,18 @@ void	init_ui_images(t_game *g)
 	i = -1;
 	while (++i < 5)
 	{
-		g->texture.shots_i[i] = mlx_texture_to_image(g->mlx, g->texture.shots_t[i]);
+		g->texture.shots_i[i] = mlx_texture_to_image(g->mlx,
+				g->texture.shots_t[i]);
 		img = g->texture.shots_i[i];
-		mlx_image_to_window(g->mlx, img, WIDTH - img->width, HEIGHT - img->height);
+		mlx_image_to_window(g->mlx, img, WIDTH - img->width,
+			HEIGHT - img->height);
 		img->instances[0].enabled = false;
 	}
 	i = -1;
 	while (++i < 4)
 	{
-		g->texture.spikes_i[i] = mlx_texture_to_image(g->mlx, g->texture.spikes_t[i]);
+		g->texture.spikes_i[i] = mlx_texture_to_image(g->mlx,
+				g->texture.spikes_t[i]);
 		img = g->texture.spikes_i[i];
 		mlx_image_to_window(g->mlx, img, WIDTH - img->width, 0);
 		img->instances[0].enabled = false;

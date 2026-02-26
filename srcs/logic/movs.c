@@ -21,7 +21,7 @@ static void	recharge_spikes(t_player *p)
 static int	handle_action_keys(int keycode, t_game *game)
 {
 	if (keycode == MLX_KEY_J)
-	    game->texture.is_joan = !game->texture.is_joan;
+		game->texture.is_joan = !game->texture.is_joan;
 	if (keycode == MLX_KEY_SPACE)
 	{
 		game->p.shots_left--;
@@ -75,7 +75,6 @@ int	handle_key_press(int keycode, t_game *game)
 	if (handle_action_keys(keycode, game))
 		return (0);
 	speed = speedy_gonzales(game->p);
-	printf("speed: %f\n", speed);
 	move = get_movement(keycode, angle2rad(game->p.pov), speed);
 	if (move.x == 0 && move.y == 0)
 		return (0);

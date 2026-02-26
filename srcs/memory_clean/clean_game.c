@@ -44,7 +44,6 @@ static void	ft_dont_do_drugs(t_game *g)
 		mlx_delete_image(g->mlx, g->texture.shots_i[i]);
 		mlx_delete_texture(g->texture.shots_t[i]);
 	}
-
 }
 
 static void	ft_clean_draw(t_game *g)

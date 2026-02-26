@@ -12,9 +12,6 @@
 
 #include <ctd.h>
 
-/// @brief Gets player pos in the cell
-/// @param game 
-/// @return Returns player pos cell
 static t_vector2_i	ft_player_pos(t_game *game)
 {
 	int			x;
@@ -24,7 +21,6 @@ static t_vector2_i	ft_player_pos(t_game *game)
 	pos.x = 0;
 	pos.y = 0;
 	y = 0;
-	printf("SIZE: %iX, %iY\n", game->map.max_map_x, game->map.max_map_y);
 	while (y < game->map.max_map_y)
 	{
 		x = 0;
