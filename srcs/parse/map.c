@@ -65,7 +65,7 @@ static int	process_info(t_game *game, t_list *file)
 		else if (l[i] == '1' || l[i] == '0')
 			return (EXIT_SUCCESS);
 		else
-			return (print_msg("Invalid line found!", EXIT_FAILURE));
+			return (clean_paths(game), print_msg("Invalid line found!", EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);
 }
