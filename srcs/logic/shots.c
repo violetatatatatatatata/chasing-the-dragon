@@ -16,19 +16,19 @@ double	speedy_gonzales(t_player p)
 {
 	double	speed;
 
-	speed = 0.1;
+	speed = 5;
 	if (p.shots_left == 0)
 	{
-		speed = 0.8;
+		speed = 50;
 		if (p.spikes_left == 0)
-			return (0.1);
+			return (2);
 	}
 	else if (p.shots_left == 1)
-		speed = 0.67;
+		speed = 10;
 	else if (p.shots_left == 2)
-		speed = 0.569;
+		speed = 20;
 	else if (p.shots_left == 3)
-		speed = 0.42;
+		speed = 30;
 	speed += (3 - p.spikes_left) * 0.05;
 	return (speed);
 }

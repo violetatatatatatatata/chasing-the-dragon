@@ -20,7 +20,7 @@ static void	ft_clean_map(t_game *g)
 	free(g->map.ea_sprite_path);
 	free(g->map.rgb_floor);
 	free(g->map.rgb_celling);
-	clean_double_arr(g->map.map, g->map.max_map_x);
+	clean_double_arr(g->map.map, g->map.max_map_y);
 }
 
 static void	ft_clean_draw(t_game *g)
