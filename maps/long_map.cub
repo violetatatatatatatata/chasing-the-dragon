@@ -1,7 +1,7 @@
-NO ./sprites/tree_nord.png
-SO ./sprites/tree_south.png
-WE ./sprites/tree_west.png
-EA ./sprites/tree_east.png
+NO ./sprites/alexalto.png
+SO ./sprites/alexalto.png
+WE ./sprites/alexalto.png
+EA ./sprites/alexalto.png
 
 F 20,20,20
 C 200,200,200

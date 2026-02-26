@@ -23,8 +23,28 @@ void	clean_map(t_game *g)
 	clean_double_arr(g->map.map, g->map.max_map_y);
 }
 
+static void	ft_dont_do_drugs(t_game *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 5)
+	{
+		mlx_delete_image(g->mlx, g->texture.spikes_i[i]);
+		mlx_delete_texture(g->texture.spikes_t[i]);
+	}
+	i = -1;
+	while (++i < 6)
+	{
+		mlx_delete_image(g->mlx, g->texture.shots_i[i]);
+		mlx_delete_texture(g->texture.shots_t[i]);
+	}
+
+}
+
 static void	ft_clean_draw(t_game *g)
 {
+	ft_dont_do_drugs(g);
 	mlx_delete_image(g->mlx, g->texture.no_i);
 	mlx_delete_texture(g->texture.no_t);
 	mlx_delete_image(g->mlx, g->texture.so_i);

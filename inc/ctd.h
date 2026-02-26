@@ -25,17 +25,6 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdint.h>
 
-# define ESC 53
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define R 67
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
-
 # define TITLE "Chasing the dragon"
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -47,7 +36,6 @@
 # define FOV 60
 # define RAY_LIMIT 4000
 # define INJECT_DURATION 30
-# define DRAGON_DIST 3.0
 
 # define PIXEL_JUMP 5
 # define ROTATION_SPEED 1.5
@@ -174,6 +162,13 @@ typedef struct s_draw
 	mlx_image_t		*arms_idle_i;
 	mlx_texture_t	*arms_inject_t;
 	mlx_image_t		*arms_inject_i;
+	mlx_texture_t	*shots_t[5];
+	mlx_image_t		*shots_i[5];
+	mlx_texture_t	*spikes_t[4];
+	mlx_image_t		*spikes_i[4];
+	mlx_texture_t	*joan_t;
+	mlx_image_t		*joan_i;
+	bool			is_joan;
 }	t_draw;
 
 typedef struct s_player
@@ -305,6 +300,8 @@ void	update_dragon_visibility(t_game *game);
 void	draw_dragon(t_game *g);
 
 // srcs/draw/player.c
+void    init_ui_images(t_game *g);
+void    update_ui(t_game *g);
 void	draw_player(t_game *g);
 void	update_arms_animation(t_game *game);
 
