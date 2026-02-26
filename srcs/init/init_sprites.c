@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/26 16:43:43 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:48:16 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,35 @@ void	draw_colors(t_game *game)
 	}
 }
 
+static void	load_ui_sprites(t_game *g)
+{
+	g->texture.shots_t[0] = mlx_load_png("sprites/heroinx0.png");
+	g->texture.shots_t[1] = mlx_load_png("sprites/heroinx1.png");
+	g->texture.shots_t[2] = mlx_load_png("sprites/heroinx2.png");
+	g->texture.shots_t[3] = mlx_load_png("sprites/heroinx3.png");
+	g->texture.shots_t[4] = mlx_load_png("sprites/heroinx4.png");
+	g->texture.spikes_t[0] = mlx_load_png("sprites/smack00.png");
+	g->texture.spikes_t[1] = mlx_load_png("sprites/smack01.png");
+	g->texture.spikes_t[2] = mlx_load_png("sprites/smack02.png");
+	g->texture.spikes_t[3] = mlx_load_png("sprites/smack03.png");
+}
+
 int	load_sprites(t_game *game)
 {
 	game->texture.no_t = mlx_load_png(game->map.no_sprite_path);
 	game->texture.so_t = mlx_load_png(game->map.so_sprite_path);
 	game->texture.we_t = mlx_load_png(game->map.we_sprite_path);
 	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
-	game->texture.shots_t[0] = mlx_load_png("sprites/heroinx0.png");
-	game->texture.spikes_t[0] = mlx_load_png("sprites/smack00.png");
 	game->texture.joan_t = mlx_load_png("sprites/joan_caganer.png");
 	game->texture.is_joan = false;
 	game->texture.dragon_t = mlx_load_png("sprites/Dragon.png");
 	game->texture.arms_idle_t = mlx_load_png("sprites/arms_idle.png");
 	game->texture.arms_inject_t = mlx_load_png("sprites/arms_inject.png");
+	load_ui_sprites(game);
 	if (!game->texture.no_t || !game->texture.so_t || !game->texture.we_t
 		|| !game->texture.ea_t || !game->texture.dragon_t
-		|| !game->texture.arms_idle_t || !game->texture.arms_inject_t)
+		|| !game->texture.arms_idle_t || !game->texture.arms_inject_t
+		|| !game->texture.shots_t[0] || !game->texture.spikes_t[0])
 		return (1);
 	return (0);
 }

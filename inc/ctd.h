@@ -25,17 +25,6 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdint.h>
 
-# define ESC 53
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define R 67
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
-
 # define TITLE "Chasing the dragon"
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -47,7 +36,6 @@
 # define FOV 60
 # define RAY_LIMIT 4000
 # define INJECT_DURATION 30
-# define DRAGON_DIST 3.0
 
 # define PIXEL_JUMP 5
 # define ROTATION_SPEED 1.5

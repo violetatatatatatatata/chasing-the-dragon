@@ -37,7 +37,7 @@ static int	handle_action_keys(int keycode, t_game *game)
 		}
 		return (1);
 	}
-	if (keycode == R)
+	if (keycode == MLX_KEY_R)
 	{
 		recharge_spikes(&game->p);
 		return (1);
