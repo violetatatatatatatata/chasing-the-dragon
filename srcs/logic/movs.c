@@ -49,13 +49,18 @@ int	move_player(t_game *game, double new_x, double new_y)
 {
 	char			next_cell;
 	t_vector2_i		grid;
+	t_vector2_i		player_grid;
 
 	grid = pixel2cell((int)new_x, (int)new_y);
+	player_grid = pixel2cell((int)game->p.x_pos, (int)game->p.y_pos);
 	if (!game->map.map)
 		return (0);
 	if (grid.y < 0 || grid.y >= game->map.max_map_y)
 		return (0);
 	if (grid.x < 0 || grid.x >= game->map.max_map_x)
+		return (0);
+	next_cell = game->map.map[grid.y][player_grid.x];
+	if (next_cell == WALL)
 		return (0);
 	next_cell = game->map.map[grid.y][grid.x];
 	if (next_cell == WALL)

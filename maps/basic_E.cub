@@ -1,7 +1,7 @@
-NO ./sprites/tree_nord.png
-SO ./sprites/tree_south.png
-WE ./sprites/tree_west.png
-EA ./sprites/tree_east.png
+NO ./sprites/no.png
+SO ./sprites/so.png
+WE ./sprites/we.png
+EA ./sprites/ea.png
 
 F 220,100,0
 C 70,130,180
