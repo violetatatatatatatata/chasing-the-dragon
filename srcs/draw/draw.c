@@ -35,11 +35,12 @@ void	ft_update_draw(void *g)
 	update_ui(game);
 }
 
-static void	ft_init(t_game *g)
+static int	ft_init(t_game *g)
 {
 	t_vector2_i	player_pos;
 
-	load_sprites(g);
+	if (load_sprites(g))
+		return (EXIT_FAILURE);
 	g->texture.ea_i = mlx_texture_to_image(g->mlx, g->texture.ea_t);
 	g->texture.we_i = mlx_texture_to_image(g->mlx, g->texture.we_t);
 	g->texture.so_i = mlx_texture_to_image(g->mlx, g->texture.so_t);
@@ -49,6 +50,7 @@ static void	ft_init(t_game *g)
 	player_pos = get_player_pixel_pos(g);
 	g->p.x_pos = player_pos.x + CELL_PIXEL_SIZE / 2;
 	g->p.y_pos = player_pos.y + CELL_PIXEL_SIZE / 2;
+	return (EXIT_SUCCESS);
 }
 
 int	draw(t_game game)
@@ -61,7 +63,11 @@ int	draw(t_game game)
 	if (!game.img)
 		ft_error();
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	ft_init(&game);
+	if (ft_init(&game))
+	{
+		mlx_terminate(game.mlx);
+		exit(EXIT_FAILURE);
+	}
 	render_frame(&game);
 	draw_dragon(&game);
 	draw_player(&game);

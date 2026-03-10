@@ -24,9 +24,9 @@ mlx_image_t	*select_wall_texture(t_game *g, t_ray ray)
 	else
 	{
 		if (ray.dir.y > 0)
-			return (g->texture.so_i);
-		else
 			return (g->texture.no_i);
+		else
+			return (g->texture.so_i);
 	}
 }
 

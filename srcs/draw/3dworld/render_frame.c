@@ -22,7 +22,7 @@ static double	ft_calculate_ray_angle(int x, double player_angle, int width)
 	player_angle_rad = angle2rad(player_angle);
 	half_fov_rad = angle2rad(FOV) / 2;
 	camera_x = 2.0 * x / (double)width - 1.0;
-	ray_angle = player_angle_rad - atan(camera_x * tan(half_fov_rad));
+	ray_angle = player_angle_rad + atan(camera_x * tan(half_fov_rad));
 	return (ray_angle);
 }
 
@@ -48,8 +48,8 @@ static int	ft_calculate_tex_x(t_ray ray, mlx_image_t *texture)
 	int	tex_x;
 
 	tex_x = (int)(ray.hit_x * (double)texture->width);
-	if ((ray.side == 0 && ray.dir.x > 0)
-		|| (ray.side == 1 && ray.dir.y < 0))
+	if ((ray.side == 0 && ray.dir.x < 0)
+		|| (ray.side == 1 && ray.dir.y > 0))
 		tex_x = texture->width - tex_x - 1;
 	return (tex_x);
 }

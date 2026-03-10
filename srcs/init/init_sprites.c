@@ -42,8 +42,18 @@ void	draw_colors(t_game *game)
 	}
 }
 
-static void	load_ui_sprites(t_game *g)
+static int	load_ui_sprites(t_game *g)
 {
+	if (ft_access("sprites/heroinx0.png")
+		|| ft_access("sprites/heroinx1.png")
+		|| ft_access("sprites/heroinx2.png")
+		|| ft_access("sprites/heroinx3.png")
+		|| ft_access("sprites/heroinx4.png")
+		|| ft_access("sprites/smack00.png")
+		|| ft_access("sprites/smack01.png")
+		|| ft_access("sprites/smack02.png")
+		|| ft_access("sprites/smack03.png"))
+		return (print_msg("No me borres las texturas!! >:(", EXIT_FAILURE));
 	g->texture.shots_t[0] = mlx_load_png("sprites/heroinx0.png");
 	g->texture.shots_t[1] = mlx_load_png("sprites/heroinx1.png");
 	g->texture.shots_t[2] = mlx_load_png("sprites/heroinx2.png");
@@ -53,24 +63,46 @@ static void	load_ui_sprites(t_game *g)
 	g->texture.spikes_t[1] = mlx_load_png("sprites/smack01.png");
 	g->texture.spikes_t[2] = mlx_load_png("sprites/smack02.png");
 	g->texture.spikes_t[3] = mlx_load_png("sprites/smack03.png");
+	return (EXIT_SUCCESS);
 }
 
-int	load_sprites(t_game *game)
+static int	ft_nasty(t_game *game)
 {
+	if (ft_access(game->map.no_sprite_path)
+		|| ft_access(game->map.so_sprite_path)
+		|| ft_access(game->map.we_sprite_path)
+		|| ft_access(game->map.ea_sprite_path)
+		|| ft_access("sprites/joan_caganer.png")
+		|| ft_access("sprites/Dragon.png")
+		|| ft_access("sprites/arms_idle.png")
+		|| ft_access("sprites/arms_inject.png"))
+		return (print_msg("Chic@ mal@!! >:(", EXIT_FAILURE));
 	game->texture.no_t = mlx_load_png(game->map.no_sprite_path);
 	game->texture.so_t = mlx_load_png(game->map.so_sprite_path);
 	game->texture.we_t = mlx_load_png(game->map.we_sprite_path);
 	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
 	game->texture.joan_t = mlx_load_png("sprites/joan_caganer.png");
-	game->texture.is_joan = false;
 	game->texture.dragon_t = mlx_load_png("sprites/Dragon.png");
 	game->texture.arms_idle_t = mlx_load_png("sprites/arms_idle.png");
 	game->texture.arms_inject_t = mlx_load_png("sprites/arms_inject.png");
-	load_ui_sprites(game);
+	return (EXIT_SUCCESS);
+}
+
+int	load_sprites(t_game *game)
+{
+	if (load_ui_sprites(game) || ft_nasty(game))
+	{
+		clean_map(game);
+		exit (EXIT_FAILURE);
+	}
+	game->texture.is_joan = false;
 	if (!game->texture.no_t || !game->texture.so_t || !game->texture.we_t
 		|| !game->texture.ea_t || !game->texture.dragon_t
 		|| !game->texture.arms_idle_t || !game->texture.arms_inject_t
 		|| !game->texture.shots_t[0] || !game->texture.spikes_t[0])
-		return (1);
-	return (0);
+	{
+		clean_map(game);
+		exit (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

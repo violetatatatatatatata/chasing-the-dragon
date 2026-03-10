@@ -274,5 +274,7 @@ void		projection_matrix_perspective(t_matrix4f projection_matrix,
 int			print_msg(char *str, int exit);
 // srcs/utils/utils.c
 uint32_t	get_rgba(char *str);
+// srcs/utils/ft_access.c
+int			ft_access(char *path);
 
 #endif
