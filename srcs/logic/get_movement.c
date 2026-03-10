@@ -17,8 +17,8 @@ static t_directions	get_directions(double angle)
 	t_directions	dir;
 
 	dir.forward_x = cos(angle);
-	dir.forward_y = -sin(angle);
-	dir.right_x = sin(angle);
+	dir.forward_y = sin(angle);
+	dir.right_x = -sin(angle);
 	dir.right_y = cos(angle);
 	return (dir);
 }
