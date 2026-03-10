@@ -19,8 +19,8 @@ double	get_player_angle(char c)
 	if (c == 'W')
 		return (180.0f);
 	if (c == 'N')
-		return (90.0f);
-	if (c == 'S')
 		return (270.0f);
+	if (c == 'S')
+		return (90.0f);
 	return (0.0f);
 }
