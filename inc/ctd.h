@@ -233,6 +233,7 @@ int			copy_map_lines(t_game *game, t_list *start, int height);
 t_list		*read_map_file(char *input);
 int			save_texture_path(t_game *game, char *line, int i);
 int			save_color_path(t_game *game, char *line, int i);
+int			pad_map(t_game *game);
 // srcs/raycast/raycast.c
 t_ray		cast_ray(double ray_angle, t_game *g);
 // srcs/utils/angle2rad.c

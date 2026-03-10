@@ -40,7 +40,8 @@ static int	has_map(t_game *game)
 		x = 0;
 		while (game->map.map[y][x])
 		{
-			if (!ft_strchr("01NSEW ", game->map.map[y][x]))
+			if (!ft_strchr("01NSEW", game->map.map[y][x])
+				&& !ft_isspace(game->map.map[y][x]))
 				return (print_msg("Invalid character in map", EXIT_FAILURE));
 			x++;
 		}
