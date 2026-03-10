@@ -13,7 +13,7 @@
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS      = -Wall -Werror -Wextra -g #-fsanitize=address
 INCLUDES    = -I./inc -I./libs/libft/Includes -I./libs/MLX42/include
 LDFLAGS     = -L./libs/MLX42 -lmlx42 -L./libs/libft -lft -lglfw -ldl -lpthread -lm
 

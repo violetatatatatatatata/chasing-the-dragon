@@ -19,6 +19,12 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.action != MLX_PRESS && keydata.action != MLX_REPEAT)
 		return ;
 	game = (t_game *)param;
+	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		clean_game(game);
+		mlx_terminate(game->mlx);
+		exit (EXIT_SUCCESS);
+	}
 	handle_key_press(keydata.key, game);
 	handle_key_press_rot(keydata.key, game);
 }
