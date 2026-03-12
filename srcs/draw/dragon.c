@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:33:50 by avelandr          #+#    #+#             */
-/*   Updated: 2026/03/12 17:33:54 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/03/12 18:03:02 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	update_dragon_visibility(t_game *g)
 {
-	g->texture.dragon_i->instances[0].enabled = !g->texture.is_joan;
-	g->texture.joan_i->instances[0].enabled = g->texture.is_joan;
+	if (g->texture.dragon_i && g->texture.dragon_i->count > 0)
+		g->texture.dragon_i->instances[0].enabled = !g->texture.is_joan;
+	if (g->texture.joan_i && g->texture.joan_i->count > 0)
+		g->texture.joan_i->instances[0].enabled = g->texture.is_joan;
 }
 
 void	draw_dragon(t_game *g)
@@ -24,9 +26,13 @@ void	draw_dragon(t_game *g)
 	int	y;
 
 	g->texture.joan_i = mlx_texture_to_image(g->mlx, g->texture.joan_t);
+	g->texture.dragon_i = mlx_texture_to_image(g->mlx, g->texture.dragon_t);
+	if (!g->texture.dragon_i || !g->texture.joan_i)
+		return ;
 	x = (g->mlx->width - g->texture.dragon_t->width) / 2;
 	y = (g->mlx->height - g->texture.dragon_t->height) / 2;
 	mlx_image_to_window(g->mlx, g->texture.dragon_i, x, y);
 	mlx_image_to_window(g->mlx, g->texture.joan_i, x, y);
-	g->texture.joan_i->instances[0].enabled = false;
+	if (g->texture.joan_i->count > 0)
+		g->texture.joan_i->instances[0].enabled = false;
 }

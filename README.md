@@ -13,7 +13,9 @@ The project implements:
 * Dynamic sprite rendering, including a "Dragon" and animated player arms.
 * A mini-map UI for navigation.
 * The player speed is increased everytime he has a shot. When he is lack of shots, _he's slow af_. 
-* _Press J for an easter egg._
+* _Press J for an easter egg.
+
+![screenshot](./.images/sample.jpeg)
 
 ## Instructions
 
