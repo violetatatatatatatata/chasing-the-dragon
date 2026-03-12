@@ -1,6 +1,5 @@
-*This project has been created as part of the 42 curriculum by Alex Alcaide and Violeta Velandria.*
-
 # Chasing the Dragon (cub3D)
+*This project has been created as part of the 42 curriculum by Alex Alcaide and Violeta Velandria.*
 
 ![til](https://c.tenor.com/8L0fy2-EfzcAAAAC/tenor.gif)
 
@@ -14,6 +13,7 @@ The project implements:
 * Dynamic sprite rendering, including a "Dragon" and animated player arms.
 * A mini-map UI for navigation.
 * The player speed is increased everytime he has a shot. When he is lack of shots, _he's slow af_. 
+* _Press J for an easter egg._
 
 ## Instructions
 

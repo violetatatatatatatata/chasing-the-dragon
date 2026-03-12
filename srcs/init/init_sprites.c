@@ -6,7 +6,7 @@
 /*   By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:58:41 by avelandr          #+#    #+#             */
-/*   Updated: 2026/02/26 16:48:16 by avelandr         ###   ########.fr       */
+/*   Updated: 2026/03/12 17:02:28 by avelandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	ft_nasty(t_game *game)
 		|| ft_access("sprites/Dragon.png")
 		|| ft_access("sprites/arms_idle.png")
 		|| ft_access("sprites/arms_inject.png"))
+		|| ft_access("sprites/yoooo.png"))
 		return (print_msg("Chic@ mal@!! >:(", EXIT_FAILURE));
 	game->texture.no_t = mlx_load_png(game->map.no_sprite_path);
 	game->texture.so_t = mlx_load_png(game->map.so_sprite_path);
@@ -83,6 +84,7 @@ static int	ft_nasty(t_game *game)
 	game->texture.ea_t = mlx_load_png(game->map.ea_sprite_path);
 	game->texture.joan_t = mlx_load_png("sprites/joan_caganer.png");
 	game->texture.dragon_t = mlx_load_png("sprites/Dragon.png");
+	game->texture.dragon_t = mlx_load_png("sprites/yoooo.png");
 	game->texture.arms_idle_t = mlx_load_png("sprites/arms_idle.png");
 	game->texture.arms_inject_t = mlx_load_png("sprites/arms_inject.png");
 	return (EXIT_SUCCESS);

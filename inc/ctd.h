@@ -156,6 +156,8 @@ typedef struct s_draw
 	mlx_image_t		*shots_i[5];
 	mlx_texture_t	*spikes_t[4];
 	mlx_image_t		*spikes_i[4];
+	mlx_texture_t	*yo_t;
+	mlx_image_t		*yo_i;
 	mlx_texture_t	*joan_t;
 	mlx_image_t		*joan_i;
 	bool			is_joan;
