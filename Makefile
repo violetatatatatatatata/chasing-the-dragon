@@ -6,14 +6,14 @@
 #    By: avelandr <avelandr@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/16 14:57:51 by avelandr          #+#    #+#              #
-#    Updated: 2026/02/26 18:04:03 by aalcaide         ###   ########.fr        #
+#    Updated: 2026/03/12 17:25:59 by avelandr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = cub3D
 
 CC          = cc
-CFLAGS      = -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS      = -Wall -Werror -Wextra -g -fsanitize=address
 INCLUDES    = -I./inc -I./libs/libft/Includes -I./libs/MLX42/include
 LDFLAGS     = -L./libs/MLX42 -lmlx42 -L./libs/libft -lft -lglfw -ldl -lpthread -lm
 
@@ -127,5 +127,9 @@ fclean: clean
 
 re: fclean all
 
+bonus: all
+	@echo ""
+	@echo "$(MAGENTA)Dear evaluator: mandatory is bonus now :)$(RESET)"
+	
 -include $(DEP)
-.PHONY: all clean fclean re libft mlx42
+.PHONY: all clean fclean re libft mlx42 bonus

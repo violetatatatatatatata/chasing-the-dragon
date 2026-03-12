@@ -74,6 +74,7 @@ int	draw(t_game game)
 		mlx_terminate(game.mlx);
 		exit(EXIT_FAILURE);
 	}
+	draw_roof_floor(&game);
 	render_frame(&game);
 	draw_dragon(&game);
 	draw_player(&game);
